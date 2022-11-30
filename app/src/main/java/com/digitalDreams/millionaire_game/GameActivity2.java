@@ -61,6 +61,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.RequestConfiguration;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 
 import org.json.JSONArray;
@@ -73,6 +74,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.Timer;
@@ -1763,6 +1765,8 @@ public class GameActivity2 extends AppCompatActivity {
             Log.i("mRewardedVideoAd","Not LOaded");
             mRewardedVideoAd.loadAd("ca-app-pub-4696224049420135/7768937909", new AdRequest.Builder()
                     .addTestDevice("9D16E23BB90EF4BFA204300CCDCCF264").build());
+
+
         }else{
             Log.i("mRewardedVideoAd","LOaded");
 

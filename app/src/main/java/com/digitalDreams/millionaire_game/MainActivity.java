@@ -27,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.RequestConfiguration;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
@@ -43,6 +44,7 @@ import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -58,14 +60,22 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout dataScienceContainer;
     LinearLayout container;
 
+    @Override
+    protected void onStart() {
+//        AppOpenAdManager appOpenAdManager;
+//        appOpenAdManager.loadAd();
 
-
+        super.onStart();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Window window = getWindow();
+        AppOpenAdManager appOpenAdManager;
+
+
 
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -78,9 +88,14 @@ public class MainActivity extends AppCompatActivity {
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
+
             }
 
         });
+        new RequestConfiguration.Builder().setTestDeviceIds(Arrays.asList("C5C6588E00A996967AA2085A167B0F4E","9D16E23BB90EF4BFA204300CCDCCF264"));
+        appOpenAdManager = new AppOpenAdManager();
+        appOpenAdManager.loadAd(this);
+
         //Log.i("response","t "+text);
             new Thread(new Runnable(){
                 @Override

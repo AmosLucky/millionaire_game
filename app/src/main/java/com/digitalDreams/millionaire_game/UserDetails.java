@@ -99,8 +99,8 @@ public class UserDetails extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-               // String selectedItem = adapterView.getItemAtPosition(i).toString();
-               // country = selectedItem;
+                String selectedItem = adapterView.getItemAtPosition(i).toString();
+                country = selectedItem;
 
             }
 
