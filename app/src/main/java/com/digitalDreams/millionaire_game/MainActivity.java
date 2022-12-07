@@ -6,10 +6,12 @@ import androidx.core.content.ContextCompat;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.Application;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Path;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -49,7 +51,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    public static final int SPLASH_SCREEN_DELAY=6000;
+    public static final int SPLASH_SCREEN_DELAY=100;
     public static List<String> columnList = new ArrayList<>();
     DBHelper dbHelper;
     ImageView ddLogo;
@@ -59,6 +61,10 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout digitalMarketingContainer;
     LinearLayout dataScienceContainer;
     LinearLayout container;
+    private static final long COUNTER_TIME = 5;
+
+    private long secondsRemaining;
+
 
     @Override
     protected void onStart() {
@@ -73,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Window window = getWindow();
-        AppOpenAdManager appOpenAdManager;
+        AppOpenManager appOpenAdManager;
 
 
 
@@ -85,16 +91,17 @@ public class MainActivity extends AppCompatActivity {
 
         ddLogo = findViewById(R.id.dd_logo);
 
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-
-            }
-
-        });
+//        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+//            @Override
+//            public void onInitializationComplete(InitializationStatus initializationStatus) {
+//
+//            }
+//
+//        });
+        createTimer(COUNTER_TIME);
         new RequestConfiguration.Builder().setTestDeviceIds(Arrays.asList("C5C6588E00A996967AA2085A167B0F4E","9D16E23BB90EF4BFA204300CCDCCF264"));
-        appOpenAdManager = new AppOpenAdManager();
-        appOpenAdManager.loadAd(this);
+//        appOpenAdManager = new AppOpenManager(this);
+//        appOpenAdManager.fetchAd();
 
         //Log.i("response","t "+text);
             new Thread(new Runnable(){
@@ -112,24 +119,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }).start();
 
-            if(dbHelper.getQuestionSize()>0){
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        SharedPreferences sharedPreferences = getSharedPreferences("settings",MODE_PRIVATE);
-                        String username = sharedPreferences.getString("username","");
-                        if(!username.isEmpty()) {
-                            Intent intent = new Intent(MainActivity.this, Dashboard.class);
-                            startActivity(intent);
-                            finish();
-                        }else {
-                            Intent intent = new Intent(MainActivity.this, UserDetails.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                    }
-                },SPLASH_SCREEN_DELAY);
-            }
+
         webDevContainer = findViewById(R.id.web_development);
             mobileDevContainer = findViewById(R.id.mobile_development);
             digitalMarketingContainer = findViewById(R.id.digital_marketing);
@@ -545,5 +535,70 @@ public class MainActivity extends AppCompatActivity {
         set.setDuration(1500);
         set.setStartOffset(100);
         dataScienceContainer.startAnimation(set);
+    }
+
+
+
+    private void createTimer(long seconds) {
+        //final TextView counterTextView = findViewById(R.id.timer);
+
+        CountDownTimer countDownTimer =
+                new CountDownTimer(seconds * 1000, 1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                       // secondsRemaining = ((millisUntilFinished / 1000) + 1);
+                       // counterTextView.setText("App is done loading in: " + secondsRemaining);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        secondsRemaining = 0;
+                        //counterTextView.setText("Done.");
+
+                        Application application = getApplication();
+
+                        // If the application is not an instance of MyApplication, log an error message and
+                        // start the MainActivity without showing the app open ad.
+                        if (!(application instanceof MyApplication)) {
+                           // Log.e(LOG_TAG, "Failed to cast application to MyApplication.");
+                            startDashboardActivity();
+                            return;
+                        }
+
+                        // Show the app open ad.
+                        ((MyApplication) application)
+                                .showAdIfAvailable(
+                                        MainActivity.this,
+                                        new MyApplication.OnShowAdCompleteListener() {
+                                            @Override
+                                            public void onShowAdComplete() {
+                                                startDashboardActivity();
+                                            }
+                                        });
+                    }
+                };
+        countDownTimer.start();
+    }
+
+    /** Start the Dashboard. */
+    public void startDashboardActivity() {
+        if(dbHelper.getQuestionSize()>0){
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    SharedPreferences sharedPreferences = getSharedPreferences("settings",MODE_PRIVATE);
+                    String username = sharedPreferences.getString("username","");
+                    if(!username.isEmpty()) {
+                        Intent intent = new Intent(MainActivity.this, Dashboard.class);
+                        startActivity(intent);
+                        finish();
+                    }else {
+                        Intent intent = new Intent(MainActivity.this, UserDetails.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+            },SPLASH_SCREEN_DELAY);
+        }
     }
 }
