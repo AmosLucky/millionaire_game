@@ -273,6 +273,7 @@ public class GameActivity2 extends AppCompatActivity {
                     guid_layout.setVisibility(View.VISIBLE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putBoolean("isFirstTime",false);
+                            editor.commit();
 
                 }
             }, 10000);
@@ -1122,7 +1123,7 @@ public class GameActivity2 extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadInterstialAd();
+       loadInterstialAd();
         loadVideoAd();
 
         ImageView video_ad_Icon1 = current.findViewById(R.id.video_ad1);
@@ -1142,7 +1143,7 @@ public class GameActivity2 extends AppCompatActivity {
             fromProgress = false;
         }else{
 
-            showInterstitial();
+           // showInterstitial();
             fromProgress = true;
 
         }

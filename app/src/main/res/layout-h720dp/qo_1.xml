@@ -480,51 +480,99 @@
                             />
                     </RelativeLayout>
 
-                    <RelativeLayout
-                        android:id="@+id/skip"
-                        android:layout_width="0dp"
-                        android:layout_height="60dp"
-                        android:layout_weight="1"
-                        android:layout_margin="10dp">
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/hexagon"
-                            android:layout_centerInParent="true"
-                            app:tint="@color/basic_color"/>
-
-                        <ImageView
-                            android:id="@+id/refresh"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_centerInParent="true"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_baseline_autorenew_24"
-                            app:tint="@color/white" />
-
-                        <ImageView
 
 
 
-                            android:id="@+id/video_ad2"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginLeft="40dp"
-                            android:layout_alignParentBottom="true"
-                            android:src="@drawable/vicon2"
-                            />
-                        <ImageView
-                            android:id="@+id/bad4"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:src="@drawable/bad"
-                            android:visibility="gone"
-                            android:layout_centerInParent="true"
-                            />
-                    </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/skip"
+                            android:layout_width="0dp"
+                            android:layout_height="60dp"
+                            android:layout_weight="1"
+                            android:layout_margin="10dp">
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/hexagon"
+                                android:layout_centerInParent="true"
+                                app:tint="@color/basic_color"/>
+
+                            <ImageView
+                                android:id="@+id/refresh"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_centerInParent="true"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_baseline_autorenew_24"
+                                app:tint="@color/white" />
+
+                            <ImageView
+
+
+
+                                android:id="@+id/video_ad2"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginLeft="40dp"
+                                android:layout_alignParentBottom="true"
+                                android:src="@drawable/vicon2"
+                                />
+                            <ImageView
+                                android:id="@+id/bad4"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:src="@drawable/bad"
+                                android:visibility="gone"
+                                android:layout_centerInParent="true"
+                                />
+
+
+
+
+                        </RelativeLayout>
+
 
 
             </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="3dp"
+                    >
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:textAlignment="center"
+                        android:layout_height="wrap_content"
+                        android:text="Minus 2 Questions"
+                        android:fontFamily="@font/fjalla_one"
+
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:textAlignment="center"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/fjalla_one"
+                        android:text="Ask computer"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:textAlignment="center"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/fjalla_one"
+                        android:text="Take a pill"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:textAlignment="center"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/fjalla_one"
+                        android:text="Reset Question"/>
+
+                </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
