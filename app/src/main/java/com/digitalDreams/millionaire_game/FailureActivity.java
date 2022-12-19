@@ -574,6 +574,8 @@ public class FailureActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("settings", MODE_PRIVATE);
         String highscore = sharedPreferences.getString("high_score", "0");
         String username = sharedPreferences.getString("username", "");
+        String country = sharedPreferences.getString("country", "");
+        String country_flag = sharedPreferences.getString("country_flag", "");
         String oldAmountWon = sharedPreferences.getString("amountWon", "");
         int h = Integer.parseInt(highscore);
         String score = GameActivity2.amountWon;
@@ -600,12 +602,17 @@ public class FailureActivity extends AppCompatActivity {
 
 
         }
+        Map userDetails = new HashMap();
+        userDetails.put("username",username);
+        userDetails.put("country",country);
+        userDetails.put("country_flag",country_flag);
 
 
-        sendScoreToSever(String.valueOf(s), username);
+
+        sendScoreToSever(String.valueOf(s),  userDetails);
     }
 
-    private void sendScoreToSever(String score, String username) {
+    private void sendScoreToSever(String score,Map<String,String> userDetails) {
         String url = getResources().getString(R.string.base_url)+"/post_score.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -623,7 +630,9 @@ public class FailureActivity extends AppCompatActivity {
                 super.getParams();
                 Map<String, String> param = new HashMap<>();
                 param.put("score", score);
-                param.put("username", username);
+                param.put("username", userDetails.get("username"));
+                param.put("country", userDetails.get("country"));
+                param.put("country_flag", userDetails.get("country_flag"));
                 param.put("avatar",  getAvatar());
                 param.put("device_id",getDeviceId(FailureActivity.this));
                 param.put("game_type","millionaire");

@@ -523,6 +523,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="0dp"
                 android:layout_marginTop="-10dp"
+                android:id="@+id/options_container"
                 >
                 <TextView
                     android:layout_width="0dp"
@@ -530,33 +531,33 @@
                     android:textAlignment="center"
                     android:layout_height="wrap_content"
                     android:text="Minus 2 Questions"
-                    android:textSize="10dp"
-                    android:fontFamily="@font/fjalla_one"
+                    android:textSize="8dp"
+
 
                     />
                 <TextView
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:textAlignment="center"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/fjalla_one"
+
                     android:text="Ask computer"/>
                 <TextView
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:textAlignment="center"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/fjalla_one"
+
                     android:text="Take a pill"/>
                 <TextView
-                    android:textSize="10dp"
+                    android:textSize="8dp"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:textAlignment="center"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/fjalla_one"
+
                     android:text="Reset Question"/>
 
             </LinearLayout>

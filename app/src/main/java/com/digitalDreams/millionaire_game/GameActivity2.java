@@ -468,6 +468,7 @@ public class GameActivity2 extends AppCompatActivity {
             RelativeLayout askaFriend = v.findViewById(R.id.ask_friend);
             RelativeLayout voting = v.findViewById(R.id.voting);
             RelativeLayout refresh = v.findViewById(R.id.skip);
+            LinearLayout options_container = v.findViewById(R.id.options_container);
 
             v.setVisibility(View.GONE);
             String qImage = b.optString("question_image");
@@ -497,6 +498,7 @@ public class GameActivity2 extends AppCompatActivity {
             fedInAnimation(progressBtn,500);
             fedInAnimation(exitBtn,500);
             fedInAnimation(questionNumber,500);
+            fedInAnimation(options_container,1000);
             //////////////////////////////////////
             af((LinearLayout) v, b,true,number);
         }catch (JSONException e){

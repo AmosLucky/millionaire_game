@@ -9,9 +9,9 @@ android {
     defaultConfig {
         applicationId "com.digitalDreams.millionaire_game"
         minSdkVersion 21
-        targetSdkVersion 30
-        versionCode 19
-        versionName "2.8"
+        targetSdkVersion 31
+        versionCode 20
+        versionName "2.9"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

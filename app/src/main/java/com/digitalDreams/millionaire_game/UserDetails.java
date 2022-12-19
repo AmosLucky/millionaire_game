@@ -36,7 +36,7 @@ public class UserDetails extends AppCompatActivity {
     EditText usernameEdt;
     CardView avatarContainer1,avatarContainer2,avatarContainer3,avatarContainer4;
     GridLayout gridLayout;
-    String username="",avatar="",country="";
+    String username="",avatar="",country="",flag="";
     Spinner spinner;
     CountryAdapter countryAdapter;
     ArrayList countries = new ArrayList();
@@ -101,6 +101,10 @@ public class UserDetails extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String selectedItem = adapterView.getItemAtPosition(i).toString();
                 country = selectedItem;
+                flag = flags.get(i).toString();
+                //Log.i("Flag",flags.get(i).toString());
+
+
 
             }
 
@@ -149,6 +153,7 @@ public class UserDetails extends AppCompatActivity {
             editor.putString("username",username);
             editor.putString("avatar",avatar);
             editor.putString("country",country);
+            editor.putString("country_flag",flag);
             editor.putString("game_level","1");
             editor.putString("current_play_level","1");
             editor.putBoolean("isFirstTime",true);
@@ -176,6 +181,7 @@ public class UserDetails extends AppCompatActivity {
             String json = readRawTextFile(R.raw.country_json);
             JSONObject jsonObject = new JSONObject(json);
             Iterator<String> iterator = jsonObject.keys();
+
             while (iterator.hasNext()){
                 String key = iterator.next();
                 JSONObject obj1 = jsonObject.getJSONObject(key);

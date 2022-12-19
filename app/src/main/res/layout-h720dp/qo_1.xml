@@ -539,6 +539,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="3dp"
+                    android:id="@+id/options_container"
                     >
                     <TextView
                         android:layout_width="0dp"
@@ -547,7 +548,7 @@
                         android:layout_height="wrap_content"
                         android:text="Minus 2 Questions"
                         android:textSize="10dp"
-                        android:fontFamily="@font/fjalla_one"
+
 
                         />
                     <TextView
@@ -555,7 +556,7 @@
                         android:layout_weight="1"
                         android:textAlignment="center"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/fjalla_one"
+
                         android:text="Ask computer"
                         android:textSize="10dp"
                         />
@@ -564,7 +565,7 @@
                         android:layout_weight="1"
                         android:textAlignment="center"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/fjalla_one"
+
                         android:text="Take a pill"
                         android:textSize="10dp"
                         />
@@ -573,7 +574,7 @@
                         android:layout_weight="1"
                         android:textAlignment="center"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/fjalla_one"
+
                         android:text="Reset Question"
                         android:textSize="10dp"
                         />
