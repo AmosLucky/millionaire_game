@@ -112,6 +112,27 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="-30dp"
+                >
+                <ImageView
+
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/img"
+                    android:id="@+id/flag1"
+                    android:layout_marginLeft="5dp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:id="@+id/country_name1"/>
+            </LinearLayout>
+
 
 
 
@@ -215,7 +236,26 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="-10dp"
+                >
 
+                <ImageView
+
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/img"
+                    android:id="@+id/flag2"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:id="@+id/country_name2"/>
+            </LinearLayout>
 
 
 
@@ -317,6 +357,25 @@
                     android:layout_gravity="center_vertical"
                     android:textSize="16sp"
                     android:fontFamily="@font/fjalla_one"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="-10dp"
+                >
+                <ImageView
+
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/img"
+                    android:id="@+id/flag3"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:id="@+id/country_name3"/>
             </LinearLayout>
 
         </LinearLayout>

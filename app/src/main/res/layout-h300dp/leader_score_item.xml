@@ -73,10 +73,11 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="20dp"
                 android:id="@+id/country"
+                android:textColor="@color/black"
                 />
             <ImageView
                 android:layout_width="40dp"
-                android:layout_height="20dp"
+                android:layout_height="30dp"
                 android:id="@+id/flag_img"
                 android:src="@drawable/img"
                 />

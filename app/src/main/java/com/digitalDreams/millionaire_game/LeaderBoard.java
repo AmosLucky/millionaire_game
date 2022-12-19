@@ -75,7 +75,9 @@ public class LeaderBoard extends AppCompatActivity {
     List<PlayerObject> list;
     LinearLayout firstContainer,secondContainer,thirdContainer;
     TextView name1,name2,name3,amount1,amount2,amount3;
+    TextView country_name1,country_name2,country_name3;
     ImageView img1,img2,img3;
+    ImageView flag1,flag2,flag3;
     LeaderboardAdapter adapter;
     LinearLayout allBtn,weekBtn,dailyBtn,container;
     LayoutInflater inflater;
@@ -432,17 +434,32 @@ public class LeaderBoard extends AppCompatActivity {
                 name1.setText(username);
                 getAvatar(img1,avatar);
                 amount1.setText("$"+decimalFormat.format(Integer.parseInt(score)));
+                country_name1.setText(country);
+                if(!country_flag.isEmpty()) {
+                    SVGLoader.fetchSvg(LeaderBoard.this,country_flag,flag1);
+                    flag1.setVisibility(View.VISIBLE);
+                }
             }else if(a==1){
                 secondContainer.setVisibility(View.VISIBLE);
                 name2.setText(username);
                 getAvatar(img2,avatar);
                 amount2.setText("$"+decimalFormat.format(Integer.parseInt(score)));
+                country_name2.setText(country);
+                if(!country_flag.isEmpty()) {
+                    SVGLoader.fetchSvg(LeaderBoard.this,country_flag,flag2);
+                    flag2.setVisibility(View.VISIBLE);
+                }
 
             }else if(a==2){
                 thirdContainer.setVisibility(View.VISIBLE);
                 name3.setText(username);
                 getAvatar(img3,avatar);
                 amount3.setText("$"+decimalFormat.format(Integer.parseInt(score)));
+                country_name3.setText(country);
+                if(!country_flag.isEmpty()) {
+                    SVGLoader.fetchSvg(LeaderBoard.this,country_flag,flag3);
+                    flag3.setVisibility(View.VISIBLE);
+                }
             }else{
 
                 PlayerObject obj1 = new PlayerObject();
@@ -491,6 +508,23 @@ public class LeaderBoard extends AppCompatActivity {
         img1 = view.findViewById(R.id.img1);
         img2 = view.findViewById(R.id.img2);
         img3 = view.findViewById(R.id.img3);
+
+        country_name1 = view.findViewById(R.id.country_name1);
+        country_name2 = view.findViewById(R.id.country_name2);
+        country_name3 = view.findViewById(R.id.country_name3);
+
+        flag1 = view.findViewById(R.id.flag1);
+        flag2 = view.findViewById(R.id.flag2);
+        flag3 = view.findViewById(R.id.flag3);
+
+
+        flag1.setVisibility(View.INVISIBLE);
+        flag2.setVisibility(View.INVISIBLE);
+        flag3.setVisibility(View.INVISIBLE);
+
+
+
+
         firstContainer = view.findViewById(R.id.first);
         secondContainer = view.findViewById(R.id.second);
         thirdContainer = view.findViewById(R.id.third);
