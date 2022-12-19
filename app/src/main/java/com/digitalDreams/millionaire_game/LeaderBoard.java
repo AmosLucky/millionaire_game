@@ -64,6 +64,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -399,10 +400,25 @@ public class LeaderBoard extends AppCompatActivity {
     private void parseJSON(String response) throws JSONException {
 
         JSONArray jsonArray = new JSONArray(response);
+
         for(int a=0;a<jsonArray.length();a++){
             JSONObject obj = jsonArray.getJSONObject(a);
             String score = obj.getString("score");
             String username = obj.getString("username");
+            String country = ""; //= obj.getString("country");
+            String country_json = obj.getString("country_json");
+            String country_flag = "";
+            if(country_json.length() > 10) {
+
+              JSONObject country_json_object = new JSONObject(country_json.replaceAll("[\\\\]{1}[\"]{1}","\""));
+
+              country = country_json_object.getString("name");
+              country_flag = country_json_object.getString("url").replace("\\","");
+               Log.i("efi",country_flag+" "+username+" "+country);
+
+            }
+            Log.i("ok" +
+                    "iii", obj.toString());
             if(username.length() > 13){
                 username = username.substring(0,13)+"...";
             }
@@ -433,6 +449,9 @@ public class LeaderBoard extends AppCompatActivity {
                 obj1.setPlayerName(username);
                 obj1.setHighscore("$"+decimalFormat.format(Integer.parseInt(score)));
                 obj1.setPosition(""+a);
+                obj1.setCountry(country);
+                obj1.setCountry_flag(country_flag);
+
                 list.add(obj1);
             }
         }

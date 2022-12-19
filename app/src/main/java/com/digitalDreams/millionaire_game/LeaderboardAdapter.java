@@ -1,15 +1,19 @@
 package com.digitalDreams.millionaire_game;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.LeaderBoardVH> {
     private Context context;
@@ -31,7 +35,7 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull LeaderBoardVH holder, int position) {
-        PlayerObject obj =list.get(position);
+        PlayerObject obj = list.get(position);
         int newPosition = Integer.parseInt( obj.getPosition()) + 1;
 
         String rank = String.valueOf(newPosition);
@@ -39,6 +43,21 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
         //String rank = obj.getPosition();
         String playerName = obj.getPlayerName();
         String highscore = obj.getHighscore();
+        String country = obj.getCountry();
+        String country_flag = obj.getCountry_flag();
+       if(!country_flag.isEmpty() ){
+           SVGLoader.fetchSvg(context,country_flag, holder.flag_img);
+
+          //Picasso.get().load(country_flag).into(holder.flag_img);
+           holder.flag_img.setVisibility(View.VISIBLE);
+           //holder.flag_img.setImageResource(R.drawable.bad);
+           Log.i("efi2",country_flag+" : "+playerName+" :"+country);
+       }
+
+        /////
+        holder.countryTxt.setText(country);
+
+        ///holder.flag_img.setImageResource();
 
         holder.positionTXT.setText(rank);
         holder.playerNameTxt.setText(playerName);
@@ -53,13 +72,17 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
 
 
     class LeaderBoardVH extends RecyclerView.ViewHolder{
-        TextView positionTXT,playerNameTxt,playerScoreTxt;
+        TextView positionTXT,playerNameTxt,playerScoreTxt,countryTxt;
+        ImageView flag_img;
 
         public LeaderBoardVH(@NonNull View itemView) {
             super(itemView);
             positionTXT = itemView.findViewById(R.id.position);
             playerNameTxt = itemView.findViewById(R.id.player_name);
             playerScoreTxt = itemView.findViewById(R.id.highscore);
+            countryTxt = itemView.findViewById(R.id.country);
+            flag_img =  itemView.findViewById(R.id.flag_img);
+            flag_img.setVisibility(View.GONE);
         }
     }
 

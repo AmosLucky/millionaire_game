@@ -45,6 +45,8 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
+import org.json.JSONObject;
+
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
@@ -629,9 +631,17 @@ public class FailureActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 super.getParams();
                 Map<String, String> param = new HashMap<>();
+                JSONObject country_json = new JSONObject();
+               try{
+                   country_json.put("name",userDetails.get("country"));
+                   country_json.put("url", userDetails.get("country_flag"));
+               }catch (Exception e){
+                   e.printStackTrace();
+               }
                 param.put("score", score);
                 param.put("username", userDetails.get("username"));
                 param.put("country", userDetails.get("country"));
+                param.put("country_json", country_json.toString());
                 param.put("country_flag", userDetails.get("country_flag"));
                 param.put("avatar",  getAvatar());
                 param.put("device_id",getDeviceId(FailureActivity.this));

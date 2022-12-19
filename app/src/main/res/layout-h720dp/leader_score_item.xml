@@ -39,6 +39,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_centerVertical="true"
+            android:id="@+id/left_layout"
             >
 
             <TextView
@@ -61,6 +62,30 @@
                 android:textColor="@color/basic_color"
                 />
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+           android:layout_alignParentRight="true"
+
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nigeria"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:id="@+id/country"
+                />
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:id="@+id/flag_img"
+                android:src="@drawable/img"
+                />
+
+        </LinearLayout>
+
     </RelativeLayout>
 
 </RelativeLayout>

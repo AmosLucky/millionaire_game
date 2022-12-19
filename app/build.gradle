@@ -42,11 +42,15 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'com.pixplicity.sharp:library:1.1.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
    // annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.3.1"
     def lifecycle_version = "2.0.0"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-runtime:2.4.1"
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.4.1"
+
+
+
 
 
 
