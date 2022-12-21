@@ -435,6 +435,7 @@ public class LeaderBoard extends AppCompatActivity {
                 getAvatar(img1,avatar);
                 amount1.setText("$"+decimalFormat.format(Integer.parseInt(score)));
                 country_name1.setText(country);
+                country_name1.setVisibility(View.VISIBLE);
                 if(!country_flag.isEmpty()) {
                     SVGLoader.fetchSvg(LeaderBoard.this,country_flag,flag1);
                     flag1.setVisibility(View.VISIBLE);
@@ -445,6 +446,8 @@ public class LeaderBoard extends AppCompatActivity {
                 getAvatar(img2,avatar);
                 amount2.setText("$"+decimalFormat.format(Integer.parseInt(score)));
                 country_name2.setText(country);
+                country_name2.setVisibility(View.VISIBLE);
+
                 if(!country_flag.isEmpty()) {
                     SVGLoader.fetchSvg(LeaderBoard.this,country_flag,flag2);
                     flag2.setVisibility(View.VISIBLE);
@@ -456,6 +459,7 @@ public class LeaderBoard extends AppCompatActivity {
                 getAvatar(img3,avatar);
                 amount3.setText("$"+decimalFormat.format(Integer.parseInt(score)));
                 country_name3.setText(country);
+                country_name3.setVisibility(View.VISIBLE);
                 if(!country_flag.isEmpty()) {
                     SVGLoader.fetchSvg(LeaderBoard.this,country_flag,flag3);
                     flag3.setVisibility(View.VISIBLE);
@@ -512,6 +516,11 @@ public class LeaderBoard extends AppCompatActivity {
         country_name1 = view.findViewById(R.id.country_name1);
         country_name2 = view.findViewById(R.id.country_name2);
         country_name3 = view.findViewById(R.id.country_name3);
+        country_name3.setVisibility(View.GONE);
+
+        country_name1.setVisibility(View.GONE);
+        country_name2.setVisibility(View.GONE);
+
 
         flag1 = view.findViewById(R.id.flag1);
         flag2 = view.findViewById(R.id.flag2);

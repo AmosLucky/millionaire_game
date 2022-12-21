@@ -6,7 +6,7 @@
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="280dp"
         android:orientation="horizontal"
         >
         <LinearLayout
@@ -115,7 +115,7 @@
            <LinearLayout
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:orientation="horizontal"
+               android:orientation="vertical"
                android:layout_marginTop="-30dp"
                >
                <ImageView
@@ -127,6 +127,7 @@
                    android:layout_marginLeft="5dp"
                    />
                <TextView
+                   android:layout_marginTop="-10dp"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:text="Name"
@@ -239,7 +240,7 @@
            <LinearLayout
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:orientation="horizontal"
+               android:orientation="vertical"
                android:layout_marginTop="-10dp"
                >
 
@@ -254,6 +255,7 @@
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:text="Name"
+                   android:layout_marginTop="-10dp"
                    android:id="@+id/country_name2"/>
            </LinearLayout>
 
@@ -363,7 +365,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_marginTop="-10dp"
                 >
                 <ImageView
@@ -374,6 +376,7 @@
                     android:id="@+id/flag3"
                     />
                 <TextView
+                    android:layout_marginTop="-22dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Name"
@@ -388,7 +391,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/recyclerview"
         android:paddingBottom="20dp"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="30dp"/>
 
 
 </LinearLayout>
