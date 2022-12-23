@@ -7,6 +7,7 @@
         <entry key="app/src/main/res/layout-h1024dp/activity_credit.xml" value="0.1" />
         <entry key="app/src/main/res/layout-h1024dp/activity_exam_game2.xml" value="0.1" />
         <entry key="app/src/main/res/layout-h1024dp/activity_game.xml" value="0.1" />
+        <entry key="app/src/main/res/layout-h1024dp/activity_leader_board.xml" value="0.102734375" />
         <entry key="app/src/main/res/layout-h1024dp/activity_loader.xml" value="0.1" />
         <entry key="app/src/main/res/layout-h1024dp/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout-h1024dp/leader_score_item.xml" value="0.25" />
@@ -14,32 +15,37 @@
         <entry key="app/src/main/res/layout-h1024dp/optionsview.xml" value="0.1" />
         <entry key="app/src/main/res/layout-h1024dp/qo_1.xml" value="0.125" />
         <entry key="app/src/main/res/layout-h300dp/activity_exam_game2.xml" value="0.17117117117117117" />
+        <entry key="app/src/main/res/layout-h300dp/activity_leader_board.xml" value="0.23693693693693693" />
         <entry key="app/src/main/res/layout-h300dp/card.xml" value="0.17117117117117117" />
         <entry key="app/src/main/res/layout-h300dp/leader_score_item.xml" value="0.165" />
         <entry key="app/src/main/res/layout-h300dp/optionsview.xml" value="0.34234234234234234" />
         <entry key="app/src/main/res/layout-h300dp/qo_1.xml" value="0.17117117117117117" />
         <entry key="app/src/main/res/layout-h480dp/activity_failure.xml" value="0.18125" />
+        <entry key="app/src/main/res/layout-h480dp/activity_leader_board.xml" value="0.32875" />
         <entry key="app/src/main/res/layout-h480dp/leader_score_item.xml" value="0.335" />
         <entry key="app/src/main/res/layout-h480dp/options_layout.xml" value="0.475" />
         <entry key="app/src/main/res/layout-h480dp/qo_1.xml" value="0.5" />
         <entry key="app/src/main/res/layout-h600dp/activity_exam_game2.xml" value="0.23015873015873015" />
         <entry key="app/src/main/res/layout-h600dp/activity_game.xml" value="0.23015873015873015" />
+        <entry key="app/src/main/res/layout-h600dp/activity_leader_board.xml" value="0.4174603174603175" />
         <entry key="app/src/main/res/layout-h600dp/leader_score_item.xml" value="0.45" />
         <entry key="app/src/main/res/layout-h600dp/options_layout.xml" value="0.6031746031746031" />
         <entry key="app/src/main/res/layout-h600dp/optionsview.xml" value="0.6031746031746031" />
         <entry key="app/src/main/res/layout-h600dp/qo_1.xml" value="0.30158730158730157" />
         <entry key="app/src/main/res/layout-h720dp/activity_game.xml" value="0.1" />
+        <entry key="app/src/main/res/layout-h720dp/activity_leader_board.xml" value="0.13697916666666668" />
         <entry key="app/src/main/res/layout-h720dp/leader_score_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout-h720dp/optionsview.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout-h720dp/qo_1.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_failure.xml" value="0.31938325991189426" />
         <entry key="app/src/main/res/layout/activity_game.xml" value="0.4185022026431718" />
+        <entry key="app/src/main/res/layout/activity_leader_board.xml" value="0.579295154185022" />
         <entry key="app/src/main/res/layout/activity_loader.xml" value="0.4185022026431718" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.4185022026431718" />
         <entry key="app/src/main/res/layout/activity_user_details.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/all_time_layout.xml" value="0.1" />
         <entry key="app/src/main/res/layout/card.xml" value="0.4185022026431718" />
-        <entry key="app/src/main/res/layout/daily_layout.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/daily_layout.xml" value="0.165" />
         <entry key="app/src/main/res/layout/leader_score_item.xml" value="0.33259911894273125" />
         <entry key="app/src/main/res/layout/old_layout.xml" value="0.1" />
         <entry key="app/src/main/res/layout/qo_1.xml" value="0.4185022026431718" />

@@ -147,6 +147,32 @@
 
                 </LinearLayout>
 
+                <!--          country Leaderboard -->
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:background="@color/white"/>
+
+                <LinearLayout
+                    android:id="@+id/country"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Country"
+                        android:textSize="14sp"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/arimo"/>
+
+                </LinearLayout>
+                <!--          END OF country Leaderboard -->
+
 
             </LinearLayout>
         </RelativeLayout>

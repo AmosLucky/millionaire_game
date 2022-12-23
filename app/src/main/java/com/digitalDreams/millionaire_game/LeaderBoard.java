@@ -73,13 +73,13 @@ public class LeaderBoard extends AppCompatActivity {
     public static int MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE = 100;
     RecyclerView recyclerView;
     List<PlayerObject> list;
-    LinearLayout firstContainer,secondContainer,thirdContainer;
+    LinearLayout firstContainer,secondContainer,thirdContainer,fourthCountainer;
     TextView name1,name2,name3,amount1,amount2,amount3;
     TextView country_name1,country_name2,country_name3;
     ImageView img1,img2,img3;
     ImageView flag1,flag2,flag3;
     LeaderboardAdapter adapter;
-    LinearLayout allBtn,weekBtn,dailyBtn,container;
+    LinearLayout allBtn,weekBtn,dailyBtn,container,countryBtn;
     LayoutInflater inflater;
     View view,view2,view3;
     String json1,json2,json3;
@@ -113,6 +113,9 @@ public class LeaderBoard extends AppCompatActivity {
         allBtn = findViewById(R.id.all);
         weekBtn = findViewById(R.id.week);
         dailyBtn = findViewById(R.id.daily);
+
+        countryBtn = findViewById(R.id.country);
+
         container = findViewById(R.id.container);
         emptyLayout=findViewById(R.id.empty_state);
         emptyText = findViewById(R.id.empty_text);
@@ -166,6 +169,28 @@ public class LeaderBoard extends AppCompatActivity {
                 }
             }
         });
+        dailyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                list.clear();
+                emptyText.setVisibility(View.GONE);
+                selector(2);
+                container.removeAllViews();
+                view3 = inflater.inflate(R.layout.daily_layout,container,false);
+                container.addView(view3);
+                setView(view3);
+                if(json3!=null){
+                    try {
+                        parseJSON(json3);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }else {
+                    getDialyLeaderBoard();
+                }
+            }
+        });
+
         dailyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
