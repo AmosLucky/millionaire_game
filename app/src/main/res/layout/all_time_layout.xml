@@ -131,7 +131,7 @@
                     android:layout_height="wrap_content"
                     android:text="Name"
                     android:textSize="12sp"
-                    android:layout_marginTop="-10dp"
+
                     android:id="@+id/country_name1"/>
             </LinearLayout>
 
@@ -253,7 +253,7 @@
                     android:id="@+id/flag2"
                     />
                 <TextView
-                    android:layout_marginTop="-10dp"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
@@ -376,7 +376,7 @@
                     android:id="@+id/flag3"
                     />
                 <TextView
-                    android:layout_marginTop="-22dp"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
