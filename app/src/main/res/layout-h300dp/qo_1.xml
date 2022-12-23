@@ -530,6 +530,7 @@
                         android:layout_height="wrap_content"
                         android:text="Minus 2 Questions"
                         android:textSize="10dp"
+                        android:id="@+id/opt_dec_1"
 
                         />
                     <TextView
@@ -538,21 +539,27 @@
                         android:textAlignment="center"
                         android:layout_height="wrap_content"
                         android:textSize="10dp"
-                        android:text="Ask computer"/>
+                        android:text="Ask computer"
+                        android:id="@+id/opt_dec_2"
+                        />
                     <TextView
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:textAlignment="center"
                         android:layout_height="wrap_content"
                         android:textSize="10dp"
-                        android:text="Take a pill"/>
+                        android:text="Take a pill"
+                        android:id="@+id/opt_dec_3"
+                        />
                     <TextView
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:textAlignment="center"
                         android:layout_height="wrap_content"
                         android:textSize="10dp"
-                        android:text="Reset Question"/>
+                        android:text="Reset Question"
+                        android:id="@+id/opt_dec_4"
+                        />
 
                 </LinearLayout>
             </LinearLayout>

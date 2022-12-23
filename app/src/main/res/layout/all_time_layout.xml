@@ -130,6 +130,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Name"
+                    android:textSize="12sp"
                     android:layout_marginTop="-10dp"
                     android:id="@+id/country_name1"/>
             </LinearLayout>
@@ -255,6 +256,7 @@
                     android:layout_marginTop="-10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="12sp"
                     android:text="Name"
                     android:id="@+id/country_name2"/>
             </LinearLayout>
@@ -377,6 +379,7 @@
                     android:layout_marginTop="-22dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="12sp"
                     android:text="Name"
                     android:id="@+id/country_name3"/>
             </LinearLayout>

@@ -453,6 +453,7 @@ public class PlayDetailsActivity extends AppCompatActivity {
                     String weekly = weeklyObj.getString("number");
                     String txt = "";
                     String max = dailyObj.getString("max");
+
                     if(String.valueOf(daily).equals("1") && String.valueOf(weekly).equals("1")){
 
                         txt = "Congratulations! improve your score to remain on top-";
@@ -461,8 +462,11 @@ public class PlayDetailsActivity extends AppCompatActivity {
                     }else if(String.valueOf(daily).equals("1")){
                         txt = "Beat this weeks highest score-";
 
-                    }else{
+                    }else if(max != null && max != "null"){
                         txt = "Beat today's highest score of - $"+currencyFormat(max);
+
+                    }else{
+                        txt = "Beat today's highest score";
 
                     }
 
@@ -561,10 +565,15 @@ public class PlayDetailsActivity extends AppCompatActivity {
 //        calendar.set(Calendar.SECOND);
         AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
         //makeNotificationChannel("4","noti",1);
-        PendingIntent servicePendingIntent = PendingIntent.getBroadcast(PlayDetailsActivity.this, 0, new Intent(PlayDetailsActivity.this, NotificationService.class),0);
-        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,  1000, servicePendingIntent);
+        PendingIntent servicePendingIntent =
+                PendingIntent.getBroadcast(PlayDetailsActivity.this, 0, new Intent(PlayDetailsActivity.this, NotificationService.class),0);
+
+        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,  0, servicePendingIntent);
     }
     public static String currencyFormat(String amount) {
+        if(null == amount){
+            return  "0";
+        }
         DecimalFormat formatter = new DecimalFormat("###,###,##0.00");
         return formatter.format(Double.parseDouble(amount));
     }

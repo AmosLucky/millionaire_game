@@ -147,6 +147,7 @@ public class GameActivity2 extends AppCompatActivity {
     boolean hasRefreshed = false;
     RelativeLayout progressBtn, exitBtn,cancel_button;
     LinearLayout guid_layout;
+    TextView opt_dec_1,opt_dec_2,opt_dec_3,opt_dec_4;
 
 
     @Override
@@ -202,6 +203,7 @@ public class GameActivity2 extends AppCompatActivity {
 
          progressBtn = findViewById(R.id.progressBtn);
          exitBtn = findViewById(R.id.exitBtn);
+
 
         progressBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -469,6 +471,13 @@ public class GameActivity2 extends AppCompatActivity {
             RelativeLayout voting = v.findViewById(R.id.voting);
             RelativeLayout refresh = v.findViewById(R.id.skip);
             LinearLayout options_container = v.findViewById(R.id.options_container);
+            ////////////////////
+            opt_dec_1 = v.findViewById(R.id.opt_dec_1);
+            opt_dec_2 = v.findViewById(R.id.opt_dec_2);
+            opt_dec_3 = v.findViewById(R.id.opt_dec_3);
+            opt_dec_4 = v.findViewById(R.id.opt_dec_4);
+
+            ////////////////////
 
             v.setVisibility(View.GONE);
             String qImage = b.optString("question_image");
@@ -488,10 +497,14 @@ public class GameActivity2 extends AppCompatActivity {
 
 
             fedInAnimation(_question,1000);
+            fedInAnimation(opt_dec_1,1000);
             fedInAnimation(askaFriend,1200);
+            fedInAnimation(opt_dec_2,1200);
             fedInAnimation(voting,1400);
+            fedInAnimation(opt_dec_3,1400);
 
             fedInAnimation(refresh,1600);
+            fedInAnimation(opt_dec_4,1600);
             fedInAnimation(progress_container,500);
             fedInAnimation(cardView,500);
             fedInAnimation(txt,550);

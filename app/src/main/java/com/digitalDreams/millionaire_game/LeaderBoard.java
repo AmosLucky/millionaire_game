@@ -81,7 +81,7 @@ public class LeaderBoard extends AppCompatActivity {
     LeaderboardAdapter adapter;
     LinearLayout allBtn,weekBtn,dailyBtn,container,countryBtn;
     LayoutInflater inflater;
-    View view,view2,view3;
+    View view,view2,view3, view4;
     String json1,json2,json3;
     LinearLayout emptyLayout;
     TextView emptyText;
@@ -191,16 +191,16 @@ public class LeaderBoard extends AppCompatActivity {
             }
         });
 
-        dailyBtn.setOnClickListener(new View.OnClickListener() {
+        countryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 list.clear();
                 emptyText.setVisibility(View.GONE);
-                selector(2);
+                selector(3);
                 container.removeAllViews();
-                view3 = inflater.inflate(R.layout.daily_layout,container,false);
-                container.addView(view3);
-                setView(view3);
+                view4 = inflater.inflate(R.layout.country_leader_board,container,false);
+                container.addView(view4);
+                setView(view4);
                 if(json3!=null){
                     try {
                         parseJSON(json3);
@@ -581,7 +581,7 @@ public class LeaderBoard extends AppCompatActivity {
 
     private void deSelector(){
 
-        LinearLayout[] arrCon ={allBtn,weekBtn,dailyBtn};
+        LinearLayout[] arrCon ={allBtn,weekBtn,dailyBtn,countryBtn};
 
         for (int a=0;a<arrCon.length;a++){
             LinearLayout layout = arrCon[a];
@@ -590,7 +590,7 @@ public class LeaderBoard extends AppCompatActivity {
     }
 
     private void selector(int b){
-        LinearLayout[] arrCon ={allBtn,weekBtn,dailyBtn};
+        LinearLayout[] arrCon ={allBtn,weekBtn,dailyBtn,countryBtn};
         deSelector();
         for (int a=0;a<arrCon.length;a++){
             if(a==b) {

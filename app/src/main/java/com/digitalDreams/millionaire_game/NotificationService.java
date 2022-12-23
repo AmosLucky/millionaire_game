@@ -2,6 +2,7 @@ package com.digitalDreams.millionaire_game;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -14,7 +15,7 @@ import androidx.core.app.NotificationCompat;
 public class NotificationService extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.i("tagg","lllllllllllllllll");
+        //Log.i("tagg","lllllllllllllllll");
         issueNotification(context);
 
 
@@ -34,12 +35,24 @@ public class NotificationService extends BroadcastReceiver {
                 new NotificationCompat.Builder(context, "CHANNEL_1");
         // the second parameter is the channel id.
         // it should be the same as passed to the makeNotificationChannel() method
+        Intent intentAction = new Intent(context,Dashboard.class);
 
+        PendingIntent pIntent = PendingIntent.getActivity(context,1,intentAction,PendingIntent.FLAG_UPDATE_CURRENT);
+
+String message = "Beat your last score in Millionaire Game and stand tall as a champion. \n PLAY NOW";
         notification
                 .setSmallIcon(R.drawable.game_logo) // can use any other icon
                 .setContentTitle("Millionaire Game")
-                .setContentText("Beat your last score in Millionaire Game and stand tall as a champion. \n PLAY NOW")
-                .setNumber(3); // this shows a number in the notification dots
+
+                .setContentIntent(pIntent)
+
+
+                .setAutoCancel(true)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
+
+
+                .setContentText(message)
+                .setNumber(5).build(); // this shows a number in the notification dots
 
 
         NotificationManager notificationManager =
