@@ -3,7 +3,6 @@ package com.digitalDreams.millionaire_game;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -13,16 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
-import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -32,11 +27,9 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
-import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -64,7 +57,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,24 +74,41 @@ public class LeaderBoard extends AppCompatActivity {
     LinearLayout allBtn,weekBtn,dailyBtn,container,countryBtn;
     LayoutInflater inflater;
     View view,view2,view3, view4;
-    String json1,json2,json3;
+    String json1,json2,json3,json4;
     LinearLayout emptyLayout;
     TextView emptyText;
     ProgressBar progressBar;
     public static InterstitialAd interstitialAd;
     RelativeLayout share_container;
+    LinearLayout country_layout_container;
 
     private boolean mIsBackVisible = false;
     private View mCardBackLayout;
     File imagePath;
     String username;
+    //ListView country_json;
+    ArrayList<JSONObject> jsonObjects;
+    CountryJsonAdapter countryJsonAdapter;
+    RecyclerView countryListView;
+    LayoutInflater layoutInflater;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leader_board);
 
 
+        /////////////
+        jsonObjects = new ArrayList<JSONObject>();
+         layoutInflater =  LayoutInflater.from(this);
+
+
+
+
+
+
+
         /////////////////AD////////
+
 
         AdView mAdView;
         mAdView = findViewById(R.id.adView);
@@ -121,6 +130,8 @@ public class LeaderBoard extends AppCompatActivity {
         emptyText = findViewById(R.id.empty_text);
         progressBar = findViewById(R.id.progress);
         //container.removeAllViews();
+         //country_json = findViewById(R.id.country_json);
+        /////////
 
         inflater = LayoutInflater.from(this);
          view = inflater.inflate(R.layout.all_time_layout,container,false);
@@ -195,20 +206,25 @@ public class LeaderBoard extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 list.clear();
+                jsonObjects.clear();
                 emptyText.setVisibility(View.GONE);
                 selector(3);
                 container.removeAllViews();
+                country_layout_container.removeAllViews();
                 view4 = inflater.inflate(R.layout.country_leader_board,container,false);
                 container.addView(view4);
                 setView(view4);
-                if(json3!=null){
+                if(json4!=null){
                     try {
-                        parseJSON(json3);
+                        country_layout_container.removeAllViews();
+                        solveCountryJson(json4);
+                        parseJSON(json4);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }else {
-                    getDialyLeaderBoard();
+                    country_layout_container.removeAllViews();
+                    getCountryLeaderBoard();
                 }
             }
         });
@@ -260,6 +276,9 @@ public class LeaderBoard extends AppCompatActivity {
         String username = sharedPreferences.getString("username","");
 
         getAllLeaderBoard();
+
+
+
     }
 
     private void loadAnimations(View view) {
@@ -424,6 +443,55 @@ public class LeaderBoard extends AppCompatActivity {
     }
 
 
+    private void getCountryLeaderBoard(){
+        emptyLayout.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
+        String url = getResources().getString(R.string.base_url)+"/get_leaderboard.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.i("response_country","response "+response);
+                progressBar.setVisibility(View.GONE);
+                solveCountryJson(response);
+                if(response!=null){
+                    try {
+                        list.clear();
+
+                        json4 = response;
+                        JSONObject object =  new JSONObject(response);
+                        solveCountryJson(response);
+
+
+
+                        Log.i("confirm",json4);
+
+                       // parseJSON(response);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                super.getParams();
+                Map<String,String> param = new HashMap<>();
+                param.put("game_type","millionaire");
+                param.put("country","1");
+                return param;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
+
     private void parseJSON(String response) throws JSONException {
 
         JSONArray jsonArray = new JSONArray(response);
@@ -534,6 +602,17 @@ public class LeaderBoard extends AppCompatActivity {
     }
 
     private void setView(View view){
+
+        Log.i("iiii999","Obi");
+
+
+
+
+
+
+        country_layout_container =  view.findViewById(R.id.country_layout_container);
+
+
         img1 = view.findViewById(R.id.img1);
         img2 = view.findViewById(R.id.img2);
         img3 = view.findViewById(R.id.img3);
@@ -577,6 +656,14 @@ public class LeaderBoard extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
+
+        ///////
+//        countryJsonAdapter = new CountryJsonAdapter(this,jsonObjects);
+//        LinearLayoutManager layoutManager2 = new LinearLayoutManager(this);
+//        countryListView = view.findViewById(R.id.country_listview);
+//        countryListView.setLayoutManager(layoutManager2);
+//        countryListView.setHasFixedSize(true);
+//        countryListView.setAdapter(countryJsonAdapter);
     }
 
     private void deSelector(){
@@ -733,6 +820,118 @@ public class LeaderBoard extends AppCompatActivity {
         View rootView = findViewById(android.R.id.content).getRootView();
         rootView.setDrawingCacheEnabled(true);
         return rootView.getDrawingCache();
+    }
+
+
+    public void solveCountryJson(String json){
+        Log.i("king","oooooo");
+
+      try {
+          JSONArray jsonArray = new JSONArray(json);
+
+          for(int i = 0; i < jsonArray.length(); i++){
+              JSONObject obj = jsonArray.getJSONObject(i);
+              jsonObjects.add(obj);
+              Log.i("jsonnnnnn"+String.valueOf(i),String.valueOf(obj));
+
+
+
+
+          }
+
+
+
+          //countryJsonAdapter.notifyDataSetChanged();
+
+          inflateCountryViews(jsonObjects);
+
+
+
+
+
+
+
+
+
+      }catch (Exception e){
+          e.printStackTrace();
+
+      }
+
+
+
+    }
+
+
+    public void inflateCountryViews(ArrayList jsonObjects){
+        country_layout_container.removeAllViews();
+        for(int i = 0; i < jsonObjects.size();i++) {
+
+            View convertView = layoutInflater.inflate(R.layout.leader_score_item, country_layout_container, false);
+
+
+            //convertView = LayoutInflater.from(context).inflate(R.layout.leader_score_item, parent, false);
+
+            TextView substring = convertView.findViewById(R.id.highscore);
+            TextView player_name = convertView.findViewById(R.id.player_name);
+            TextView country = convertView.findViewById(R.id.country);
+            country.setVisibility(View.GONE);
+            ImageView flag = convertView.findViewById(R.id.flag_img);
+            TextView positionTXT = convertView.findViewById(R.id.position);
+            positionTXT.setText(String.valueOf(i+1));
+
+            try {
+                JSONObject object = (JSONObject) jsonObjects.get(i);
+                String score = object.getString("score");
+                String country_name = object.getString("country");
+                String country_json_string = object.getString("country_json");
+                JSONObject  country_json_object =  new JSONObject(country_json_string.replaceAll("[\\\\]{1}[\"]{1}","\""));
+                String country_flag = country_json_object.getString("url");
+
+                if(!country_flag.isEmpty()) {
+                    SVGLoader.fetchSvg(LeaderBoard.this, country_flag, flag);
+                }else {
+                    flag.setVisibility(View.GONE);
+
+                }
+
+
+                Log.i("ooooopp111",String.valueOf(object));
+
+                player_name.setText(country_name);
+                substring.setText("$"+score);
+                country.setText(country_name);
+
+
+                //Value {"name":"Ascension Island","url":""} at country_json of type java.lang.String cannot be converted to JSONObject
+
+                convertView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(LeaderBoard.this,CountryLeaderBoard.class);
+//                   Map<String,String> map = new HashMap<>();
+//                   map.put("country",country);
+//                   map.put("country_flag",country_flag);
+                        //intent.putExtra("country_map", (Serializable) map);
+                        intent.putExtra("country",country_name);
+                        intent.putExtra("country_flag",country_flag);
+                        startActivity(intent);
+                    }
+                });
+
+
+            }catch (Exception e){
+                Log.i("ooooopp",e.toString());
+                e.printStackTrace();
+
+            }
+
+            country_layout_container.addView(convertView);
+
+        }
+
+
+
     }
 
 

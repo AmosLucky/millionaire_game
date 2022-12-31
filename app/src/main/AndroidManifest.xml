@@ -53,6 +53,7 @@
         <activity android:name=".LeaderBoard" />
         <activity android:name=".Dashboard" />
         <activity android:name=".CountDownActivity" />
+        <activity android:name=".CountryLeaderBoard" />
         <activity android:name=".MainActivity"
             android:exported="true"
             >

@@ -397,6 +397,18 @@
         android:id="@+id/recyclerview"
         android:paddingBottom="20dp"
         android:layout_marginTop="30dp"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/country_layout_container"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/country_listview"
+        android:visibility="gone"
+        />
 
 
 </LinearLayout>

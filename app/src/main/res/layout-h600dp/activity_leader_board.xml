@@ -41,6 +41,7 @@
             android:fontFamily="@font/montserrat"
             android:textSize="18sp"
             android:textColor="@color/white"
+            android:id="@+id/activity_title"
             android:layout_centerInParent="true"/>
         <RelativeLayout
             android:id="@+id/close_container"
@@ -194,29 +195,30 @@
         </androidx.core.widget.NestedScrollView>
 
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/empty_state"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical">
+
         <ProgressBar
             android:id="@+id/progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            />
+            android:layout_gravity="center" />
 
         <TextView
             android:id="@+id/empty_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Leaderboard is not available"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-            android:visibility="gone"
             android:layout_marginTop="20dp"
-            android:fontFamily="@font/arimo"/>
+            android:fontFamily="@font/arimo"
+            android:text="Leaderboard is not available"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:visibility="gone" />
 
     </LinearLayout>
 

@@ -33,15 +33,18 @@
                 android:src="@drawable/ic_baseline_share_white" />
 
         </RelativeLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Leaderboard"
-            android:textStyle="bold"
+            android:layout_centerInParent="true"
             android:fontFamily="@font/montserrat"
-            android:textSize="18sp"
+            android:text="Leaderboard"
             android:textColor="@color/white"
-            android:layout_centerInParent="true"/>
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:id="@+id/activity_title"
+            />
         <RelativeLayout
             android:id="@+id/close_container"
             android:layout_width="wrap_content"
