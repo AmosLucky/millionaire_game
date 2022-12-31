@@ -268,19 +268,21 @@ public class GameActivity2 extends AppCompatActivity {
 //        video_ad_Icon2.setImageResource(R.drawable.vicon2);
         cancel_button = findViewById(R.id.cancel_button);
         guid_layout = findViewById(R.id.guid_layout);
-        if(isFirstTime) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    guid_layout.setVisibility(View.VISIBLE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putBoolean("isFirstTime",false);
-                            editor.commit();
 
-                }
-            }, 10000);
-
-        }
+        //////////GUIDE LAYOUT HIDE AND SHOW/////
+//        if(isFirstTime) {
+//            new Handler().postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                   // guid_layout.setVisibility(View.VISIBLE);
+//                    SharedPreferences.Editor editor = sharedPreferences.edit();
+//                            editor.putBoolean("isFirstTime",false);
+//                            editor.commit();
+//
+//                }
+//            }, 10000);
+//
+//        }
 
         cancel_button.setOnClickListener(new View.OnClickListener() {
             @Override

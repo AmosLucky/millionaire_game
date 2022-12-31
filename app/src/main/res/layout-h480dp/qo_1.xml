@@ -553,7 +553,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/opt_dec_3"
 
-                    android:text="Take a pill"/>
+                    android:text="Take a poll"/>
                 <TextView
                     android:textSize="8dp"
                     android:layout_width="0dp"

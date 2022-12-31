@@ -369,7 +369,7 @@ public class LeaderBoard extends AppCompatActivity {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.i("response","response "+response);
+                Log.i("responseweek","response "+response);
                 progressBar.setVisibility(View.GONE);
                 if(response!=null){
                     try {
@@ -409,7 +409,7 @@ public class LeaderBoard extends AppCompatActivity {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.i("response","response "+response);
+                Log.i("response099","response "+response);
                 progressBar.setVisibility(View.GONE);
                 if(response!=null){
                     try {
@@ -521,29 +521,34 @@ public class LeaderBoard extends AppCompatActivity {
             username = username.substring(0,1).toUpperCase()+""+username.substring(1);
             String pattern = "#,###,###.###";
             DecimalFormat decimalFormat = new DecimalFormat(pattern);
+           if(country_flag.length()>10){
+              // Log.i("J9999",username+"  "+country_flag);
+           }
 
             if(a==0){
                 firstContainer.setVisibility(View.VISIBLE);
                 name1.setText(username);
                 getAvatar(img1,avatar);
                 amount1.setText("$"+decimalFormat.format(Integer.parseInt(score)));
-                country_name1.setText(country);
-                country_name1.setVisibility(View.VISIBLE);
+
+                country_name2.setVisibility(View.VISIBLE);
+                country_name2.setText(country);
                 if(!country_flag.isEmpty()) {
-                    SVGLoader.fetchSvg(LeaderBoard.this,country_flag,flag1);
-                    flag1.setVisibility(View.VISIBLE);
+                    SVGLoader.fetchSvg(LeaderBoard.this,country_flag,flag2);
+                    flag2.setVisibility(View.VISIBLE);
+
                 }
             }else if(a==1){
                 secondContainer.setVisibility(View.VISIBLE);
                 name2.setText(username);
                 getAvatar(img2,avatar);
                 amount2.setText("$"+decimalFormat.format(Integer.parseInt(score)));
-                country_name2.setText(country);
-                country_name2.setVisibility(View.VISIBLE);
+                country_name1.setText(country);
+                country_name1.setVisibility(View.VISIBLE);
 
                 if(!country_flag.isEmpty()) {
-                    SVGLoader.fetchSvg(LeaderBoard.this,country_flag,flag2);
-                    flag2.setVisibility(View.VISIBLE);
+                    SVGLoader.fetchSvg(LeaderBoard.this,country_flag,flag1);
+                    flag1.setVisibility(View.VISIBLE);
                 }
 
             }else if(a==2){
@@ -631,9 +636,9 @@ public class LeaderBoard extends AppCompatActivity {
         flag3 = view.findViewById(R.id.flag3);
 
 
-        flag1.setVisibility(View.INVISIBLE);
-        flag2.setVisibility(View.INVISIBLE);
-        flag3.setVisibility(View.INVISIBLE);
+        flag1.setVisibility(View.GONE);
+        flag2.setVisibility(View.GONE);
+        flag3.setVisibility(View.GONE);
 
 
 
@@ -895,11 +900,14 @@ public class LeaderBoard extends AppCompatActivity {
 
                 }
 
+                String pattern = "#,###,###.###";
+                DecimalFormat decimalFormat = new DecimalFormat(pattern);
+
 
                 Log.i("ooooopp111",String.valueOf(object));
 
                 player_name.setText(country_name);
-                substring.setText("$"+score);
+                substring.setText("$"+decimalFormat.format(Integer.parseInt(score)));
                 country.setText(country_name);
 
 

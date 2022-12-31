@@ -6,6 +6,8 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.util.Log;
 
@@ -42,6 +44,10 @@ public class NotificationService extends BroadcastReceiver {
 String message = "Beat your last score in Millionaire Game and stand tall as a champion. \n PLAY NOW";
         notification
                 .setSmallIcon(R.drawable.game_logo) // can use any other icon
+                .setBadgeIconType(NotificationCompat.BADGE_ICON_LARGE)
+                //.setLargeIcon(R.drawable.game_logo)
+                .setLargeIcon(BitmapFactory.decodeResource (context.getResources(), R.drawable.game_logo ))
+
                 .setContentTitle("Millionaire Game")
 
                 .setContentIntent(pIntent)
@@ -75,5 +81,7 @@ String message = "Beat your last score in Millionaire Game and stand tall as a c
         assert notificationManager != null;
         notificationManager.createNotificationChannel(channel);
     }
+
+
 
 }

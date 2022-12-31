@@ -570,7 +570,7 @@
                         android:textAlignment="center"
                         android:layout_height="wrap_content"
                         android:textSize="10dp"
-                        android:text="Take a pill"
+                        android:text="Take a poll"
                         android:id="@+id/opt_dec_3"
                         />
                     <TextView
