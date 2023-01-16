@@ -82,7 +82,7 @@ public class FailureActivity extends AppCompatActivity {
         hex = findViewById(R.id.hex);
         failureTxt = findViewById(R.id.failureTxt);
         noThankBtn = findViewById(R.id.no_thanks);
-         continueBtn = findViewById(R.id.continue_game);
+        continueBtn = findViewById(R.id.continue_game);
         r = findViewById(R.id.btn_forAnim);
         new_games = findViewById(R.id.new_games);
         new_games.setVisibility(View.GONE);
@@ -90,52 +90,47 @@ public class FailureActivity extends AppCompatActivity {
         continueBtn.setVisibility(View.GONE);
         failureTxt.setVisibility(View.GONE);
         new MyAnimation(hex);
-       // hex.setVisibility(View.GONE);
+        // hex.setVisibility(View.GONE);
         noThankBtn.setVisibility(View.GONE);
         r.setVisibility(View.GONE);
 
         animateWebContainer(replay_level);
 
-        Animation aniFade = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fadding);
+        Animation aniFade = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fadding);
         continueBtn.startAnimation(aniFade);
         r.startAnimation(aniFade);
 
         loadInterstialAd();
 
 
-
-
-
-
-
-       // mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
+        // mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
 
         //loadVideoAd();
 
 
         SharedPreferences sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
-        String languageCode = sharedPreferences.getString("language","en");
-        int endcolor = sharedPreferences.getInt("end_color",getResources().getColor(R.color.purple_dark));
-        int startColor = sharedPreferences.getInt("start_color",getResources().getColor(R.color.purple_500));
-        int cardBackground = sharedPreferences.getInt("card_background",0x219ebc);
+        String languageCode = sharedPreferences.getString("language", "en");
+        int endcolor = sharedPreferences.getInt("end_color", getResources().getColor(R.color.purple_dark));
+        int startColor = sharedPreferences.getInt("start_color", getResources().getColor(R.color.purple_500));
+        int cardBackground = sharedPreferences.getInt("card_background", 0x219ebc);
 
         String mode = sharedPreferences.getString("game_mode", "0");
         //TextView modeTxt = findViewById(R.id.mode);
         if (mode.equals("0")) {
-          //  modeTxt.setText("Mode: Normal");
-            modeValue="normal";
+            //  modeTxt.setText("Mode: Normal");
+            modeValue = "normal";
         } else {
-           // modeTxt.setText("Mode: Hard");
-            modeValue="hard";
+            // modeTxt.setText("Mode: Hard");
+            modeValue = "hard";
         }
         checkScore();
         new MyAnimation(r);
         LinearLayout rootview = findViewById(R.id.rootview);
 
-        new Particles(this,rootview,R.layout.image_xml,20);
+        new Particles(this, rootview, R.layout.image_xml, 20);
         GradientDrawable gd = new GradientDrawable(
                 GradientDrawable.Orientation.TOP_BOTTOM,
-                new int[] {startColor,endcolor});
+                new int[]{startColor, endcolor});
 
         rootview.setBackgroundDrawable(gd);
 
@@ -148,8 +143,8 @@ public class FailureActivity extends AppCompatActivity {
             public void onClick(View view) {
                 showInterstitial();
 
-                Intent i = new Intent(FailureActivity.this,CountDownActivity.class);
-               // startActivity(i);
+                Intent i = new Intent(FailureActivity.this, CountDownActivity.class);
+                // startActivity(i);
                 final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -170,21 +165,21 @@ public class FailureActivity extends AppCompatActivity {
 
                 //showInterstitial();
 
-                if(CountDownActivity.mMediaPlayer!=null) {
+                if (CountDownActivity.mMediaPlayer != null) {
                     CountDownActivity.mMediaPlayer.stop();
                 }
 
-                Intent intent = new Intent(FailureActivity.this,PlayDetailsActivity.class);
+                Intent intent = new Intent(FailureActivity.this, PlayDetailsActivity.class);
 
-               // intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP );
-                boolean hasOldWinningAmount = getIntent().getBooleanExtra("hasOldWinningAmount",false);
-                if(hasOldWinningAmount){
-                    if(hasOldWinningAmount){
-                        intent.putExtra("hasOldWinningAmount",true);
+                // intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP );
+                boolean hasOldWinningAmount = getIntent().getBooleanExtra("hasOldWinningAmount", false);
+                if (hasOldWinningAmount) {
+                    if (hasOldWinningAmount) {
+                        intent.putExtra("hasOldWinningAmount", true);
 
                     }
                 }
-                intent.putExtra("noThanks",true);
+                intent.putExtra("noThanks", true);
 
                 startActivity(intent);
                 finish();
@@ -210,8 +205,8 @@ public class FailureActivity extends AppCompatActivity {
             @Override
             public void onTick(long l) {
                 int sec = (int) (l / 1000);
-                int seconds=(sec % 3600)%60;
-                countDownTxt.setText(""+seconds);
+                int seconds = (sec % 3600) % 60;
+                countDownTxt.setText("" + seconds);
             }
 
             @Override
@@ -225,36 +220,36 @@ public class FailureActivity extends AppCompatActivity {
         continueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("Loadeddd","onClick");
+                Log.i("Loadeddd", "onClick");
 //                GameActivity2.continueGame=true;
 //                finish();
 
-                if(!isNetworkConnected()){
-                    startActivity(new Intent(FailureActivity.this,PlayDetailsActivity.class));
+                if (!isNetworkConnected()) {
+                    startActivity(new Intent(FailureActivity.this, PlayDetailsActivity.class));
                     finish();
-                    Toast.makeText(FailureActivity.this,"No Internet Connection",Toast.LENGTH_LONG).show();
+                    Toast.makeText(FailureActivity.this, "No Internet Connection", Toast.LENGTH_LONG).show();
                 }
-
 
 
                 clicked = true;
 
-                if(CountDownActivity.mRewardedVideoAd == null){
+                if (CountDownActivity.mRewardedVideoAd == null) {
                     showInterstitial();
 
-                } else if(!CountDownActivity.mRewardedVideoAd.isLoaded()){
+                } else if (!CountDownActivity.mRewardedVideoAd.isLoaded()) {
                     showInterstitial();
-                    Log.i("mRewardedVideoAd","Not LOaded");
+                    Log.i("mRewardedVideoAd", "Not LOaded");
                     CountDownActivity.mRewardedVideoAd.loadAd("ca-app-pub-4696224049420135/7768937909", new AdRequest.Builder().build());
-                }else{
-                    Log.i("mRewardedVideoAd","LOaded");
+                } else {
+                    Log.i("mRewardedVideoAd", "LOaded");
                     CountDownActivity.mRewardedVideoAd.show();
 
                 }
 
             }
         });
-        if(GameActivity2.mRewardedVideoAd==null) {
+        try{
+        if (GameActivity2.mRewardedVideoAd == null) {
             mRewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
                 @Override
                 public void onRewardedVideoAdLoaded() {
@@ -301,56 +296,60 @@ public class FailureActivity extends AppCompatActivity {
                 }
 
             });
-        }else{
+        } else {
             GameActivity2.mRewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
-            @Override
-            public void onRewardedVideoAdLoaded() {
+                @Override
+                public void onRewardedVideoAdLoaded() {
 
-            }
+                }
 
-            @Override
-            public void onRewardedVideoAdOpened() {
+                @Override
+                public void onRewardedVideoAdOpened() {
 
-            }
+                }
 
-            @Override
-            public void onRewardedVideoStarted() {
+                @Override
+                public void onRewardedVideoStarted() {
 
-            }
+                }
 
-            @Override
-            public void onRewardedVideoAdClosed() {
-                CountDownActivity.mRewardedVideoAd.loadAd("ca-app-pub-4696224049420135/7768937909", new AdRequest.Builder().build());
+                @Override
+                public void onRewardedVideoAdClosed() {
+                    CountDownActivity.mRewardedVideoAd.loadAd("ca-app-pub-4696224049420135/7768937909", new AdRequest.Builder().build());
 
-                GameActivity2.continueGame=true;
-                finish();
-            }
+                    GameActivity2.continueGame = true;
+                    finish();
+                }
 
-            @Override
-            public void onRewarded(com.google.android.gms.ads.reward.RewardItem rewardItem) {
+                @Override
+                public void onRewarded(com.google.android.gms.ads.reward.RewardItem rewardItem) {
 
-            }
+                }
 
-            @Override
-            public void onRewardedVideoAdLeftApplication() {
+                @Override
+                public void onRewardedVideoAdLeftApplication() {
 
-            }
+                }
 
-            @Override
-            public void onRewardedVideoAdFailedToLoad(int i) {
+                @Override
+                public void onRewardedVideoAdFailedToLoad(int i) {
 
-            }
+                }
 
-            @Override
-            public void onRewardedVideoCompleted() {
-                CountDownActivity.mRewardedVideoAd.loadAd("ca-app-pub-4696224049420135/7768937909", new AdRequest.Builder().build());
+                @Override
+                public void onRewardedVideoCompleted() {
+                    CountDownActivity.mRewardedVideoAd.loadAd("ca-app-pub-4696224049420135/7768937909", new AdRequest.Builder().build());
 
-                GameActivity2.continueGame=true;
-                finish();
-            }
+                    GameActivity2.continueGame = true;
+                    finish();
+                }
 
-        });
+            });
         }
+    }catch(Exception e){
+            e.printStackTrace();
+        }
+
         loadInterstialAd();
         if(GameActivity2.mRewardedVideoAd==null) {
             loadVideoAd();

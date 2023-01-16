@@ -44,7 +44,7 @@ public class Dashboard extends AppCompatActivity {
     RelativeLayout bg;
     RelativeLayout newGameBtn,leaderBoardBtn,exitBtn,gotoYoutubeBtn,new_particle;
     ImageView settingBtn;
-    DBHelper dbHelper;
+    //DBHelper dbHelper;
    // public static RewardedVideoAd mRewardedVideoAd;
 
 
@@ -69,7 +69,7 @@ public class Dashboard extends AppCompatActivity {
 
         setLocale(this,languageCode);
         //setTheme();
-        dbHelper = new DBHelper(this);
+        //dbHelper = new DBHelper(this);
 
         setContentView(R.layout.activity_dashboard);
         TextView highscoreTxt = findViewById(R.id.highscore);

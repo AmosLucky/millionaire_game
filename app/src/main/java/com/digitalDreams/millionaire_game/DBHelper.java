@@ -1,5 +1,6 @@
 package com.digitalDreams.millionaire_game;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -19,7 +20,7 @@ import androidx.annotation.Nullable;
 
 class DBHelper extends SQLiteOpenHelper {
     public static String DATABASE_NAME="trivia.db";
-    SQLiteDatabase db;
+    //SQLiteDatabase db;
     public static String JSON_TABLE = "json_table";
     public static String ID = "ID";
     public static String QUESTION = "QUESTION";
@@ -36,7 +37,7 @@ class DBHelper extends SQLiteOpenHelper {
 
     public DBHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, 4);
-        db = getWritableDatabase();
+        //db = getWritableDatabase();
         this.context =context;
     }
 
@@ -185,12 +186,12 @@ class DBHelper extends SQLiteOpenHelper {
             for(int a=1;a<16;a++) {
                 Cursor res = getQuestionByLevel2(String.valueOf(a));
                 res.moveToNext();
-                String id = res.getString(res.getColumnIndex("ID"));
-                String language = res.getString(res.getColumnIndex("LANGUAGE"));
-                String question = res.getString(res.getColumnIndex("QUESTION"));
-                String answer = res.getString(res.getColumnIndex("ANSWER"));
-                String type = res.getString(res.getColumnIndex("TYPE"));
-                String correct = res.getString(res.getColumnIndex("CORRECT"));
+                @SuppressLint("Range") String id = res.getString(res.getColumnIndex("ID"));
+                @SuppressLint("Range") String language = res.getString(res.getColumnIndex("LANGUAGE"));
+                @SuppressLint("Range") String question = res.getString(res.getColumnIndex("QUESTION"));
+                @SuppressLint("Range") String answer = res.getString(res.getColumnIndex("ANSWER"));
+                @SuppressLint("Range") String type = res.getString(res.getColumnIndex("TYPE"));
+                @SuppressLint("Range") String correct = res.getString(res.getColumnIndex("CORRECT"));
 
                 JSONObject contentObj = new JSONObject();
                 contentObj.put("id", id);

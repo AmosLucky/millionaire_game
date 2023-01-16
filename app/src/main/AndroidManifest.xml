@@ -81,7 +81,9 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <receiver android:name="com.digitalDreams.millionaire_game.NotificationService"
+        <receiver
+            android:name="com.digitalDreams.millionaire_game.NotificationService"
+            android:process=":service"
             />
     </application>
 

@@ -70,6 +70,7 @@
             >
 
             <ImageView
+                android:layout_gravity="right"
                 android:layout_width="40dp"
                 android:layout_height="30dp"
                 android:id="@+id/flag_img"

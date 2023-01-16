@@ -65,10 +65,16 @@
                             android:id="@+id/username"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Player name"
+                            android:hint="Enter Your Player Name"
                             android:drawablePadding="10dp"
                             android:inputType="textEmailAddress"
                             android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Select Your Country"
+                            android:layout_marginTop="20dp"/>
 
                        <LinearLayout
 
@@ -89,7 +95,7 @@
                         android:layout_height="wrap_content"
                         android:text="Select an Avatar"
                         android:fontFamily="@font/arimo"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="18sp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"

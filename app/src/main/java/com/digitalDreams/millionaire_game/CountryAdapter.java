@@ -50,10 +50,10 @@ public class CountryAdapter extends ArrayAdapter {
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.single_country, parent, false);
         }
-        ImageView flag = convertView.findViewById(R.id.flag);
+       // ImageView flag = convertView.findViewById(R.id.flag);
         TextView name = convertView.findViewById(R.id.name);
         name.setText(countries.get(position));
-        SVGLoader.fetchSvg(context, flags.get(position), flag);
+      //  SVGLoader.fetchSvg(context, flags.get(position), flag);
 
 
 

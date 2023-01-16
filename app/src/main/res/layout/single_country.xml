@@ -6,7 +6,7 @@
     android:layout_marginRight="10dp"
     android:layout_marginLeft="10dp"
     android:layout_marginTop="5dp"
-    android:background="@color/dark_grey"
+
     android:orientation="vertical"
     >
 
@@ -14,9 +14,10 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
-        android:background="@color/dark_grey2"
+
         >
         <ImageView
+            android:visibility="gone"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:src="@color/spearmint"
@@ -27,9 +28,9 @@
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:text="country name"
-            android:layout_marginLeft="0dp"
+            android:layout_marginLeft="10dp"
             android:textStyle="bold"
-            android:textColor="@color/white"
+
 
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"

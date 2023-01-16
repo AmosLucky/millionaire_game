@@ -91,10 +91,15 @@ public class PlayDetailsActivity extends AppCompatActivity {
 
         boolean fromNoThanks = getIntent().getBooleanExtra("noThanks",false);
         if(fromNoThanks){
-            FailureActivity.interstitialAd.show();
+           try {
+               FailureActivity.interstitialAd.show();
+           }catch (Exception e){
+               e.printStackTrace();
+
+           }
         }
 
-        initializeNotification();
+
 
 
 
@@ -403,6 +408,7 @@ public class PlayDetailsActivity extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void checkScore() {
         SharedPreferences sharedPreferences = getSharedPreferences("settings", MODE_PRIVATE);
         String highscore = sharedPreferences.getString("high_score", "0");
@@ -432,13 +438,17 @@ public class PlayDetailsActivity extends AppCompatActivity {
             editor.apply();
 
 
+
+
         }
 
 
         sendScoreToSever(String.valueOf(s), username);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void sendScoreToSever(String score, String username) {
+        initializeNotification();
         String url = getResources().getString(R.string.base_url)+"/post_score.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -452,21 +462,22 @@ public class PlayDetailsActivity extends AppCompatActivity {
                     JSONObject weeklyObj = obj.getJSONObject("weekly");
                     String weekly = weeklyObj.getString("number");
                     String txt = "";
-                    String max = dailyObj.getString("max");
+                    String dailyMax = dailyObj.getString("max");
+                    String weeklyMax = weeklyObj.getString("max");
 
                     if(String.valueOf(daily).equals("1") && String.valueOf(weekly).equals("1")){
 
-                        txt = "Congratulations! improve your score to remain on top-";
+                        txt = "Congratulations! improve your score to remain at the top - $"+currencyFormat(dailyMax);
 
 
                     }else if(String.valueOf(daily).equals("1")){
-                        txt = "Beat this weeks highest score-";
+                        txt = "Beat this weeks highest score - $"+currencyFormat(weeklyMax);
 
-                    }else if(max != null && max != "null"){
-                        txt = "Beat today's highest score of - $"+currencyFormat(max);
+                    }else if(dailyMax != null && dailyMax != "null"){
+                        txt = "Beat today's highest score of - $"+currencyFormat(dailyMax);
 
                     }else{
-                        txt = "Beat today's highest score";
+                        txt = "Beat today's highest score - $"+currencyFormat(dailyMax);
 
                     }
 
@@ -556,6 +567,8 @@ public class PlayDetailsActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private  void initializeNotification(){
+
+
 //        Calendar calendar = Calendar.getInstance();
 //        Date date = new Date();
 //        calendar.setTime(date);
@@ -564,11 +577,25 @@ public class PlayDetailsActivity extends AppCompatActivity {
 //        calendar.set(Calendar.MINUTE);
 //        calendar.set(Calendar.SECOND);
         AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
-        //makeNotificationChannel("4","noti",1);
-        PendingIntent servicePendingIntent =
-                PendingIntent.getBroadcast(PlayDetailsActivity.this, 0, new Intent(PlayDetailsActivity.this, NotificationService.class),0);
 
-        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,  0, servicePendingIntent);
+
+        //makeNotificationChannel("4","noti",1);
+        final int flag =  Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE : PendingIntent.FLAG_UPDATE_CURRENT;
+
+        PendingIntent servicePendingIntent =
+                PendingIntent.getBroadcast(PlayDetailsActivity.this, 0,
+                        new Intent(PlayDetailsActivity.this, NotificationService.class),flag);
+        alarmManager.cancel(servicePendingIntent);
+        int delay = (60 * 2) * 1000;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,(delay),AlarmManager.INTERVAL_DAY, servicePendingIntent);
+        } else {
+            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,(delay), AlarmManager.INTERVAL_DAY,servicePendingIntent);
+        }
+
+
+
     }
     public static String currencyFormat(String amount) {
         if(null == amount){
