@@ -69,5 +69,8 @@ Beat me if you can !!!
     <string name="failure_text">échouer ne signifie pas que vous êtes un échec continuez et devenez millionnaire </string>
     <string name="play_again"><u>Rejouer</u></string>
     <string name="view_ranking"><u>voir le classement</u></string>
+    <string name="count_down_amount">1000000</string>
+    <string name="count_down_level">Level 1</string>
+    <string name="give_up"><ul>Give up</ul></string>
 
 </resources>

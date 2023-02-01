@@ -539,7 +539,7 @@
                         android:textAlignment="center"
                         android:layout_height="wrap_content"
                         android:textSize="10dp"
-                        android:text="Ask computer"
+                        android:text="Ask Computer"
                         android:id="@+id/opt_dec_2"
                         />
                     <TextView
@@ -548,7 +548,7 @@
                         android:textAlignment="center"
                         android:layout_height="wrap_content"
                         android:textSize="10dp"
-                        android:text="Take a poll"
+                        android:text="Take a Poll"
                         android:id="@+id/opt_dec_3"
                         />
                     <TextView

@@ -73,7 +73,7 @@ public class Dashboard extends AppCompatActivity {
 
         setContentView(R.layout.activity_dashboard);
         TextView highscoreTxt = findViewById(R.id.highscore);
-        highscoreTxt.setText("$"+highscore);
+        highscoreTxt.setText("$"+Utils.prettyCount(Integer.parseInt(highscore)));
         AdView mAdView;
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -116,7 +116,7 @@ public class Dashboard extends AppCompatActivity {
 //                Intent intent = new Intent(Dashboard.this,CountDownActivity.class);
 //                startActivity(intent);
 //                finish();
-                Intent intent = new Intent(Dashboard.this,LevelActivity.class);
+                Intent intent = new Intent(Dashboard.this,CountDownActivity.class);
                 startActivity(intent);
                 //finish();
             }
@@ -130,7 +130,7 @@ public class Dashboard extends AppCompatActivity {
         new_particle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Dashboard.this,Emitter.class);
+                Intent i = new Intent(Dashboard.this,WinnersActivity.class);
                 startActivity(i);
             }
         });

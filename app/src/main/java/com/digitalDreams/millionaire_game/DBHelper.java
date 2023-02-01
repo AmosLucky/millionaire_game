@@ -106,8 +106,8 @@ class DBHelper extends SQLiteOpenHelper {
         Log.i("current_play_level",current_play_level);
 
         SQLiteDatabase db = this.getWritableDatabase();
-        //String selectQuery = "SELECT * FROM " + JSON_TABLE + " where LEVEL = "+level+" ORDER BY RANDOM() LIMIT 1";
-        String selectQuery = "SELECT * FROM " + JSON_TABLE + " where LEVEL = "+level+" and STAGE = " +current_play_level+ " ORDER BY RANDOM() LIMIT 1";
+        String selectQuery = "SELECT * FROM " + JSON_TABLE + " where LEVEL = "+level+" ORDER BY RANDOM() LIMIT 1";
+        //String selectQuery = "SELECT * FROM " + JSON_TABLE + " where LEVEL = "+level+" and STAGE = " +current_play_level+ " ORDER BY RANDOM() LIMIT 1";
 
         Log.i("99999999",selectQuery);
         Cursor res = db.rawQuery(selectQuery,null);
@@ -185,6 +185,7 @@ class DBHelper extends SQLiteOpenHelper {
             JSONArray arr = new JSONArray();
             for(int a=1;a<16;a++) {
                 Cursor res = getQuestionByLevel2(String.valueOf(a));
+
                 res.moveToNext();
                 @SuppressLint("Range") String id = res.getString(res.getColumnIndex("ID"));
                 @SuppressLint("Range") String language = res.getString(res.getColumnIndex("LANGUAGE"));

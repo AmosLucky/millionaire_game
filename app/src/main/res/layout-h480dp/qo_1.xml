@@ -544,7 +544,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/opt_dec_2"
 
-                    android:text="Ask computer"/>
+                    android:text="Ask Computer"/>
                 <TextView
                     android:textSize="8dp"
                     android:layout_width="0dp"
@@ -553,7 +553,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/opt_dec_3"
 
-                    android:text="Take a poll"/>
+                    android:text="Take a Poll"/>
                 <TextView
                     android:textSize="8dp"
                     android:layout_width="0dp"

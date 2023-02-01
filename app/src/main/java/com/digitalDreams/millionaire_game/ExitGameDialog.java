@@ -89,7 +89,7 @@ public class ExitGameDialog extends Dialog {
             }
         });
         TextView amountwonText = findViewById(R.id.amount_won);
-        amountwonText.setText(amountWon);
+        amountwonText.setText(Utils.addCommaAndDollarSign(Integer.parseInt(amountWon)));
 
         continueBtn.setOnClickListener(new View.OnClickListener() {
             @Override

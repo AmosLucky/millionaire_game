@@ -558,7 +558,7 @@
                         android:textAlignment="center"
                         android:layout_height="wrap_content"
 
-                        android:text="Ask computer"
+                        android:text="Ask Computer"
                         android:textSize="10dp"
                         android:id="@+id/opt_dec_2"
                         />
@@ -568,7 +568,7 @@
                         android:textAlignment="center"
                         android:layout_height="wrap_content"
 
-                        android:text="Take a poll"
+                        android:text="Take a Poll"
                         android:textSize="10dp"
                         android:id="@+id/opt_dec_3"
                         />

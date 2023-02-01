@@ -157,7 +157,7 @@ public class PlayDetailsActivity extends AppCompatActivity {
 
 
                     }else{
-                    amountWonTxt.setText(GameActivity2.amountWon);
+                    amountWonTxt.setText(Utils.addCommaAndDollarSign(Integer.parseInt(GameActivity2.amountWon)));
                 }
 
 
@@ -416,7 +416,7 @@ public class PlayDetailsActivity extends AppCompatActivity {
         String oldAmountWon = sharedPreferences.getString("amountWon", "");
         int h = Integer.parseInt(highscore);
         String score = GameActivity2.amountWon;
-        score = score.substring(1);
+        //score = score.substring(1);
         score = score.replace(",", "");
         int s = Integer.parseInt(score);
 

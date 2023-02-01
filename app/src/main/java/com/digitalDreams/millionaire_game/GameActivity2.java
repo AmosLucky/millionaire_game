@@ -8,6 +8,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
@@ -116,8 +117,8 @@ public class GameActivity2 extends AppCompatActivity {
     int totalQuestionCount=0;
     int failCount=0;
     int progress=0;
-    public static String[] moneyArr={"$500","$1,000","$2,000","$3,000","$5,000","$7,500","$10,000","$12,500","$15,000","$25,000",
-    "$50,000","$100,000","$250,000","$500,000","$1,000,000"};
+    public static Integer[] moneyArr; //={500,1000,2000,3000,5000,7500,10000,12500,15000,25000,
+    //50000,100000,250000,500000,1000000};
     int p=0;
     int p1=1;
     boolean _2question = true;
@@ -126,7 +127,7 @@ public class GameActivity2 extends AppCompatActivity {
     boolean skip = true;
     String[] answerDescriptionArr = {"I dont know. Choose","Maybe it's ","Don't really know, Go for "};
     float[] answerPercentages={70,80,65};
-    public static String amountWon="$0";
+    public static String amountWon="0";
     public static boolean hasOldWinningAmount = false;
     String option2,option1;
     String sound,vibrate;
@@ -148,20 +149,22 @@ public class GameActivity2 extends AppCompatActivity {
     RelativeLayout progressBtn, exitBtn,cancel_button;
     LinearLayout guid_layout;
     TextView opt_dec_1,opt_dec_2,opt_dec_3,opt_dec_4;
+    int number_of_failure = 0;
+    LinearLayout lifeGuardContainers = null;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exam_game2);
-       // fromProgress = getIntent().getBooleanExtra("fromProgress",false);
+        fromProgress = getIntent().getBooleanExtra("fromProgress",false);
 
 
         hasOldWinningAmount = getIntent().getBooleanExtra("hasOldWinningAmount",false);
         noOfQuestionAnswered=0;
         noOfCorrectAnswer=0;
         timing =0;
-        amountWon="$0";
+        amountWon="0";
         mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
         loadVideoAd();
         loadInterstialAd();
@@ -185,6 +188,16 @@ public class GameActivity2 extends AppCompatActivity {
         int cardBackground = sharedPreferences.getInt("card_background",0x03045e);
         String oldAmountWon = sharedPreferences.getString("amountWon","");
         boolean isFirstTime = sharedPreferences.getBoolean("isFirstTime",false);
+        String game_level = sharedPreferences.getString("game_level","1");
+        int game_level_int = Integer.parseInt(game_level);
+
+       moneyArr = new Integer[]{500*(game_level_int), 1000*(game_level_int), 2000*(game_level_int),
+               3000*(game_level_int), 5000*(game_level_int), 7500*(game_level_int), 10000*(game_level_int),
+               12500*(game_level_int), 15000*(game_level_int), 25000*(game_level_int),
+               50000*(game_level_int), 100000*(game_level_int), 250000*(game_level_int), 500000*(game_level_int),
+               1000000*(game_level_int)};
+
+
         new Particles(this,bg,R.layout.image_xml,30);
         GradientDrawable gd = new GradientDrawable(
                 GradientDrawable.Orientation.TOP_BOTTOM,
@@ -458,7 +471,7 @@ public class GameActivity2 extends AppCompatActivity {
             }catch (StringIndexOutOfBoundsException e){
                 e.printStackTrace();
             }
-            View v=LayoutInflater.from(this).inflate(R.layout.qo_1,a,false);
+            View v= LayoutInflater.from(this).inflate(R.layout.qo_1,a,false);
 
             TextView questionNumber = v.findViewById(R.id.question_progress);
             questionNumber.setText(number+" / 15");
@@ -521,7 +534,10 @@ public class GameActivity2 extends AppCompatActivity {
         }
     }
 
+
+
     public void af(LinearLayout a,JSONObject b, boolean visible,int number){
+        lifeGuardContainers = a;
 
         float scale = getResources().getDisplayMetrics().density;
         int dp = (int) (16*scale + 0.5f);
@@ -680,6 +696,7 @@ public class GameActivity2 extends AppCompatActivity {
                     final RelativeLayout r = (RelativeLayout) q.getChildAt(c);
                     final TextView k = q.getChildAt(c).findViewById(R.id.opt);
                     k.setTag(number);
+                    int finalC = c;
                     r.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -693,17 +710,24 @@ public class GameActivity2 extends AppCompatActivity {
                             VectorDrawable gd = (VectorDrawable) r.getBackground().mutate();
                             gd.setColorFilter(ContextCompat.getColor(GameActivity2.this,R.color.orange), PorterDuff.Mode.SRC_IN);
                             r.setBackground(gd);
+                            final RelativeLayout[] relativeLayout = {(RelativeLayout) q.getChildAt(finalC)};
+                            final VectorDrawable[] vectorDrawable = {gd};
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
                                     for (int c = 0; c < q.getChildCount(); c++) {
-                                        final RelativeLayout ri = (RelativeLayout) q.getChildAt(c);
+
                                         TextView k = q.getChildAt(c).findViewById(R.id.opt);
 
+
                                         if (k.getText().toString().trim().equals(ans.getText().toString().trim())) {
-                                            VectorDrawable gd = (VectorDrawable) ri.getBackground().mutate();
-                                            gd.setColorFilter(ContextCompat.getColor(GameActivity2.this,R.color.green), PorterDuff.Mode.SRC_IN);
-                                            ri.setBackground(gd);
+                                            relativeLayout[0] = (RelativeLayout) q.getChildAt(c);
+                                            vectorDrawable[0] = (VectorDrawable)  relativeLayout[0].getBackground().mutate();
+
+                                           if(number_of_failure >= 1){
+                                               vectorDrawable[0].setColorFilter(ContextCompat.getColor(GameActivity2.this,R.color.green), PorterDuff.Mode.SRC_IN);
+                                               relativeLayout[0].setBackground( vectorDrawable[0]);
+                                           }
 
                                         }
 
@@ -714,7 +738,7 @@ public class GameActivity2 extends AppCompatActivity {
                                         r.setBackground(gd);
                                         failCount++;
                                     }
-                                    checkAnswer(k.getText().toString(), ans.getText().toString(), (Integer) k.getTag());
+                                    checkAnswer(k.getText().toString(), ans.getText().toString(), (Integer) k.getTag(), vectorDrawable[0],relativeLayout[0]);
 
                                 }
                             },1000);
@@ -773,6 +797,7 @@ public class GameActivity2 extends AppCompatActivity {
         int i=parent.indexOfChild(current);
         ImageButton f=findViewById(R.id.fwd);
         ImageButton p=findViewById(R.id.prev);
+
         nextView = parent.getChildAt(i+1);
 
         updateLifelines(nextView);
@@ -1017,11 +1042,16 @@ public class GameActivity2 extends AppCompatActivity {
         return false;
     }
 
-    private void checkAnswer(String answer,String correct,int number1){
+    private void checkAnswer(String answer,String correct,int number1,VectorDrawable vectorDrawable
+    , RelativeLayout relativeLayout){
         loadVideoAd();
         noOfQuestionAnswered++;
         continueSound=true;
         if (answer.trim().equals(correct.trim())) {
+            number_of_failure = 0;
+
+            vectorDrawable.setColorFilter(ContextCompat.getColor(GameActivity2.this,R.color.green), PorterDuff.Mode.SRC_IN);
+            relativeLayout.setBackground(vectorDrawable);
             if(vibrate.equals("1")) {
                 Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -1032,7 +1062,7 @@ public class GameActivity2 extends AppCompatActivity {
                 playSuccessSound();
             }
             noOfCorrectAnswer++;
-            amountWon = moneyArr[p1-2];
+            amountWon = String.valueOf(moneyArr[p1-2]);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -1042,7 +1072,7 @@ public class GameActivity2 extends AppCompatActivity {
                         int current_play_level_int = Integer.parseInt(sharedPreferences.getString("current_play_level","1"));
                         int newGameLevel = current_play_level_int+1;
                         SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("game_level",String.valueOf(newGameLevel));
+                       /// editor.putString("game_level",String.valueOf(newGameLevel));
                         editor.putString("current_play_level",String.valueOf(newGameLevel));
 
                         if(hasOldWinningAmount){
@@ -1051,7 +1081,7 @@ public class GameActivity2 extends AppCompatActivity {
                             int newAmount = Integer.parseInt(amountWon) + Integer.parseInt(oldAmountWon);
                             DecimalFormat formatter = new DecimalFormat("#,###,###");
                             String formatted_newAmount = formatter.format(newAmount);
-                            editor.putString("amountWon","$"+formatted_newAmount);
+                            editor.putString("amountWon",formatted_newAmount);
 
                         }else{
                             editor.putString("amountWon",amountWon);
@@ -1092,17 +1122,32 @@ public class GameActivity2 extends AppCompatActivity {
                     v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
                 }
             }
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
 
-                    Intent intent = new Intent(GameActivity2.this,FailureActivity.class);
-                    if(hasOldWinningAmount){
-                        intent.putExtra("hasOldWinningAmount",hasOldWinningAmount);
+            if(number_of_failure < 1){
+                //////First Failure//////
+                number_of_failure++;
+                WrongAnswerDialog wrongAnswerDialog = new WrongAnswerDialog(GameActivity2.this,mRewardedVideoAd,CountDownActivity.mMediaPlayer);
+
+                wrongAnswerDialog.show();
+                wrongAnswerDialog.setCancelable(false);
+
+
+            }
+            else {
+                /////Total Fsilure///
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Intent intent = new Intent(GameActivity2.this, FailureActivity.class);
+                        if (hasOldWinningAmount) {
+                            intent.putExtra("hasOldWinningAmount", hasOldWinningAmount);
+                        }
+                        startActivity(intent);
                     }
-                    startActivity(intent);
-                }
-            },500);
+                }, 500);
+
+            }
 
         }
 
@@ -1158,6 +1203,22 @@ public class GameActivity2 extends AppCompatActivity {
         Log.i("Loadeddd", String.valueOf(fromProgress));
         if(fromProgress){
             fromProgress = false;
+            //hideLifeGuard();
+            //number_of_failure = 0;
+            LinearLayout parent = findViewById(R.id.displayExam);
+            int i=parent.indexOfChild(current);
+            nextView = parent.getChildAt(i+1);
+
+            RelativeLayout answerContainer = parent.findViewById(R.id.ask_answer_container);
+            answerContainer.setVisibility(View.GONE);
+
+
+                if(noOfCorrectAnswer <= 14){
+                    updateLifelines(nextView);
+
+                }
+
+
         }else{
 
            // showInterstitial();
@@ -1170,6 +1231,8 @@ public class GameActivity2 extends AppCompatActivity {
         continueSound=false;
 
         if(continueGame){
+            hideLifeGuard();
+            number_of_failure = 0;
 
             if(cTimer!=null) {
                 cTimer.cancel();
@@ -1268,7 +1331,7 @@ public class GameActivity2 extends AppCompatActivity {
             integers[i] = optNumberList.get(i);
         }
 
-        int position =getRandom(integers);
+        int position =                   getRandom(integers);
         show2question(p,position,v);
 
     }
@@ -1447,10 +1510,12 @@ public class GameActivity2 extends AppCompatActivity {
 
 
     private void disableOptions(LinearLayout q) {
-        for (int c = 0; c < q.getChildCount(); c++) {
-            final RelativeLayout r = (RelativeLayout) q.getChildAt(c);
-            r.setClickable(false);
-            Log.i("Cliiiii","Cliiiii22222222222"+String.valueOf(c));
+        if(number_of_failure >= 1) {
+            for (int c = 0; c < q.getChildCount(); c++) {
+                final RelativeLayout r = (RelativeLayout) q.getChildAt(c);
+                r.setClickable(false);
+                Log.i("Cliiiii", "Cliiiii22222222222" + String.valueOf(c));
+            }
         }
     }
 
@@ -1621,12 +1686,12 @@ public class GameActivity2 extends AppCompatActivity {
 
         Cursor res = dbHelper.getQuestionByLevel(String.valueOf(p1));
         res.moveToNext();
-        String id = res.getString(res.getColumnIndex("ID"));
-        String language = res.getString(res.getColumnIndex("LANGUAGE"));
-        String question = res.getString(res.getColumnIndex("QUESTION"));
-        String answer = res.getString(res.getColumnIndex("ANSWER"));
-        String type = res.getString(res.getColumnIndex("TYPE"));
-        String correct = res.getString(res.getColumnIndex("CORRECT"));
+        @SuppressLint("Range") String id = res.getString(res.getColumnIndex("ID"));
+        @SuppressLint("Range") String language = res.getString(res.getColumnIndex("LANGUAGE"));
+        @SuppressLint("Range") String question = res.getString(res.getColumnIndex("QUESTION"));
+        @SuppressLint("Range") String answer = res.getString(res.getColumnIndex("ANSWER"));
+        @SuppressLint("Range") String type = res.getString(res.getColumnIndex("TYPE"));
+        @SuppressLint("Range") String correct = res.getString(res.getColumnIndex("CORRECT"));
 
         TextView questionTxt=current.findViewById(R.id.qo_text);
         try {
@@ -1725,54 +1790,17 @@ public class GameActivity2 extends AppCompatActivity {
 
     private void setAmountWon(){
         TextView amountWonTxt = findViewById(R.id.amount_won);
-        switch (amountWon){
-            case "$0":
+        String amountWon_ = amountWon.replace("$","");
+        switch (Integer.parseInt(amountWon_)){
+            case 0:
                 amountWonTxt.setText("$0");
                 break;
-            case "$500":
+            case 500:
                 amountWonTxt.setText("$500");
                 break;
-            case "$1,000":
-                amountWonTxt.setText("$1K");
-                break;
-            case "$2,000":
-                amountWonTxt.setText("$2K");
-                break;
-            case "$3,000":
-                amountWonTxt.setText("3K");
-                break;
-            case "$5,000":
-                amountWonTxt.setText("5K");
-                break;
-            case "$7,500":
-                amountWonTxt.setText("7.5K");
-                break;
-            case "$10,000":
-                amountWonTxt.setText("10K");
-                break;
-            case "$12,500":
-                amountWonTxt.setText("12.5K");
-                break;
-            case "$15,000":
-                amountWonTxt.setText("15K");
-                break;
-            case "$25,000":
-                amountWonTxt.setText("25K");
-                break;
-            case "$50,000":
-                amountWonTxt.setText("50K");
-                break;
-            case "$100,000":
-                amountWonTxt.setText("100K");
-                break;
-            case "$250,000":
-                amountWonTxt.setText("250K");
-                break;
-            case "$500,000":
-                amountWonTxt.setText("500K");
-                break;
-            case "$1,000,000":
-                amountWonTxt.setText("1M");
+
+            default:
+                amountWonTxt.setText("$"+prettyCount(Integer.parseInt(amountWon)).replace(".0",""));
                 break;
         }
     }
@@ -1926,5 +1954,27 @@ public void rotateView(ImageView refreshIcon, View videoIcon, View refreshBTN){
         animation.addAnimation(fadeIn);
         //animation.addAnimation(fadeOut);
         view.setAnimation(animation);
+    }
+    public String prettyCount(Integer number) {
+        char[] suffix = {' ', 'k', 'M', 'B', 'T', 'P', 'E'};
+        long numValue = number.longValue();
+        int value = (int) Math.floor(Math.log10(numValue));
+        int base = value / 3;
+        if (value >= 3 && base < suffix.length) {
+            return new DecimalFormat("#0.0").format(numValue / Math.pow(10, base * 3)) + suffix[base];
+        } else {
+            return new DecimalFormat("#,##0").format(numValue);
+        }
+    }
+
+    void hideLifeGuard(){
+       // if(lifeGuardContainers != null){
+
+            RelativeLayout answerContainer = current.findViewById(R.id.ask_answer_container);
+            LinearLayout votingContainer = current.findViewById(R.id.voting_container);
+            answerContainer.setVisibility(View.GONE);
+            votingContainer.setVisibility(View.GONE);
+
+      //  }
     }
 }

@@ -580,7 +580,7 @@ public class FailureActivity extends AppCompatActivity {
         String oldAmountWon = sharedPreferences.getString("amountWon", "");
         int h = Integer.parseInt(highscore);
         String score = GameActivity2.amountWon;
-        score = score.substring(1);
+        ///score = score.substring(1);
         score = score.replace(",", "");
         int s = Integer.parseInt(score);
 
@@ -610,7 +610,11 @@ public class FailureActivity extends AppCompatActivity {
 
 
 
-        sendScoreToSever(String.valueOf(s),  userDetails);
+       try{
+           sendScoreToSever(String.valueOf(s),  userDetails);
+       }catch (Exception e){
+           e.printStackTrace();
+       }
     }
 
     private void sendScoreToSever(String score,Map<String,String> userDetails) {

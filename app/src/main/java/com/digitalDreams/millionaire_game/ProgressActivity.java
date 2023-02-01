@@ -29,6 +29,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+
 public class ProgressActivity extends AppCompatActivity {
 
     @Override
@@ -78,7 +80,11 @@ public class ProgressActivity extends AppCompatActivity {
             RelativeLayout r = v.findViewById(R.id.t1);
             TextView amountText = v.findViewById(R.id.amount);
             pText.setText(String.valueOf(a+1));
-            amountText.setText(GameActivity2.moneyArr[a]);
+
+            DecimalFormat formatter = new DecimalFormat("#,###,###");
+            String formatted_newAmount = formatter.format(GameActivity2.moneyArr[a]);
+            //editor.putString("amountWon","$"+formatted_newAmount);
+            amountText.setText("$"+formatted_newAmount);
             slideInAnimation(v,a);
             if(a==position-1){
                 VectorDrawable g = (VectorDrawable) r.getBackground().mutate();

@@ -20,6 +20,8 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 
+import java.text.DecimalFormat;
+
 
 public class CountDownActivity extends AppCompatActivity {
     String time = "5000";
@@ -29,6 +31,10 @@ public class CountDownActivity extends AppCompatActivity {
     public static MediaPlayer mFailurePlayer;
     boolean hasOldWinningAmount = false;
     public static RewardedVideoAd mRewardedVideoAd;
+    TextView count_down_level;
+    TextView amount_to_win;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +58,7 @@ public class CountDownActivity extends AppCompatActivity {
         String languageCode = sharedPreferences.getString("language","en");
         int endcolor = sharedPreferences.getInt("end_color",getResources().getColor(R.color.purple_dark));
         int startColor = sharedPreferences.getInt("start_color",getResources().getColor(R.color.purple_500));
+        String game_level = sharedPreferences.getString("game_level","1");
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
@@ -64,6 +71,19 @@ public class CountDownActivity extends AppCompatActivity {
                 new int[] {startColor,endcolor});
 
         bg.setBackgroundDrawable(gd);
+
+        ////// set game and level ///////////
+         amount_to_win =  findViewById(R.id.amount_to_win);
+         count_down_level = findViewById(R.id.level);
+        String pattern = "#,###,###.###";
+        DecimalFormat decimalFormat = new DecimalFormat(pattern);
+
+        int amount_to_win_int = Integer.parseInt(game_level) * 1000000;
+        String level_string = "Level "+ game_level;
+        amount_to_win.setText("$"+decimalFormat.format(amount_to_win_int));
+        count_down_level.setText(level_string);
+
+        ////
 
         TextView counterText = findViewById(R.id.count_down_text);
         Intent intent = getIntent();
@@ -89,7 +109,7 @@ public class CountDownActivity extends AppCompatActivity {
                 }
                 intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP );
                 startActivity(intent);
-                finish();
+               finish();
             }
         };
         timer.start();

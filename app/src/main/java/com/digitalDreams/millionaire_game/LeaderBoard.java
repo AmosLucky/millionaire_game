@@ -176,7 +176,11 @@ public class LeaderBoard extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }else {
-                    getWeeklyLeaderBoard();
+                   try {
+                       getWeeklyLeaderBoard();
+                   }catch (Exception e){
+                       e.printStackTrace();
+                   }
                 }
             }
         });
@@ -197,7 +201,11 @@ public class LeaderBoard extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }else {
-                    getDialyLeaderBoard();
+                    try {
+                        getDialyLeaderBoard();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -224,7 +232,11 @@ public class LeaderBoard extends AppCompatActivity {
                     }
                 }else {
                     country_layout_container.removeAllViews();
-                    getCountryLeaderBoard();
+                    try{
+                        getCountryLeaderBoard();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -275,7 +287,11 @@ public class LeaderBoard extends AppCompatActivity {
         String highscore = sharedPreferences.getString("high_score","0");
         String username = sharedPreferences.getString("username","");
 
-        getAllLeaderBoard();
+      try{
+          getAllLeaderBoard();
+      }catch (Exception e){
+          e.printStackTrace();
+      }
 
 
 

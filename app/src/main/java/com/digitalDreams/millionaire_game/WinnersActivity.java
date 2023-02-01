@@ -94,10 +94,25 @@ public class WinnersActivity extends AppCompatActivity {
         int cardBackground = sharedPreferences.getInt("card_background",0x219ebc);
         String highscore = sharedPreferences.getString("high_score","0");
         String username = sharedPreferences.getString("username","");
-        amountWon = sharedPreferences.getString("amountWon","$1,000,000");
+        amountWon = sharedPreferences.getString("amountWon","1000000");
+        String game_level = sharedPreferences.getString("game_level","1");
+
+        /////////////Save level//////
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        int game_level_int = Integer.parseInt(game_level);
+
+        int  next_level = game_level_int+1;
+
+        editor.putString("game_level",String.valueOf(next_level));
+        editor.putString("high_score",amountWon);
+        editor.apply();
+
+
+        ///////////////////////////
 
         usernameTXT.setText(username.substring(0,1).toUpperCase()+username.substring(1,username.length()));
-        amountWonTXT.setText(amountWon);
+        amountWonTXT.setText(Utils.addDollarSign(Utils.addCommaToNumber(Integer.parseInt(amountWon))));
         bg = findViewById(R.id.rootview);
         imageRoot = findViewById(R.id.imageroot);
         new Particles(this,bg,R.layout.image_xml,20);
