@@ -9,6 +9,7 @@ import android.animation.ObjectAnimator;
 import android.app.Application;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BlendMode;
 import android.graphics.Path;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -297,7 +298,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }finally {
-            dbHelper = new DBHelper(this);
+            //dbHelper = new DBHelper(this)
             //insertDataToTable(json);
 
         }
@@ -305,10 +306,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void parseJSON(String json){
+        int lent =0;
         try {
             JSONObject jsonObject = new JSONObject(json);
             Iterator<String> iter=jsonObject.keys();
+            lent = jsonObject.length();
+
+
             while (iter.hasNext()) {
+                lent++;
                 String k = iter.next(); //// LANGUAGEs LEVEL
 
                 JSONObject language_keys = jsonObject.getJSONObject(k);
@@ -389,10 +395,13 @@ public class MainActivity extends AppCompatActivity {
 //                       // dbHelper.insertDetails(k,key,id,content,type,answer,correct);
 //                    }
 //                }
+
+
             }
         }catch (JSONException e){
             e.printStackTrace();
         }
+        Log.i("JsonDetails", String.valueOf(lent));
         SharedPreferences sharedPreferences = getSharedPreferences("settings",MODE_PRIVATE);
         String username = sharedPreferences.getString("username","");
         if(!username.isEmpty()) {

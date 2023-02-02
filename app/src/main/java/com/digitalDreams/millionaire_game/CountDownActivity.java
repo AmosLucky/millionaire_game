@@ -50,6 +50,7 @@ public class CountDownActivity extends AppCompatActivity {
         loadVideoAd();
 
         dbHelper = new DBHelper(this);
+        dbHelper.close();
         String json = dbHelper.buildJson();
         hasOldWinningAmount = getIntent().getBooleanExtra("hasOldWinningAmount",false);
 

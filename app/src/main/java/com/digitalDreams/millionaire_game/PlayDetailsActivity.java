@@ -376,7 +376,7 @@ public class PlayDetailsActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if (requestCode == MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Bitmap bitmap = takeScreenshot();
                 saveBitmap(bitmap);
                 shareIt();
@@ -443,12 +443,20 @@ public class PlayDetailsActivity extends AppCompatActivity {
         }
 
 
-        sendScoreToSever(String.valueOf(s), username);
+       try{
+           sendScoreToSever(String.valueOf(s), username);
+       }catch (Exception e){
+           e.printStackTrace();
+       }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void sendScoreToSever(String score, String username) {
-        initializeNotification();
+        try{
+            initializeNotification();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         String url = getResources().getString(R.string.base_url)+"/post_score.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override

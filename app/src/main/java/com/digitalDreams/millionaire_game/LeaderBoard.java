@@ -772,7 +772,7 @@ public class LeaderBoard extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if (requestCode == MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.length>0&&grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Bitmap bitmap = takeScreenshot();
                 saveBitmap(bitmap);
                 shareIt();

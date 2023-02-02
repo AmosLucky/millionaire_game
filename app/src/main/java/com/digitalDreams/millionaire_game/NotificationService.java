@@ -38,8 +38,10 @@ public class NotificationService extends BroadcastReceiver {
         // the second parameter is the channel id.
         // it should be the same as passed to the makeNotificationChannel() method
         Intent intentAction = new Intent(context,Dashboard.class);
+        final int flag =  Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE : PendingIntent.FLAG_UPDATE_CURRENT;
 
-        PendingIntent pIntent = PendingIntent.getActivity(context,1,intentAction,PendingIntent.FLAG_UPDATE_CURRENT);
+
+        PendingIntent pIntent = PendingIntent.getActivity(context,1,intentAction,flag);
 
 String message = "Beat your last score in Millionaire Game and stand tall as a champion. \n PLAY NOW";
         notification

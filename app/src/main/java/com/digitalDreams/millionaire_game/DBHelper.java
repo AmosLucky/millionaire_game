@@ -105,7 +105,7 @@ class DBHelper extends SQLiteOpenHelper {
         String current_play_level = sharedPreferences.getString("current_play_level","1");
         Log.i("current_play_level",current_play_level);
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
         String selectQuery = "SELECT * FROM " + JSON_TABLE + " where LEVEL = "+level+" ORDER BY RANDOM() LIMIT 1";
         //String selectQuery = "SELECT * FROM " + JSON_TABLE + " where LEVEL = "+level+" and STAGE = " +current_play_level+ " ORDER BY RANDOM() LIMIT 1";
 
@@ -148,13 +148,13 @@ class DBHelper extends SQLiteOpenHelper {
         String game_level = sharedPreferences.getString("game_level","1");
         String current_play_level = sharedPreferences.getString("current_play_level","1");
         SQLiteDatabase db = this.getWritableDatabase();
-        String selectQuery = "SELECT * FROM " + JSON_TABLE + " where LEVEL = "+level+" and STAGE = " +current_play_level;
+        String selectQuery = "SELECT * FROM " + JSON_TABLE + " where LEVEL = "+level;
         Cursor res = db.rawQuery(selectQuery,null);
 
 
         int count = res.getCount();
         int randomNumber = new Random().nextInt(count);
-        String selectQuery1 = "SELECT * FROM " + JSON_TABLE + " where LEVEL = "+level+" and STAGE = " +current_play_level+ " ORDER BY ID LIMIT "+randomNumber+",1";
+        String selectQuery1 = "SELECT * FROM " + JSON_TABLE + " where LEVEL = "+level+ " ORDER BY ID LIMIT "+randomNumber+",1";
 
         //String selectQuery1 = "SELECT * FROM " + JSON_TABLE + " where LEVEL = "+level+" ORDER BY ID LIMIT "+randomNumber+",1";
         Cursor res1 = db.rawQuery(selectQuery1,null);

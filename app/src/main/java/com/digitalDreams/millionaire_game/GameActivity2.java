@@ -1214,7 +1214,11 @@ public class GameActivity2 extends AppCompatActivity {
 
 
                 if(noOfCorrectAnswer <= 14){
-                    updateLifelines(nextView);
+                   try{
+                       updateLifelines(nextView);
+                   }catch (Exception e){
+                       e.printStackTrace();
+                   }
 
                 }
 
@@ -1807,7 +1811,7 @@ public class GameActivity2 extends AppCompatActivity {
 
     public static void loadVideoAd() {
         // Load a reward based video ad
-        if(!mRewardedVideoAd.isLoaded()){
+        if(!mRewardedVideoAd.isLoaded() && mRewardedVideoAd !=null){
             Log.i("mRewardedVideoAd","Not LOaded");
             mRewardedVideoAd.loadAd("ca-app-pub-4696224049420135/7768937909", new AdRequest.Builder()
                     .addTestDevice("9D16E23BB90EF4BFA204300CCDCCF264").build());

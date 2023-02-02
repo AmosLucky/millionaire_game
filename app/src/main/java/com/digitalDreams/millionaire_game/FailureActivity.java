@@ -54,7 +54,7 @@ import java.util.Map;
 public class FailureActivity extends AppCompatActivity {
     long time;
     String countdownTime="9000";
-    private RewardedVideoAd mRewardedVideoAd;
+    public RewardedVideoAd mRewardedVideoAd;
     private boolean clicked = false;
     public static InterstitialAd interstitialAd;
     String modeValue = "";
@@ -270,7 +270,7 @@ public class FailureActivity extends AppCompatActivity {
 
                 @Override
                 public void onRewardedVideoAdClosed() {
-                    GameActivity2.continueGame = true;
+                    continueGame = true;
                     finish();
                 }
 
@@ -291,7 +291,7 @@ public class FailureActivity extends AppCompatActivity {
 
                 @Override
                 public void onRewardedVideoCompleted() {
-                    GameActivity2.continueGame = true;
+                    continueGame = true;
                     finish();
                 }
 
@@ -317,7 +317,7 @@ public class FailureActivity extends AppCompatActivity {
                 public void onRewardedVideoAdClosed() {
                     CountDownActivity.mRewardedVideoAd.loadAd("ca-app-pub-4696224049420135/7768937909", new AdRequest.Builder().build());
 
-                    GameActivity2.continueGame = true;
+                    continueGame = true;
                     finish();
                 }
 
@@ -340,7 +340,7 @@ public class FailureActivity extends AppCompatActivity {
                 public void onRewardedVideoCompleted() {
                     CountDownActivity.mRewardedVideoAd.loadAd("ca-app-pub-4696224049420135/7768937909", new AdRequest.Builder().build());
 
-                    GameActivity2.continueGame = true;
+                    continueGame = true;
                     finish();
                 }
 
@@ -529,7 +529,9 @@ public class FailureActivity extends AppCompatActivity {
 
     private void loadVideoAd() {
         // Load a reward based video ad
-        GameActivity2.loadVideoAd();
+       if(GameActivity2.mRewardedVideoAd != null){
+           GameActivity2.loadVideoAd();
+       }
       ///  GameActivity2.mRewardedVideoAd.loadAd("ca-app-pub-4696224049420135/7768937909", new AdRequest.Builder().build());
       //  mRewardedVideoAd.loadAd("ca-app-pub-4696224049420135/7768937909", new AdRequest.Builder().build());
     }

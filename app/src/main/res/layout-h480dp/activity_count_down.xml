@@ -44,6 +44,7 @@
             android:text="@string/count_down_amount"
             android:textColor="@color/orange"
             android:textSize="30sp"
+            android:layout_marginTop="30dp"
             android:textStyle="bold" />
     </LinearLayout>
 

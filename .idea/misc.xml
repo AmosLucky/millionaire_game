@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/layout-h1024dp/activity_count_down.xml" value="0.1" />
         <entry key="app/src/main/res/layout-h1024dp/activity_credit.xml" value="0.1" />
+        <entry key="app/src/main/res/layout-h1024dp/activity_dashboard.xml" value="0.1" />
         <entry key="app/src/main/res/layout-h1024dp/activity_exam_game2.xml" value="0.1" />
         <entry key="app/src/main/res/layout-h1024dp/activity_game.xml" value="0.1" />
         <entry key="app/src/main/res/layout-h1024dp/activity_leader_board.xml" value="0.102734375" />
@@ -15,6 +16,7 @@
         <entry key="app/src/main/res/layout-h1024dp/optionsview.xml" value="0.1" />
         <entry key="app/src/main/res/layout-h1024dp/qo_1.xml" value="0.125" />
         <entry key="app/src/main/res/layout-h300dp/activity_count_down.xml" value="0.23243243243243245" />
+        <entry key="app/src/main/res/layout-h300dp/activity_dashboard.xml" value="0.17927927927927928" />
         <entry key="app/src/main/res/layout-h300dp/activity_exam_game2.xml" value="0.17117117117117117" />
         <entry key="app/src/main/res/layout-h300dp/activity_leader_board.xml" value="0.23693693693693693" />
         <entry key="app/src/main/res/layout-h300dp/card.xml" value="0.17117117117117117" />
@@ -23,6 +25,7 @@
         <entry key="app/src/main/res/layout-h300dp/optionsview.xml" value="0.3318112633181126" />
         <entry key="app/src/main/res/layout-h300dp/qo_1.xml" value="0.17117117117117117" />
         <entry key="app/src/main/res/layout-h480dp/activity_count_down.xml" value="0.3225" />
+        <entry key="app/src/main/res/layout-h480dp/activity_dashboard.xml" value="0.24875" />
         <entry key="app/src/main/res/layout-h480dp/activity_failure.xml" value="0.18125" />
         <entry key="app/src/main/res/layout-h480dp/activity_leader_board.xml" value="0.32875" />
         <entry key="app/src/main/res/layout-h480dp/leader_score_item.xml" value="0.335" />
@@ -54,6 +57,7 @@
         <entry key="app/src/main/res/layout-h720dp/qo_1.xml" value="0.25" />
         <entry key="app/src/main/res/layout-land/activity_winners.xml" value="0.13603603603603603" />
         <entry key="app/src/main/res/layout/activity_count_down.xml" value="0.5682819383259912" />
+        <entry key="app/src/main/res/layout/activity_dashboard.xml" value="0.43832599118942733" />
         <entry key="app/src/main/res/layout/activity_exam_game2.xml" value="0.43832599118942733" />
         <entry key="app/src/main/res/layout/activity_failure.xml" value="0.31938325991189426" />
         <entry key="app/src/main/res/layout/activity_game.xml" value="0.4185022026431718" />
