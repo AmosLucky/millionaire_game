@@ -39,6 +39,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
@@ -107,6 +108,11 @@ public class FailureActivity extends AppCompatActivity {
 
         //loadVideoAd();
 
+        AdView mAdView;
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
 
         SharedPreferences sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
         String languageCode = sharedPreferences.getString("language", "en");
@@ -141,20 +147,32 @@ public class FailureActivity extends AppCompatActivity {
         new_games.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showInterstitial();
+                if(interstitialAd.isLoaded()){
 
-                Intent i = new Intent(FailureActivity.this, CountDownActivity.class);
-                // startActivity(i);
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
+                    interstitialAd.show();
+                }else{
+                    Intent i = new Intent(FailureActivity.this, CountDownActivity.class);
+                    // startActivity(i);
+
+                    startActivity(i);
+                    finish();
+                }
+
+                interstitialAd.setAdListener(new AdListener(){
                     @Override
-                    public void run() {
+                    public void onAdClosed() {
+                        Intent i = new Intent(FailureActivity.this, CountDownActivity.class);
+                        // startActivity(i);
+
                         startActivity(i);
                         finish();
-                        // Do something after 5s = 5000ms
-                        //buttons[inew][jnew].setBackgroundColor(Color.BLACK);
+                        super.onAdClosed();
                     }
-                }, 6000);
+                });
+
+
+                        // Do something after 5s = 5000ms
+
             }
         });
 
@@ -173,12 +191,12 @@ public class FailureActivity extends AppCompatActivity {
 
                 // intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP );
                 boolean hasOldWinningAmount = getIntent().getBooleanExtra("hasOldWinningAmount", false);
-                if (hasOldWinningAmount) {
+
                     if (hasOldWinningAmount) {
                         intent.putExtra("hasOldWinningAmount", true);
 
                     }
-                }
+
                 intent.putExtra("noThanks", true);
 
                 startActivity(intent);
@@ -678,21 +696,11 @@ public class FailureActivity extends AppCompatActivity {
         if (interstitialAd.isLoaded()) {
             interstitialAd.show();
 
-        }else{
-//           if( GameActivity2.interstitialAd.isLoaded()){
-//               GameActivity2.interstitialAd.show();
-//           }else {
-//               CountDownActivity.mRewardedVideoAd.show();
-//           }
-           // loadInterstialAd();
-            interstitialAd.setAdListener(new AdListener() {
-                public void onAdLoaded() {
-                    showInterstitial();
-                }
-            });
         }
+
         loadInterstialAd();
     }
+
 
 
     private boolean isNetworkConnected() {
