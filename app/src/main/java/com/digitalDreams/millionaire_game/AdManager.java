@@ -20,13 +20,13 @@ import com.google.android.gms.ads.rewarded.RewardedAd;
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import com.google.android.gms.ads.rewarded.ServerSideVerificationOptions;
 
-public class AddManager {
+public class AdManager {
     public InterstitialAd mInterstitialAd;
     public  RewardedAd rewardedAd;
     Context context;
     Activity activity;
 
-    AddManager(Context context, Activity activity, InterstitialAd interstitialAd,RewardedAd rewardedAd){
+    AdManager(Context context, Activity activity, InterstitialAd interstitialAd, RewardedAd rewardedAd){
         this.context = context;
         this.activity = activity;
         this.mInterstitialAd = interstitialAd;
