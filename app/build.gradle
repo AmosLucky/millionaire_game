@@ -32,7 +32,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'com.android.volley:volley:1.1.1'
-    implementation 'com.google.android.gms:play-services-ads:19.7.0'
+    implementation 'com.google.android.gms:play-services-ads:20.5.0'
     implementation 'androidx.core:core-animation:1.0.0-alpha02'
     //implementation 'androidx.lifecycle:lifecycle-process:2.5.1'
     //implementation 'androidx.lifecycle:lifecycle-process:2.5.1'
