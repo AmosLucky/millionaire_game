@@ -508,12 +508,12 @@ public class FailureActivity extends AppCompatActivity {
 
     @Override
     public void onResume() {
-        if(GameActivity2.mRewardedVideoAd==null) {
-            mRewardedVideoAd.resume(this);
-        }else {
-           GameActivity2. mRewardedVideoAd.resume(this);
-
-        }
+//        if(GameActivity2.mRewardedVideoAd==null) {
+//            mRewardedVideoAd.resume(this);
+//        }else {
+//           GameActivity2. mRewardedVideoAd.resume(this);
+//
+//        }
 
 
         super.onResume();
@@ -522,16 +522,18 @@ public class FailureActivity extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-        if(GameActivity2.mRewardedVideoAd==null) {
-            mRewardedVideoAd.pause(this);
-        }else {
-            GameActivity2.mRewardedVideoAd.pause(this);
+       try{
+           if(GameActivity2.mRewardedVideoAd==null) {
+               mRewardedVideoAd.pause(this);
+           }else {
+               GameActivity2.mRewardedVideoAd.pause(this);
 
-        }
+           }
 
-        if( CountDownActivity.mMediaPlayer!=null){
-            CountDownActivity.mMediaPlayer.pause();
-        }
+           if( CountDownActivity.mMediaPlayer!=null){
+               CountDownActivity.mMediaPlayer.pause();
+           }
+       }catch (Exception e){}
 
     }
 

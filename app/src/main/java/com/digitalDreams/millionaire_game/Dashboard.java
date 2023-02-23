@@ -53,6 +53,8 @@ public class Dashboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
        // mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
 
+        setContentView(R.layout.activity_dashboard);
+
 
         loadInterstialAd();
         //loadVideoAd();
@@ -71,7 +73,7 @@ public class Dashboard extends AppCompatActivity {
         //setTheme();
         //dbHelper = new DBHelper(this);
 
-        setContentView(R.layout.activity_dashboard);
+
         TextView highscoreTxt = findViewById(R.id.highscore);
         highscoreTxt.setText("$"+Utils.prettyCount(Integer.parseInt(highscore)));
         AdView mAdView;
@@ -124,7 +126,12 @@ public class Dashboard extends AppCompatActivity {
         gotoYoutubeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/channel/UC7AAQdgwQ204aU5ztp19FKg")));
+                try{
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/channel/UC7AAQdgwQ204aU5ztp19FKg")));
+
+                }catch (Exception e){
+
+                }
             }
         });
         new_particle.setOnClickListener(new View.OnClickListener() {

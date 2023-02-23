@@ -62,6 +62,7 @@ class AppOpenManager implements LifecycleObserver, Application.ActivityLifecycle
 
                         @Override
                         public void onAdFailedToShowFullScreenContent(AdError adError) {
+
                         }
 
                         @Override

@@ -47,6 +47,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 
 import org.json.JSONException;
@@ -88,6 +89,14 @@ public class PlayDetailsActivity extends AppCompatActivity {
         RelativeLayout bg = findViewById(R.id.rootview);
         new_game_text = findViewById(R.id.new_game_text);
         new_game_text.setText("New Game");
+
+        AdView mAdView;
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+
+
 
         boolean fromNoThanks = getIntent().getBooleanExtra("noThanks",false);
         if(fromNoThanks){

@@ -125,6 +125,7 @@
             android:gravity="center"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="50dp"
+            android:visibility="gone"
             android:orientation="vertical">
 
         <LinearLayout
@@ -189,7 +190,9 @@
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            >
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -376,5 +379,16 @@
 
 
     </LinearLayout>
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        ads:adSize="FULL_BANNER"
+        android:layout_marginBottom="0dp"
+        ads:adUnitId="@string/banner_adunit">
+
+    </com.google.android.gms.ads.AdView>
 
 </RelativeLayout>

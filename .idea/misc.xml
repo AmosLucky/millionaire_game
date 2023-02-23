@@ -12,6 +12,7 @@
         <entry key="app/src/main/res/layout-h1024dp/activity_leader_board.xml" value="0.102734375" />
         <entry key="app/src/main/res/layout-h1024dp/activity_loader.xml" value="0.1" />
         <entry key="app/src/main/res/layout-h1024dp/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout-h1024dp/activity_play_details.xml" value="0.100390625" />
         <entry key="app/src/main/res/layout-h1024dp/leader_score_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout-h1024dp/options_layout.xml" value="0.1" />
         <entry key="app/src/main/res/layout-h1024dp/optionsview.xml" value="0.1" />
@@ -21,6 +22,7 @@
         <entry key="app/src/main/res/layout-h300dp/activity_exam_game2.xml" value="0.17117117117117117" />
         <entry key="app/src/main/res/layout-h300dp/activity_failure.xml" value="0.23153153153153153" />
         <entry key="app/src/main/res/layout-h300dp/activity_leader_board.xml" value="0.23693693693693693" />
+        <entry key="app/src/main/res/layout-h300dp/activity_play_details.xml" value="0.23153153153153153" />
         <entry key="app/src/main/res/layout-h300dp/card.xml" value="0.17117117117117117" />
         <entry key="app/src/main/res/layout-h300dp/leader_score_item.xml" value="0.165" />
         <entry key="app/src/main/res/layout-h300dp/options_layout.xml" value="0.17927927927927928" />
@@ -30,15 +32,17 @@
         <entry key="app/src/main/res/layout-h480dp/activity_dashboard.xml" value="0.24875" />
         <entry key="app/src/main/res/layout-h480dp/activity_failure.xml" value="0.335" />
         <entry key="app/src/main/res/layout-h480dp/activity_leader_board.xml" value="0.32875" />
+        <entry key="app/src/main/res/layout-h480dp/activity_play_details.xml" value="0.32125" />
         <entry key="app/src/main/res/layout-h480dp/leader_score_item.xml" value="0.335" />
         <entry key="app/src/main/res/layout-h480dp/options_layout.xml" value="0.475" />
         <entry key="app/src/main/res/layout-h480dp/qo_1.xml" value="0.5" />
         <entry key="app/src/main/res/layout-h600dp/activity_count_down.xml" value="0.4095238095238095" />
-        <entry key="app/src/main/res/layout-h600dp/activity_dashboard.xml" value="0.5682539682539682" />
+        <entry key="app/src/main/res/layout-h600dp/activity_dashboard.xml" value="0.39421338155515373" />
         <entry key="app/src/main/res/layout-h600dp/activity_exam_game2.xml" value="0.23015873015873015" />
         <entry key="app/src/main/res/layout-h600dp/activity_failure.xml" value="0.40793650793650793" />
         <entry key="app/src/main/res/layout-h600dp/activity_game.xml" value="0.23015873015873015" />
         <entry key="app/src/main/res/layout-h600dp/activity_leader_board.xml" value="0.4174603174603175" />
+        <entry key="app/src/main/res/layout-h600dp/activity_play_details.xml" value="0.40793650793650793" />
         <entry key="app/src/main/res/layout-h600dp/card.xml" value="0.31587301587301586" />
         <entry key="app/src/main/res/layout-h600dp/leader_score_item.xml" value="0.45" />
         <entry key="app/src/main/res/layout-h600dp/leaderboard_item1.xml" value="0.2015873015873016" />
@@ -67,6 +71,7 @@
         <entry key="app/src/main/res/layout/activity_leader_board.xml" value="0.579295154185022" />
         <entry key="app/src/main/res/layout/activity_loader.xml" value="0.4185022026431718" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.4185022026431718" />
+        <entry key="app/src/main/res/layout/activity_play_details.xml" value="0.566079295154185" />
         <entry key="app/src/main/res/layout/activity_result_dialog.xml" value="0.1234375" />
         <entry key="app/src/main/res/layout/activity_user_details.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/activity_winners.xml" value="0.134375" />

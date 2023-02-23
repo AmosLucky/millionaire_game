@@ -164,11 +164,11 @@ public class WrongAnswerDialog extends Dialog {
             public void onRewardedVideoAdFailedToLoad(int i) {
                 Toast.makeText(context,"Error: Loading video Ad failed, Please connect to the internet",Toast.LENGTH_LONG).show();
 
-
+                dismiss();
 
                 Intent intent = new Intent(getContext(), FailureActivity.class);
                     context.startActivity(intent);
-                    dismiss();
+
 
 
             }

@@ -74,7 +74,7 @@ public class ProgressActivity extends AppCompatActivity {
 
         LinearLayout container = findViewById(R.id.container);
         LayoutInflater layoutInflater = LayoutInflater.from(this);
-        for (int a=0; a<GameActivity2.moneyArr.length;a++){
+        for (int a = 0; a < GameActivity2.moneyArr.length; a++){
             View v = layoutInflater.inflate(R.layout.amount_item,container,false);
             TextView pText = v.findViewById(R.id.position);
             RelativeLayout r = v.findViewById(R.id.t1);

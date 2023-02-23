@@ -117,7 +117,8 @@ public class GameActivity2 extends AppCompatActivity {
     int totalQuestionCount=0;
     int failCount=0;
     int progress=0;
-    public static Integer[] moneyArr; //={500,1000,2000,3000,5000,7500,10000,12500,15000,25000,
+    public static Integer[] moneyArr = {};
+    //={500,1000,2000,3000,5000,7500,10000,12500,15000,25000,
     //50000,100000,250000,500000,1000000};
     int p=0;
     int p1=1;
@@ -469,7 +470,7 @@ public class GameActivity2 extends AppCompatActivity {
             try {
                 content = content.substring(0, 1).toUpperCase() + content.substring(1);
             }catch (StringIndexOutOfBoundsException e){
-                e.printStackTrace();
+                //e.printStackTrace();
             }
             View v= LayoutInflater.from(this).inflate(R.layout.qo_1,a,false);
 
