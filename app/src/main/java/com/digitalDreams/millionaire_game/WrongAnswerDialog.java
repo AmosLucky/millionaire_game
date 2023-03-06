@@ -117,6 +117,8 @@ public class WrongAnswerDialog extends Dialog {
         continue_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.greenBlink(continue_btn, context);
+
                 if(Utils.isOnline(context)) {
                     if (mMediaPlayer != null) {
                         mMediaPlayer.pause();
@@ -255,6 +257,7 @@ public class WrongAnswerDialog extends Dialog {
         give_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.darkBlueBlink(give_up, context);
 
                 dismiss();
 

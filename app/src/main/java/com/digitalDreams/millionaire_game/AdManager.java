@@ -40,67 +40,35 @@ public class AdManager {
 
 
     public  static void  initInterstitialAd(Activity context){
-        MobileAds.initialize(context, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {}
-        });
-        AdRequest adRequest = new AdRequest.Builder().build();
+        if(mInterstitialAd == null) {
+            MobileAds.initialize(context, new OnInitializationCompleteListener() {
+                @Override
+                public void onInitializationComplete(InitializationStatus initializationStatus) {
+                }
+            });
+            AdRequest adRequest = new AdRequest.Builder().build();
 
-        InterstitialAd.load(context,context.getResources().getString(R.string.interstitial_adunit), adRequest,
-                new InterstitialAdLoadCallback() {
-                    @Override
-                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
-                        // The mInterstitialAd reference will be null until
-                        // an ad is loaded.
-                        mInterstitialAd = interstitialAd;
-                        Log.i("InterstitialAdd", "onAdLoaded");
-                    }
+            InterstitialAd.load(context, context.getResources().getString(R.string.interstitial_adunit), adRequest,
+                    new InterstitialAdLoadCallback() {
+                        @Override
+                        public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                            // The mInterstitialAd reference will be null until
+                            // an ad is loaded.
+                            mInterstitialAd = interstitialAd;
+                            Log.i("InterstitialAdd", "onAdLoaded");
+                        }
 
-                    @Override
-                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                        // Handle the error
-                        Log.d("InterstitialAdd", loadAdError.toString());
-                       if(mInterstitialAd == null){
-                           mInterstitialAd = null;
-                       }
-                    }
-                });
+                        @Override
+                        public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                            // Handle the error
+                            Log.d("InterstitialAdd", loadAdError.toString());
+                            if (mInterstitialAd == null) {
+                                mInterstitialAd = null;
+                            }
+                        }
+                    });
 
-//
-//        mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback(){
-//            @Override
-//            public void onAdClicked() {
-//                // Called when a click is recorded for an ad.
-//                Log.d("Interstial", "Ad was clicked.");
-//            }
-//
-//            @Override
-//            public void onAdDismissedFullScreenContent() {
-//                // Called when ad is dismissed.
-//                // Set the ad reference to null so you don't show the ad a second time.
-//                Log.d("Interstial", "Ad dismissed fullscreen content.");
-//                mInterstitialAd = null;
-//            }
-//
-//            @Override
-//            public void onAdFailedToShowFullScreenContent(AdError adError) {
-//                // Called when ad fails to show.
-//                Log.e("Interstial", "Ad failed to show fullscreen content.");
-//                mInterstitialAd = null;
-//            }
-//
-//            @Override
-//            public void onAdImpression() {
-//                // Called when an impression is recorded for an ad.
-//                Log.d("Interstial", "Ad recorded an impression.");
-//            }
-//
-//            @Override
-//            public void onAdShowedFullScreenContent() {
-//                // Called when ad is shown.
-//                Log.d("Interstial", "Ad showed fullscreen content.");
-//            }
-//        });
+        }
     }
 
 
@@ -109,36 +77,36 @@ public static   void showInterstitial(Activity context){
     if (mInterstitialAd != null) {
         mInterstitialAd.show(context);
     } else {
+        initInterstitialAd(context);
         Log.d("TAG", "The interstitial ad wasn't ready yet.");
     }
 
 }
 
 public static   void  initRewardedVideo(Activity context){
-    AdRequest adRequest = new AdRequest.Builder().build();
-    RewardedAd.load(context, "ca-app-pub-4696224049420135/7768937909",
-            adRequest, new RewardedAdLoadCallback() {
-                @Override
-                public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                    // Handle the error.
-                    Log.d("Admob", loadAdError.toString());
-                    if(rewardedAd == null){
-                        rewardedAd = null;
+    if(rewardedAd == null) {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        RewardedAd.load(context, "ca-app-pub-4696224049420135/7768937909",
+                adRequest, new RewardedAdLoadCallback() {
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error.
+                        Log.d("Admob", loadAdError.toString());
+                        if (rewardedAd == null) {
+                            rewardedAd = null;
+
+                        }
 
                     }
 
-                }
+                    @Override
+                    public void onAdLoaded(@NonNull RewardedAd ad) {
+                        rewardedAd = ad;
+                        Log.d("rewardedAd", "Ad was loaded.");
+                    }
+                });
 
-                @Override
-                public void onAdLoaded(@NonNull RewardedAd ad) {
-                    rewardedAd = ad;
-                    Log.d("rewardedAd", "Ad was loaded.");
-                }
-            });
-
-
-
-
+    }
 
 
 //    rewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {
@@ -175,6 +143,8 @@ public static   void  initRewardedVideo(Activity context){
 //            Log.d("REwarded", "Ad showed fullscreen content.");
 //        }
 //    });
+
+
 }
 
 public static void showRewardAd(Activity context){
@@ -193,6 +163,7 @@ public static void showRewardAd(Activity context){
         });
     } else {
         Log.d("rewarded", "The rewarded ad wasn't ready yet.");
+        initRewardedVideo(context);
     }
 }
 

@@ -69,6 +69,8 @@ public class UserDetails extends AppCompatActivity {
         continueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.darkBlueBlink(continueBtn, getApplicationContext());
+
                 validateInput();
             }
         });

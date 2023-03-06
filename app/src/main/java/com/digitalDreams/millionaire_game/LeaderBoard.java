@@ -147,6 +147,7 @@ public class LeaderBoard extends AppCompatActivity {
         allBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.darkBlueBlink(allBtn, getApplicationContext());
                 list.clear();
                 emptyText.setVisibility(View.GONE);
                 selector(0);
@@ -167,6 +168,7 @@ public class LeaderBoard extends AppCompatActivity {
         weekBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.darkBlueBlink(weekBtn, getApplicationContext());
                 list.clear();
                 emptyText.setVisibility(View.GONE);
                 container.removeAllViews();
@@ -192,6 +194,7 @@ public class LeaderBoard extends AppCompatActivity {
         dailyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.darkBlueBlink(dailyBtn, getApplicationContext());
                 list.clear();
                 emptyText.setVisibility(View.GONE);
                 selector(2);
@@ -218,6 +221,8 @@ public class LeaderBoard extends AppCompatActivity {
         countryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.darkBlueBlink(countryBtn, getApplicationContext());
+
                 list.clear();
                 jsonObjects.clear();
                 emptyText.setVisibility(View.GONE);
@@ -282,6 +287,7 @@ public class LeaderBoard extends AppCompatActivity {
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.darkBlueBlink(closeBtn, getApplicationContext());
                 showInterstitial();
                 onBackPressed();
 
@@ -539,7 +545,7 @@ public class LeaderBoard extends AppCompatActivity {
                 username = username.substring(0,13)+"...";
             }
             String avatar = obj.getString("avatar");
-            username = username.substring(0,1).toUpperCase()+""+username.substring(1);
+//            username = username.substring(0,1).toUpperCase()+""+username.substring(1);
             String pattern = "#,###,###.###";
             DecimalFormat decimalFormat = new DecimalFormat(pattern);
            if(country_flag.length()>10){

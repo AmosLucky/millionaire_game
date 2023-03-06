@@ -247,6 +247,7 @@ public class GameActivity2 extends AppCompatActivity {
         exitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.darkBlueBlink(exitBtn, getApplicationContext());
 
                 ExitGameDialog dialog = new ExitGameDialog(GameActivity2.this,amountWon);
                 dialog.setCancelable(false);

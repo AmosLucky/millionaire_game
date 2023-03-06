@@ -57,6 +57,8 @@ public class SettingActivity extends AppCompatActivity {
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.darkBlueBlink(closeBtn, getApplicationContext());
+
                 onBackPressed();
             }
         });
@@ -97,6 +99,7 @@ public class SettingActivity extends AppCompatActivity {
         soundBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.darkBlueBlink(soundBtn, getApplicationContext());
                 String sound = sharedPreferences.getString("sound","1");
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 if((sound.equals("1"))){
@@ -120,8 +123,11 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
         languageBtn.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View view) {
+                Utils.darkBlueBlink(languageBtn, getApplicationContext());
                 LanguageDialog dialog = new LanguageDialog(SettingActivity.this);
                 dialog.show();
                 Window window = dialog.getWindow();
@@ -145,6 +151,7 @@ public class SettingActivity extends AppCompatActivity {
         themeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.darkBlueBlink(themeBtn, getApplicationContext());
                 ThemeDialog dialog = new ThemeDialog(SettingActivity.this);
                 dialog.show();
                 Window window = dialog.getWindow();
@@ -162,6 +169,7 @@ public class SettingActivity extends AppCompatActivity {
         gameModeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.darkBlueBlink(gameModeBtn, getApplicationContext());
                 String mode = sharedPreferences.getString("game_mode","0");
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 if(mode.equals("0")){
@@ -194,6 +202,7 @@ public class SettingActivity extends AppCompatActivity {
         vibrationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.darkBlueBlink(vibrationBtn, getApplicationContext());
                 String vibrate = sharedPreferences.getString("vibrate","1");
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 if((vibrate.equals("1"))){
@@ -217,6 +226,7 @@ public class SettingActivity extends AppCompatActivity {
         creditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.darkBlueBlink(creditBtn, getApplicationContext());
                CreditDialog dialog = new CreditDialog(SettingActivity.this);
                 dialog.show();
                 Window window = dialog.getWindow();

@@ -83,6 +83,7 @@ public class ExitGameDialog extends Dialog {
         takeMoneyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.darkBlueBlink(takeMoneyBtn, context);
                 showInterstitial();
                 if(CountDownActivity.mMediaPlayer!=null) {
                     CountDownActivity.mMediaPlayer.stop();
@@ -100,6 +101,8 @@ public class ExitGameDialog extends Dialog {
         continueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.darkBlueBlink(continueBtn, context);
+
                 dismiss();
             }
         });
@@ -111,6 +114,7 @@ public class ExitGameDialog extends Dialog {
         shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.darkBlueBlink(shareBtn, context);
 
                 checkPermission();
             }

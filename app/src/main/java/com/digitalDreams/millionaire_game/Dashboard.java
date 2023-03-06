@@ -129,8 +129,8 @@ public class Dashboard extends AppCompatActivity {
             @Override
             public void onClick(View view) {
               ///  newGameBtn.startAnimation(buttonClick);
-                blink(newGameBtn,R.drawable.dark_play,R.drawable.playbtn_bg);
-               MediaPlayer.create(Dashboard.this, R.raw.play).start();
+                Utils.greenBlink(newGameBtn,getApplicationContext());
+
                 Intent intent = new Intent(Dashboard.this,CountDownActivity.class);
                 startActivity(intent);
                 finish();
@@ -139,10 +139,11 @@ public class Dashboard extends AppCompatActivity {
         gotoYoutubeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                blink(gotoYoutubeBtn, R.drawable.ic_hex_2, R.drawable.ic_hexnow);
+                Utils.darkBlueBlink(gotoYoutubeBtn,getApplicationContext());
+
 
                 try{
-                    MediaPlayer.create(Dashboard.this, R.raw.others).start();
+
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/channel/UC7AAQdgwQ204aU5ztp19FKg")));
 
                 }catch (Exception e){
@@ -163,7 +164,8 @@ public class Dashboard extends AppCompatActivity {
         leaderBoardBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                blink(leaderBoardBtn, R.drawable.ic_hex_2, R.drawable.ic_hexnow);
+
+                Utils.darkBlueBlink(leaderBoardBtn, getApplicationContext());
 
                 MediaPlayer.create(Dashboard.this, R.raw.others).start();
                 Intent intent = new Intent(Dashboard.this,LeaderBoard.class);
@@ -206,8 +208,9 @@ public class Dashboard extends AppCompatActivity {
         moreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MediaPlayer.create(Dashboard.this, R.raw.others).start();
-                blink(moreBtn, R.drawable.ic_hex_2, R.drawable.ic_hexnow);
+                Utils.darkBlueBlink(moreBtn, getApplicationContext());
+//                MediaPlayer.create(Dashboard.this, R.raw.others).start();
+//                Utils.blink(moreBtn, R.drawable.ic_hex_2, R.drawable.ic_hexnow);
                // Uri uri = Uri.parse("https://play.google.com/store/apps/developer?id=DIGITAL+DREAMS+LIMITED");
                 Uri uri = Uri.parse("https://www.facebook.com/MillionaireGameApp");
 

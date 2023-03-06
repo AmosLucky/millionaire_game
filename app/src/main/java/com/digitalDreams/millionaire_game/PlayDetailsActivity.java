@@ -128,6 +128,7 @@ public class PlayDetailsActivity extends AppCompatActivity {
         newGameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.greenBlink(newGameBtn, getApplicationContext());
                 Intent intent = new Intent(PlayDetailsActivity.this,CountDownActivity.class);
                 startActivity(intent);
                 finish();
@@ -235,6 +236,7 @@ public class PlayDetailsActivity extends AppCompatActivity {
         homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.darkBlueBlink(homeBtn, getApplicationContext());
                 Intent intent = new Intent(PlayDetailsActivity.this, Dashboard.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
@@ -251,6 +253,7 @@ public class PlayDetailsActivity extends AppCompatActivity {
         newGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.darkBlueBlink(homeBtn, getApplicationContext());
                 String json = dbHelper.buildJson();
                 Intent intent = new Intent(PlayDetailsActivity.this, LeaderBoard.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
