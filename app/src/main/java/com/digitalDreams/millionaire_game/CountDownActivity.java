@@ -18,7 +18,8 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.rewarded.RewardedAd;
+
 
 import java.text.DecimalFormat;
 
@@ -30,9 +31,10 @@ public class CountDownActivity extends AppCompatActivity {
     public static MediaPlayer mSuccessPlayer;
     public static MediaPlayer mFailurePlayer;
     boolean hasOldWinningAmount = false;
-    public static RewardedVideoAd mRewardedVideoAd;
+    public static RewardedAd mRewardedVideoAd;
     TextView count_down_level;
     TextView amount_to_win;
+   // AdManager adManager;
 
 
 
@@ -41,18 +43,24 @@ public class CountDownActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_count_down);
 
+        AdManager.initInterstitialAd(this);
+        AdManager.initRewardedVideo(CountDownActivity.this);
 
 
 
 
-        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
+
+        mRewardedVideoAd = AdManager.rewardedAd; //MobileAds.getRewardedVideoAdInstance(this);
 
         loadVideoAd();
 
-        dbHelper = new DBHelper(this);
-        dbHelper.close();
-        String json = dbHelper.buildJson();
-        hasOldWinningAmount = getIntent().getBooleanExtra("hasOldWinningAmount",false);
+
+         dbHelper = new DBHelper(this);
+         dbHelper.close();
+         String json = dbHelper.buildJson();
+         hasOldWinningAmount = getIntent().getBooleanExtra("hasOldWinningAmount",false);
+
+
 
 
         SharedPreferences sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
@@ -72,6 +80,7 @@ public class CountDownActivity extends AppCompatActivity {
                 new int[] {startColor,endcolor});
 
         bg.setBackgroundDrawable(gd);
+        resetData();
 
         ////// set game and level ///////////
          amount_to_win =  findViewById(R.id.amount_to_win);
@@ -119,7 +128,7 @@ public class CountDownActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-       // super.onBackPressed();
+        super.onBackPressed();
     }
 
     private void loadSongs(){
@@ -135,14 +144,16 @@ public class CountDownActivity extends AppCompatActivity {
     }
 
     public  void loadVideoAd() {
-        // Load a reward based video ad
-        if(!mRewardedVideoAd.isLoaded()){
-            Log.i("mRewardedVideoAd","Not LOaded");
-            mRewardedVideoAd.loadAd("ca-app-pub-4696224049420135/7768937909", new AdRequest.Builder().build());
-        }else{
-            Log.i("mRewardedVideoAd","LOaded");
+//        // Load a reward based video ad
+//        if(!mRewardedVideoAd.isLoaded()){
+//            Log.i("mRewardedVideoAd","Not LOaded");
+//            mRewardedVideoAd.loadAd("ca-app-pub-4696224049420135/7768937909", new AdRequest.Builder().build());
+//        }else{
+//            Log.i("mRewardedVideoAd","LOaded");
+//
+//        }
 
-        }
+
 
     }
 
@@ -150,5 +161,12 @@ public class CountDownActivity extends AppCompatActivity {
     protected void onStart() {
         loadVideoAd();
         super.onStart();
+    }
+
+    void resetData() {
+        SharedPreferences sharedPref = getSharedPreferences("application_data", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.clear();
+        editor.apply();
     }
 }

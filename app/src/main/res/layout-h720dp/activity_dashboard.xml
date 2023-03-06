@@ -89,14 +89,15 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/hexagon"
-                    android:rotation="90"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    app:tint="@color/basic_color"/>
+                    android:rotation="90"
+                    android:src="@drawable/hexagon"
+                    app:tint="@color/basic_color" />
                 <ImageView
                     android:id="@+id/settings"
                     android:layout_width="32dp"
@@ -163,6 +164,7 @@
                 android:background="@drawable/playbtn_bg">
 
                 <LinearLayout
+                    android:id="@+id/innerlayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -177,6 +179,7 @@
                         app:tint="@color/white" />
 
                     <RelativeLayout
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical">

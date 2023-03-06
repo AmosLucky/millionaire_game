@@ -32,7 +32,7 @@ import androidx.core.content.FileProvider;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
 
 public class ExitGameDialog extends Dialog {
     Context context;
@@ -40,6 +40,7 @@ public class ExitGameDialog extends Dialog {
     public static int MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE=100;
     File imagePath;
     public static InterstitialAd interstitialAd;
+  //  AdManager adManager;
 
     public ExitGameDialog(@NonNull Context context,String amountWon) {
         super(context);
@@ -52,6 +53,11 @@ public class ExitGameDialog extends Dialog {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.exit_dialog_2);
+        //adManager =  new AdManager(context);
+
+        AdManager.initInterstitialAd((Activity) context);
+        AdManager.initRewardedVideo((Activity) context);
+
         loadInterstialAd();
         SharedPreferences sharedPreferences = context.getSharedPreferences("settings",Context.MODE_PRIVATE);
         String languageCode = sharedPreferences.getString("language","en");
@@ -112,21 +118,22 @@ public class ExitGameDialog extends Dialog {
     }
 
     private void loadInterstialAd(){
-        interstitialAd = new InterstitialAd(context) ;
-        interstitialAd.setAdUnitId (context.getResources().getString(R.string.interstitial_adunit) ) ;
-        interstitialAd.loadAd(new AdRequest.Builder().build());
+        interstitialAd = AdManager.mInterstitialAd; //new InterstitialAd(context) ;
+//        interstitialAd.setAdUnitId (context.getResources().getString(R.string.interstitial_adunit) ) ;
+//        interstitialAd.loadAd(new AdRequest.Builder().build());
     }
 
     private void showInterstitial() {
-        if (interstitialAd.isLoaded()) {
-            interstitialAd.show();
-        }else{
-            interstitialAd.setAdListener(new AdListener() {
-                public void onAdLoaded() {
-                    showInterstitial();
-                }
-            });
-        }
+        AdManager.showInterstitial((Activity) context);
+//        if (interstitialAd.isLoaded()) {
+//            interstitialAd.show();
+//        }else{
+//            interstitialAd.setAdListener(new AdListener() {
+//                public void onAdLoaded() {
+//                    showInterstitial();
+//                }
+//            });
+//        }
     }
 
 

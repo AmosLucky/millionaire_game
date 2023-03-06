@@ -45,7 +45,9 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.rewarded.RewardedAd;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -93,6 +95,7 @@ public class CountryLeaderBoard extends AppCompatActivity {
     Map<String,Object> country_map;
     String country;
     String country_flag;
+    //AdManager  adManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,7 +129,9 @@ public class CountryLeaderBoard extends AppCompatActivity {
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
-        loadInterstialAd();
+        //loadInterstialAd();
+            AdManager.initInterstitialAd(this);
+        AdManager.initInterstitialAd(this);
 
 
         share_container = findViewById(R.id.share_container);
@@ -240,7 +245,9 @@ public class CountryLeaderBoard extends AppCompatActivity {
         share_container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checkPermission();
+               try {
+                   checkPermission();
+               }catch (Exception e){}
             }
         });
 
@@ -273,7 +280,7 @@ public class CountryLeaderBoard extends AppCompatActivity {
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showInterstitial();
+               AdManager.initInterstitialAd(CountryLeaderBoard.this);
                 onBackPressed();
 
             }
@@ -698,23 +705,23 @@ public class CountryLeaderBoard extends AppCompatActivity {
     }
 
 
-    private void loadInterstialAd(){
-        interstitialAd = new InterstitialAd(CountryLeaderBoard.this) ;
-        interstitialAd.setAdUnitId (CountryLeaderBoard.this.getResources().getString(R.string.interstitial_adunit) ) ;
-        interstitialAd.loadAd(new AdRequest.Builder().build());
-    }
+//    private void loadInterstialAd(){
+//        interstitialAd = new InterstitialAd(CountryLeaderBoard.this) ;
+//        interstitialAd.setAdUnitId (CountryLeaderBoard.this.getResources().getString(R.string.interstitial_adunit) ) ;
+//        interstitialAd.loadAd(new AdRequest.Builder().build());
+//    }
 
-    private void showInterstitial() {
-        if (interstitialAd.isLoaded()) {
-            interstitialAd.show();
-        }else{
-            interstitialAd.setAdListener(new AdListener() {
-                public void onAdLoaded() {
-                    showInterstitial();
-                }
-            });
-        }
-    }
+//    private void showInterstitial() {
+//        if (interstitialAd.isLoaded()) {
+//            interstitialAd.show();
+//        }else{
+//            interstitialAd.setAdListener(new AdListener() {
+//                public void onAdLoaded() {
+//                    showInterstitial();
+//                }
+//            });
+//        }
+//    }
     public void checkPermission() {
         if (ContextCompat.checkSelfPermission(CountryLeaderBoard.this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)

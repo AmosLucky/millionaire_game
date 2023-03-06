@@ -48,7 +48,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -69,6 +68,7 @@ import java.util.List;
 import java.util.Map;
 
 
+
 public class PlayDetailsActivity extends AppCompatActivity {
     DBHelper dbHelper;
     File imagePath;
@@ -80,12 +80,18 @@ public class PlayDetailsActivity extends AppCompatActivity {
     boolean AdsFromFailureActivity = false;
     boolean AdsFromExitGameDialog = false;
     TextView wonTxt,usernameField,new_game_text;
+   // AdManager  adManager;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_details);
+
+        AdManager.initInterstitialAd(this);
+        AdManager.initRewardedVideo(this);
+
+        //adManager =  new AdManager(this);
         RelativeLayout bg = findViewById(R.id.rootview);
         new_game_text = findViewById(R.id.new_game_text);
         new_game_text.setText("New Game");
@@ -101,7 +107,7 @@ public class PlayDetailsActivity extends AppCompatActivity {
         boolean fromNoThanks = getIntent().getBooleanExtra("noThanks",false);
         if(fromNoThanks){
            try {
-               FailureActivity.interstitialAd.show();
+               AdManager.showInterstitial(PlayDetailsActivity.this);
            }catch (Exception e){
                e.printStackTrace();
 
@@ -124,7 +130,7 @@ public class PlayDetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(PlayDetailsActivity.this,CountDownActivity.class);
                 startActivity(intent);
-               // finish();
+                finish();
             }
         });
 
@@ -249,20 +255,22 @@ public class PlayDetailsActivity extends AppCompatActivity {
                 Intent intent = new Intent(PlayDetailsActivity.this, LeaderBoard.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-                //finish();
+                finish();
             }
         });
 
       if(AdsFromFailureActivity){
-            if (FailureActivity.interstitialAd.isLoaded()) {
-            FailureActivity.interstitialAd.show();
-        }
+//            if (FailureActivity.interstitialAd.isLoaded()) {
+//            FailureActivity.interstitialAd.show();
+//        }
+          AdManager.showInterstitial(PlayDetailsActivity.this);
       }
 
         if(AdsFromExitGameDialog){
-            if (ExitGameDialog.interstitialAd.isLoaded()) {
-                ExitGameDialog.interstitialAd.show();
-            }
+//            if (ExitGameDialog.interstitialAd.isLoaded()) {
+//                ExitGameDialog.interstitialAd.show();
+//            }
+            AdManager.showInterstitial(PlayDetailsActivity.this);
         }
 
 
@@ -423,6 +431,10 @@ public class PlayDetailsActivity extends AppCompatActivity {
         String highscore = sharedPreferences.getString("high_score", "0");
         String username = sharedPreferences.getString("username", "");
         String oldAmountWon = sharedPreferences.getString("amountWon", "");
+
+        String country = sharedPreferences.getString("country", "");
+        String country_flag = sharedPreferences.getString("country_flag", "");
+        //Log.i("flag",country_flag);
         int h = Integer.parseInt(highscore);
         String score = GameActivity2.amountWon;
         //score = score.substring(1);
@@ -450,19 +462,23 @@ public class PlayDetailsActivity extends AppCompatActivity {
 
 
         }
+        Map userDetails = new HashMap();
+        userDetails.put("username",username);
+        userDetails.put("country",country);
+        userDetails.put("country_flag",country_flag);
 
 
        try{
-           sendScoreToSever(String.valueOf(s), username);
+           sendScoreToSever(String.valueOf(s), userDetails);
        }catch (Exception e){
            e.printStackTrace();
        }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void sendScoreToSever(String score, String username) {
+    //@RequiresApi(api = Build.VERSION_CODES.M)
+    private void sendScoreToSever(String score, Map<String,String> userDetails) {
         try{
-            initializeNotification();
+           /// initializeNotification();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -525,12 +541,18 @@ public class PlayDetailsActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 super.getParams();
                 Map<String, String> param = new HashMap<>();
+
+                JSONObject country_json = new JSONObject();
                 param.put("score", score);
-                param.put("username", username);
+                param.put("username", userDetails.get("username"));
+                param.put("country", userDetails.get("country"));
+                param.put("country_json", country_json.toString());
+                param.put("country_flag", userDetails.get("country_flag"));
                 param.put("avatar",  getAvatar());
-                param.put("device_id",deviceId);
+                param.put("device_id",getDeviceId(PlayDetailsActivity.this));
                 param.put("game_type","millionaire");
                 param.put("mode",modeValue);
+                Log.i("praram", String.valueOf(param));
                 return param;
             }
         };

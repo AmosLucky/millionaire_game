@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.digitalDreams.millionaire_game">
+    package="com.digitalDreams.millionaire_game" >
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -14,21 +14,21 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
-
-
-
-
+        android:name=".MyApplication"
         android:allowBackup="true"
+        android:exported="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:launchMode="singleTop"
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Trivia"
-        android:usesCleartextTraffic="true"
-        android:name="com.digitalDreams.millionaire_game.MyApplication"
-        android:exported="true"
-        >
+        android:usesCleartextTraffic="true" >
+        <activity
+            android:name=".WelcomeActivity"
+            android:exported="false" />
+
         <meta-data
             android:name="com.google.android.actions"
             android:resource="@xml/welcome_dialog" />
@@ -54,9 +54,9 @@
         <activity android:name=".Dashboard" />
         <activity android:name=".CountDownActivity" />
         <activity android:name=".CountryLeaderBoard" />
-        <activity android:name=".MainActivity"
-            android:exported="true"
-            >
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -75,16 +75,15 @@
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
             android:exported="false"
-            android:grantUriPermissions="true">
+            android:grantUriPermissions="true" >
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
 
         <receiver
-            android:name="com.digitalDreams.millionaire_game.NotificationService"
-            android:process=":service"
-            />
+            android:name=".NotificationService"
+            android:process=":service" />
     </application>
 
 </manifest>

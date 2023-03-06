@@ -60,6 +60,8 @@ public class ProgressActivity extends AppCompatActivity {
             }
         });
 
+
+
         Intent intent = getIntent();
         int position = intent.getIntExtra("number",0);
         String timer = intent.getStringExtra("timer");
@@ -167,4 +169,6 @@ public class ProgressActivity extends AppCompatActivity {
         });
 
     }
+
+
 }

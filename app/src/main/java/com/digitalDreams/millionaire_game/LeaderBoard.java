@@ -45,7 +45,8 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -91,10 +92,14 @@ public class LeaderBoard extends AppCompatActivity {
     CountryJsonAdapter countryJsonAdapter;
     RecyclerView countryListView;
     LayoutInflater layoutInflater;
+   // AdManager adManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leader_board);
+       // adManager = new AdManager(this);
+        AdManager.initRewardedVideo(this);
+        AdManager.initInterstitialAd(this);
 
 
         /////////////
@@ -710,21 +715,23 @@ public class LeaderBoard extends AppCompatActivity {
 
 
     private void loadInterstialAd(){
-        interstitialAd = new InterstitialAd(LeaderBoard.this) ;
-        interstitialAd.setAdUnitId (LeaderBoard.this.getResources().getString(R.string.interstitial_adunit) ) ;
-        interstitialAd.loadAd(new AdRequest.Builder().build());
+        interstitialAd = AdManager.mInterstitialAd; //new InterstitialAd(LeaderBoard.this) ;
+//        interstitialAd.setAdUnitId (LeaderBoard.this.getResources().getString(R.string.interstitial_adunit) ) ;
+//        interstitialAd.loadAd(new AdRequest.Builder().build());
+        AdManager.initInterstitialAd(LeaderBoard.this);
     }
 
     private void showInterstitial() {
-        if (interstitialAd.isLoaded()) {
-            interstitialAd.show();
-        }else{
-            interstitialAd.setAdListener(new AdListener() {
-                public void onAdLoaded() {
-                    showInterstitial();
-                }
-            });
-        }
+//        if (interstitialAd.isLoaded()) {
+//            interstitialAd.show();
+//        }else{
+//            interstitialAd.setAdListener(new AdListener() {
+//                public void onAdLoaded() {
+//                    showInterstitial();
+//                }
+//            });
+//        }
+        AdManager.showInterstitial(LeaderBoard.this);
     }
     public void checkPermission() {
         if (ContextCompat.checkSelfPermission(LeaderBoard.this,

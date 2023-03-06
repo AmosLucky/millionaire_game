@@ -64,8 +64,10 @@ class ExitDialog extends Dialog {
             public void onClick(View view) {
                 //context.finish();
                 if( CountDownActivity.mMediaPlayer != null){
-                    CountDownActivity.mMediaPlayer.stop();
-                    CountDownActivity.mMediaPlayer.release();
+                   try{
+                       CountDownActivity.mMediaPlayer.stop();
+                       CountDownActivity.mMediaPlayer.release();
+                   }catch (Exception e){}
 
                 }
 

@@ -3,6 +3,7 @@ package com.digitalDreams.millionaire_game;
 import static com.digitalDreams.millionaire_game.GameActivity2.continueGame;
 import static com.digitalDreams.millionaire_game.GameActivity2.hasOldWinningAmount;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -37,14 +38,17 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.FullScreenContentCallback;
+
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.reward.RewardedVideoAd;
-import com.google.android.gms.ads.reward.RewardedVideoAdListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+
+import com.google.android.gms.ads.rewarded.RewardedAd;
 
 import org.json.JSONObject;
 
@@ -55,7 +59,7 @@ import java.util.Map;
 public class FailureActivity extends AppCompatActivity {
     long time;
     String countdownTime="9000";
-    public RewardedVideoAd mRewardedVideoAd;
+    public RewardedAd mRewardedVideoAd;
     private boolean clicked = false;
     public static InterstitialAd interstitialAd;
     String modeValue = "";
@@ -69,6 +73,7 @@ public class FailureActivity extends AppCompatActivity {
     CountDownTimer countDownTimer;
 
     RelativeLayout new_games;
+  //  AdManager adManager;
 
 
 
@@ -78,6 +83,11 @@ public class FailureActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_failure);
+
+        //adManager =  new AdManager(this);
+
+        AdManager.initInterstitialAd(this);
+        AdManager.initRewardedVideo(this);
 
         replay_level = findViewById(R.id.replay);
         hex = findViewById(R.id.hex);
@@ -100,6 +110,8 @@ public class FailureActivity extends AppCompatActivity {
         Animation aniFade = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fadding);
         continueBtn.startAnimation(aniFade);
         r.startAnimation(aniFade);
+
+       // AdManager adManager = new AdManager(this);
 
         loadInterstialAd();
 
@@ -147,28 +159,44 @@ public class FailureActivity extends AppCompatActivity {
         new_games.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(interstitialAd.isLoaded()){
 
-                    interstitialAd.show();
+                if (CountDownActivity.mMediaPlayer != null) {
+                    CountDownActivity.mMediaPlayer.stop();
+                }
+
+                if(AdManager.mInterstitialAd != null){
+                    AdManager.showInterstitial(FailureActivity.this);;
+
+//                    interstitialAd.show();
                 }else{
                     Intent i = new Intent(FailureActivity.this, CountDownActivity.class);
                     // startActivity(i);
+
 
                     startActivity(i);
                     finish();
                 }
 
-                interstitialAd.setAdListener(new AdListener(){
-                    @Override
-                    public void onAdClosed() {
-                        Intent i = new Intent(FailureActivity.this, CountDownActivity.class);
-                        // startActivity(i);
+              AdManager.mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                  @Override
+                  public void onAdClicked() {
+                      // Called when a click is recorded for an ad.
+                      Log.d("Admob", "Ad was clicked.");
+                  }
 
-                        startActivity(i);
-                        finish();
-                        super.onAdClosed();
-                    }
-                });
+
+                  @Override
+                  public void onAdDismissedFullScreenContent() {
+                      Intent i = new Intent(FailureActivity.this, CountDownActivity.class);
+                      // startActivity(i);
+
+                      startActivity(i);
+                      finish();
+                      super.onAdDismissedFullScreenContent();
+                  }
+              });
+
+
 
 
                         // Do something after 5s = 5000ms
@@ -238,7 +266,8 @@ public class FailureActivity extends AppCompatActivity {
         continueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("Loadeddd", "onClick");
+
+              //  Log.i("Loadeddd", "onClick");
 //                GameActivity2.continueGame=true;
 //                finish();
 
@@ -249,18 +278,49 @@ public class FailureActivity extends AppCompatActivity {
                 }
 
 
+
+
                 clicked = true;
 
-                if (CountDownActivity.mRewardedVideoAd == null) {
-                    showInterstitial();
+//               if (CountDownActivity.mRewardedVideoAd == null) {
+//                    showInterstitial();
+//
+//                } else if (!CountDownActivity.mRewardedVideoAd.isLoaded()) {
+//                    showInterstitial();
+//                    Log.i("mRewardedVideoAd", "Not LOaded");
+//                    CountDownActivity.mRewardedVideoAd.loadAd("ca-app-pub-4696224049420135/7768937909", new AdRequest.Builder().build());
+//                } else {
+//                    Log.i("mRewardedVideoAd", "LOaded");
+//                     CountDownActivity.mRewardedVideoAd.show();
+//
+//                }
+                AdManager.showRewardAd(FailureActivity.this);
 
-                } else if (!CountDownActivity.mRewardedVideoAd.isLoaded()) {
-                    showInterstitial();
-                    Log.i("mRewardedVideoAd", "Not LOaded");
-                    CountDownActivity.mRewardedVideoAd.loadAd("ca-app-pub-4696224049420135/7768937909", new AdRequest.Builder().build());
-                } else {
-                    Log.i("mRewardedVideoAd", "LOaded");
-                    CountDownActivity.mRewardedVideoAd.show();
+                try {
+                    AdManager.rewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                        @Override
+                        public void onAdClicked() {
+                            continueGame = true;
+                            finish();
+                            super.onAdClicked();
+                        }
+
+                        @Override
+                        public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+                            super.onAdFailedToShowFullScreenContent(adError);
+                        }
+
+                        @Override
+                        public void onAdDismissedFullScreenContent() {
+                            continueGame = true;
+                          finish();
+                            super.onAdDismissedFullScreenContent();
+                        }
+                    });
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                    new_games.callOnClick();
 
                 }
 
@@ -268,101 +328,101 @@ public class FailureActivity extends AppCompatActivity {
         });
         try{
         if (GameActivity2.mRewardedVideoAd == null) {
-            mRewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
-                @Override
-                public void onRewardedVideoAdLoaded() {
-                    if (clicked) {
-                        showRewardedVideo();
-                    }
-                }
-
-                @Override
-                public void onRewardedVideoAdOpened() {
-
-                }
-
-                @Override
-                public void onRewardedVideoStarted() {
-
-                }
-
-                @Override
-                public void onRewardedVideoAdClosed() {
-                    continueGame = true;
-                    finish();
-                }
-
-                @Override
-                public void onRewarded(com.google.android.gms.ads.reward.RewardItem rewardItem) {
-
-                }
-
-                @Override
-                public void onRewardedVideoAdLeftApplication() {
-
-                }
-
-                @Override
-                public void onRewardedVideoAdFailedToLoad(int i) {
-
-                }
-
-                @Override
-                public void onRewardedVideoCompleted() {
-                    continueGame = true;
-                    finish();
-                }
-
-            });
-        } else {
-            GameActivity2.mRewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
-                @Override
-                public void onRewardedVideoAdLoaded() {
-
-                }
-
-                @Override
-                public void onRewardedVideoAdOpened() {
-
-                }
-
-                @Override
-                public void onRewardedVideoStarted() {
-
-                }
-
-                @Override
-                public void onRewardedVideoAdClosed() {
-                    CountDownActivity.mRewardedVideoAd.loadAd("ca-app-pub-4696224049420135/7768937909", new AdRequest.Builder().build());
-
-                    continueGame = true;
-                    finish();
-                }
-
-                @Override
-                public void onRewarded(com.google.android.gms.ads.reward.RewardItem rewardItem) {
-
-                }
-
-                @Override
-                public void onRewardedVideoAdLeftApplication() {
-
-                }
-
-                @Override
-                public void onRewardedVideoAdFailedToLoad(int i) {
-
-                }
-
-                @Override
-                public void onRewardedVideoCompleted() {
-                    CountDownActivity.mRewardedVideoAd.loadAd("ca-app-pub-4696224049420135/7768937909", new AdRequest.Builder().build());
-
-                    continueGame = true;
-                    finish();
-                }
-
-            });
+//            mRewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
+//                @Override
+//                public void onRewardedVideoAdLoaded() {
+//                    if (clicked) {
+//                        showRewardedVideo();
+//                    }
+//                }
+//
+//                @Override
+//                public void onRewardedVideoAdOpened() {
+//
+//                }
+//
+//                @Override
+//                public void onRewardedVideoStarted() {
+//
+//                }
+//
+//                @Override
+//                public void onRewardedVideoAdClosed() {
+//                    continueGame = true;
+//                    finish();
+//                }
+//
+//                @Override
+//                public void onRewarded(com.google.android.gms.ads.reward.RewardItem rewardItem) {
+//
+//                }
+//
+//                @Override
+//                public void onRewardedVideoAdLeftApplication() {
+//
+//                }
+//
+//                @Override
+//                public void onRewardedVideoAdFailedToLoad(int i) {
+//
+//                }
+//
+//                @Override
+//                public void onRewardedVideoCompleted() {
+//                    continueGame = true;
+//                    finish();
+//                }
+//
+//            });
+//        } else {
+//            GameActivity2.mRewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
+//                @Override
+//                public void onRewardedVideoAdLoaded() {
+//
+//                }
+//
+//                @Override
+//                public void onRewardedVideoAdOpened() {
+//
+//                }
+//
+//                @Override
+//                public void onRewardedVideoStarted() {
+//
+//                }
+//
+//                @Override
+//                public void onRewardedVideoAdClosed() {
+//                    CountDownActivity.mRewardedVideoAd.loadAd("ca-app-pub-4696224049420135/7768937909", new AdRequest.Builder().build());
+//
+//                    continueGame = true;
+//                    finish();
+//                }
+//
+//                @Override
+//                public void onRewarded(com.google.android.gms.ads.reward.RewardItem rewardItem) {
+//
+//                }
+//
+//                @Override
+//                public void onRewardedVideoAdLeftApplication() {
+//
+//                }
+//
+//                @Override
+//                public void onRewardedVideoAdFailedToLoad(int i) {
+//
+//                }
+//
+//                @Override
+//                public void onRewardedVideoCompleted() {
+//                    CountDownActivity.mRewardedVideoAd.loadAd("ca-app-pub-4696224049420135/7768937909", new AdRequest.Builder().build());
+//
+//                    continueGame = true;
+//                    finish();
+//                }
+//
+//            });
         }
     }catch(Exception e){
             e.printStackTrace();
@@ -373,23 +433,23 @@ public class FailureActivity extends AppCompatActivity {
             loadVideoAd();
         }
 
-        interstitialAd.setAdListener(new AdListener(){
-            @Override
-            public void onAdClosed() {
-                super.onAdClosed();
-                Intent intent = new Intent(FailureActivity.this,PlayDetailsActivity.class);
-                startActivity(intent);
-                finish();
-            }
-
-//            @Override
-//            public void onAdFailedToLoad(LoadAdError loadAdError) {
-//                super.onAdFailedToLoad(loadAdError);
+//       adManager.mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback(){
+//           @Override
+//           public void onAdClicked() {
+//
 //                Intent intent = new Intent(FailureActivity.this,PlayDetailsActivity.class);
 //                startActivity(intent);
 //                finish();
 //            }
-        });
+//
+////            @Override
+////            public void onAdFailedToLoad(LoadAdError loadAdError) {
+////                super.onAdFailedToLoad(loadAdError);
+////                Intent intent = new Intent(FailureActivity.this,PlayDetailsActivity.class);
+////                startActivity(intent);
+////                finish();
+////            }
+//        });
     }
 
     private void animateWebContainer(View view){
@@ -521,19 +581,19 @@ public class FailureActivity extends AppCompatActivity {
 
     @Override
     public void onPause() {
-        super.onPause();
-       try{
-           if(GameActivity2.mRewardedVideoAd==null) {
-               mRewardedVideoAd.pause(this);
-           }else {
-               GameActivity2.mRewardedVideoAd.pause(this);
-
-           }
-
-           if( CountDownActivity.mMediaPlayer!=null){
-               CountDownActivity.mMediaPlayer.pause();
-           }
-       }catch (Exception e){}
+      super.onPause();
+//       try{
+//           if(GameActivity2.mRewardedVideoAd==null) {
+//               mRewardedVideoAd.pause(this);
+//           }else {
+//               GameActivity2.mRewardedVideoAd.pause(this);
+//
+//           }
+//
+//           if( CountDownActivity.mMediaPlayer!=null){
+//               CountDownActivity.mMediaPlayer.pause();
+//           }
+//       }catch (Exception e){}
 
     }
 
@@ -550,40 +610,44 @@ public class FailureActivity extends AppCompatActivity {
     private void loadVideoAd() {
         // Load a reward based video ad
        if(GameActivity2.mRewardedVideoAd != null){
-           GameActivity2.loadVideoAd();
+          // GameActivity2. loadVideoAd();
        }
       ///  GameActivity2.mRewardedVideoAd.loadAd("ca-app-pub-4696224049420135/7768937909", new AdRequest.Builder().build());
       //  mRewardedVideoAd.loadAd("ca-app-pub-4696224049420135/7768937909", new AdRequest.Builder().build());
     }
 
     public void showRewardedVideo() {
-
-        if (mRewardedVideoAd.isLoaded()) {
-            if(CountDownActivity.mMediaPlayer!=null) {
-                CountDownActivity.mMediaPlayer.stop();
-            }
-            mRewardedVideoAd.show();
-
-        }
+//
+//        if (mRewardedVideoAd.isLoaded()) {
+//            if(CountDownActivity.mMediaPlayer!=null) {
+//                CountDownActivity.mMediaPlayer.stop();
+//            }
+//            mRewardedVideoAd.show();
+//
+//        }
+        AdManager.showRewardAd(FailureActivity.this);
     }
 
     public void showRewardedVideo2() {
         ///GameActivity2.mRewardedVideoAd.loadAd("ca-app-pub-4696224049420135/7768937909", new AdRequest.Builder().build());
-
-        if (GameActivity2.mRewardedVideoAd.isLoaded()) {
-            if(CountDownActivity.mMediaPlayer!=null) {
-                CountDownActivity.mMediaPlayer.stop();
-            }
-            GameActivity2.mRewardedVideoAd.show();
-
-        }
+//
+//        if (GameActivity2.mRewardedVideoAd.isLoaded()) {
+//            if(CountDownActivity.mMediaPlayer!=null) {
+//                CountDownActivity.mMediaPlayer.stop();
+//            }
+//            GameActivity2.mRewardedVideoAd.show();
+//
+//        }
+        AdManager.showRewardAd(FailureActivity.this);
     }
 
 
     private void loadInterstialAd(){
-        interstitialAd = new InterstitialAd(this) ;
-        interstitialAd.setAdUnitId (getResources().getString(R.string.interstitial_adunit) ) ;
-        interstitialAd.loadAd(new AdRequest.Builder().addTestDevice("9D16E23BB90EF4BFA204300CCDCCF264").build());
+//        interstitialAd = new InterstitialAd(this) ;
+//        interstitialAd.setAdUnitId (getResources().getString(R.string.interstitial_adunit) ) ;
+//        interstitialAd.loadAd(new AdRequest.Builder().addTestDevice("9D16E23BB90EF4BFA204300CCDCCF264").build());
+//
+        AdManager.showInterstitial(FailureActivity.this);
        // mInterstitialAd.loadAd(adRequest);
 
 //        interstitialAd.setAdListener(new AdListener() {
@@ -672,6 +736,7 @@ public class FailureActivity extends AppCompatActivity {
                 param.put("device_id",getDeviceId(FailureActivity.this));
                 param.put("game_type","millionaire");
                 param.put("mode",modeValue);
+                Log.i("praram", String.valueOf(param));
                 return param;
             }
         };
@@ -695,10 +760,12 @@ public class FailureActivity extends AppCompatActivity {
 
 
     private void showInterstitial() {
-        if (interstitialAd.isLoaded()) {
-            interstitialAd.show();
+//        if (interstitialAd.isLoaded()) {
+//            interstitialAd.show();
+//
+//        }
 
-        }
+        AdManager.showInterstitial(FailureActivity.this);
 
         loadInterstialAd();
     }

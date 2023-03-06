@@ -2,6 +2,7 @@ package com.digitalDreams.millionaire_game;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -16,7 +17,7 @@ import android.widget.RelativeLayout;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
 
 import org.json.JSONObject;
 
@@ -30,6 +31,7 @@ public class LevelActivity extends AppCompatActivity {
     ArrayList arrayList;
 
     public static InterstitialAd interstitialAd;
+    //AdManager adManager;
 
 
     @Override
@@ -42,6 +44,11 @@ public class LevelActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level);
+
+       // adManager =  new AdManager(this);
+
+        AdManager.initInterstitialAd(this);
+        AdManager.initRewardedVideo(this);
 
 
 
@@ -93,9 +100,9 @@ public class LevelActivity extends AppCompatActivity {
         checks.clear();
         while (res.moveToNext()) {
 
-            String id = res.getString(res.getColumnIndex("ID"));
-            String level_name = res.getString(res.getColumnIndex("STAGE_NAME"));
-            String level = res.getString(res.getColumnIndex("STAGE"));
+            @SuppressLint("Range") String id = res.getString(res.getColumnIndex("ID"));
+            @SuppressLint("Range") String level_name = res.getString(res.getColumnIndex("STAGE_NAME"));
+            @SuppressLint("Range") String level = res.getString(res.getColumnIndex("STAGE"));
             JSONObject obj = new JSONObject();
 
 
@@ -130,21 +137,23 @@ public class LevelActivity extends AppCompatActivity {
 
 
     private void loadInterstialAd(){
-        interstitialAd = new InterstitialAd(LevelActivity.this) ;
-        interstitialAd.setAdUnitId (LevelActivity.this.getResources().getString(R.string.interstitial_adunit) ) ;
-        interstitialAd.loadAd(new AdRequest.Builder().build());
+        interstitialAd = AdManager.mInterstitialAd; // new InterstitialAd(LevelActivity.this) ;
+//        interstitialAd.setAdUnitId (LevelActivity.this.getResources().getString(R.string.interstitial_adunit) ) ;
+//        interstitialAd.loadAd(new AdRequest.Builder().build());
+        AdManager.showInterstitial(LevelActivity.this);
     }
 
     private void showInterstitial() {
-        if (interstitialAd.isLoaded()) {
-            interstitialAd.show();
-        }else{
-            interstitialAd.setAdListener(new AdListener() {
-                public void onAdLoaded() {
-                    showInterstitial();
-                }
-            });
-        }
+//        if (interstitialAd.isLoaded()) {
+//            interstitialAd.show();
+//        }else{
+//            interstitialAd.setAdListener(new AdListener() {
+//                public void onAdLoaded() {
+//                    showInterstitial();
+//                }
+//            });
+//        }
+        AdManager.showInterstitial(LevelActivity.this);
     }
 
 

@@ -29,6 +29,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.PersistableBundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.text.Html;
@@ -60,10 +61,10 @@ import android.widget.Toast;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.RequestConfiguration;
-import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.rewarded.RewardedAd;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -121,7 +122,7 @@ public class GameActivity2 extends AppCompatActivity {
     //={500,1000,2000,3000,5000,7500,10000,12500,15000,25000,
     //50000,100000,250000,500000,1000000};
     int p=0;
-    int p1=1;
+    int p1=3;
     boolean _2question = true;
     boolean askFriend = true;
     boolean vote = true;
@@ -140,7 +141,7 @@ public class GameActivity2 extends AppCompatActivity {
     public static Runnable run;
     File imagePath;
     public static int MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE=100;
-    public static RewardedVideoAd mRewardedVideoAd;
+    public static RewardedAd mRewardedVideoAd;
     //boolean hasOldWinningAmount = false;
     public static InterstitialAd interstitialAd;
     public static boolean fromProgress = true;
@@ -152,6 +153,8 @@ public class GameActivity2 extends AppCompatActivity {
     TextView opt_dec_1,opt_dec_2,opt_dec_3,opt_dec_4;
     int number_of_failure = 0;
     LinearLayout lifeGuardContainers = null;
+    //AdManager adManager;
+
 
 
     @Override
@@ -166,7 +169,11 @@ public class GameActivity2 extends AppCompatActivity {
         noOfCorrectAnswer=0;
         timing =0;
         amountWon="0";
-        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
+
+
+        AdManager.initInterstitialAd(this);
+        AdManager.initRewardedVideo(this);
+        mRewardedVideoAd = AdManager.rewardedAd; //MobileAds.getRewardedVideoAdInstance(this);
         loadVideoAd();
         loadInterstialAd();
 
@@ -268,9 +275,30 @@ public class GameActivity2 extends AppCompatActivity {
 
         if (savedInstanceState != null) {
 
+                // noOfCorrectAnswer = savedInstanceState.getInt("noOfCorrectAnswer", 0);
+           // number = savedInstanceState.getInt("number", 1);
+            Log.i("instantstate", String.valueOf(readNoOfCorrectAnswer()));
+
+
+            noOfCorrectAnswer = readNoOfCorrectAnswer();
+            LinearLayout parent = findViewById(R.id.displayExam);
+            int i=parent.indexOfChild(current);
+            nextView = parent.getChildAt(i+(noOfCorrectAnswer));
+           // amountWon = oldAmountWon;
+            //setAmountWon();
+            readSavedData();
+
+            next2(current,nextView);
+
+
+
+
+
 
 
         }
+
+
 
 
 //        ImageView video_ad_Icon2 = current.findViewById(R.id.video_ad2);
@@ -306,7 +334,14 @@ public class GameActivity2 extends AppCompatActivity {
             }
         });
 
+
+
     }
+
+
+
+
+
 
 
 
@@ -822,20 +857,20 @@ public class GameActivity2 extends AppCompatActivity {
         qPosition = ab;
     }
 
-    public void next2(){
+    public void next2(View current_old, View nextView){
         checkNext=true;
         LinearLayout parent = findViewById(R.id.displayExam);
 
         RelativeLayout r = findViewById(R.id.nav);
 
-        int i=parent.indexOfChild(current);
+        int i=parent.indexOfChild(current_old);
         ImageButton f=findViewById(R.id.fwd);
         ImageButton p=findViewById(R.id.prev);
-        nextView = parent.getChildAt(i+1);
+        //nextView = parent.getChildAt(i+1);
         updateLifelines(nextView);
         if(parent.getChildAt(i+2)==null)f.setVisibility(View.GONE);
         if(nextView !=null) {
-            current.setVisibility(View.GONE);
+            current_old.setVisibility(View.GONE);
             current = nextView;
             nextView.setVisibility(View.VISIBLE);
             if(nextView.getTag()!=null) {
@@ -1063,6 +1098,12 @@ public class GameActivity2 extends AppCompatActivity {
                 playSuccessSound();
             }
             noOfCorrectAnswer++;
+            saveNoOfCorrectAnswer();
+
+
+
+
+
             amountWon = String.valueOf(moneyArr[p1-2]);
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -1127,7 +1168,7 @@ public class GameActivity2 extends AppCompatActivity {
             if(number_of_failure < 1){
                 //////First Failure//////
                 number_of_failure++;
-                WrongAnswerDialog wrongAnswerDialog = new WrongAnswerDialog(GameActivity2.this,mRewardedVideoAd,CountDownActivity.mMediaPlayer);
+                WrongAnswerDialog wrongAnswerDialog = new WrongAnswerDialog(GameActivity2.this,CountDownActivity.mMediaPlayer);
 
                 wrongAnswerDialog.show();
                 wrongAnswerDialog.setCancelable(false);
@@ -1276,13 +1317,14 @@ public class GameActivity2 extends AppCompatActivity {
     }
     public void showRewardedVideo() {
 
-        if (mRewardedVideoAd.isLoaded()) {
-            if(CountDownActivity.mMediaPlayer!=null) {
-                CountDownActivity.mMediaPlayer.stop();
-            }
-            mRewardedVideoAd.show();
-
-        }
+//        if (mRewardedVideoAd.isLoaded()) {
+//            if(CountDownActivity.mMediaPlayer!=null) {
+//                CountDownActivity.mMediaPlayer.stop();
+//            }
+//            mRewardedVideoAd.show();
+//
+//        }
+         AdManager.showRewardAd(GameActivity2.this);
     }
 
 
@@ -1302,6 +1344,15 @@ public class GameActivity2 extends AppCompatActivity {
         if(!continueSound && CountDownActivity.mMediaPlayer!=null){
             CountDownActivity.mMediaPlayer.pause();
         }
+
+
+
+
+
+
+
+
+
     }
 
     @Override
@@ -1714,7 +1765,7 @@ public class GameActivity2 extends AppCompatActivity {
             for (int c = 0; c < q.getChildCount(); c++) {
                 JSONObject optObj = answerArr.getJSONObject(c);
                 String opt = optObj.getString("text");
-                opt = opt.substring(0,1).toUpperCase()+""+opt.substring(1);
+                opt = opt.substring(0,1).toUpperCase()+""+opt.substring(1)+" ";
                 TextView k = q.getChildAt(c).findViewById(R.id.opt);
                 k.setText(opt);
 
@@ -1796,6 +1847,8 @@ public class GameActivity2 extends AppCompatActivity {
     private void setAmountWon(){
         TextView amountWonTxt = findViewById(R.id.amount_won);
         String amountWon_ = amountWon.replace("$","");
+        saveNoOfCorrectAnswer();
+
         switch (Integer.parseInt(amountWon_)){
             case 0:
                 amountWonTxt.setText("$0");
@@ -1810,18 +1863,20 @@ public class GameActivity2 extends AppCompatActivity {
         }
     }
 
-    public static void loadVideoAd() {
+    public  void loadVideoAd() {
         // Load a reward based video ad
-        if(!mRewardedVideoAd.isLoaded() && mRewardedVideoAd !=null){
-            Log.i("mRewardedVideoAd","Not LOaded");
-            mRewardedVideoAd.loadAd("ca-app-pub-4696224049420135/7768937909", new AdRequest.Builder()
-                    .addTestDevice("9D16E23BB90EF4BFA204300CCDCCF264").build());
+//        if(!mRewardedVideoAd.isLoaded() && mRewardedVideoAd !=null){
+//            Log.i("mRewardedVideoAd","Not LOaded");
+//            mRewardedVideoAd.loadAd("ca-app-pub-4696224049420135/7768937909", new AdRequest.Builder()
+//                    .addTestDevice("9D16E23BB90EF4BFA204300CCDCCF264").build());
+//
+//
+//        }else{
+//            Log.i("mRewardedVideoAd","LOaded");
+//
+//        }
+         AdManager.initRewardedVideo(GameActivity2.this);
 
-
-        }else{
-            Log.i("mRewardedVideoAd","LOaded");
-
-        }
 
     }
 
@@ -1836,39 +1891,37 @@ public class GameActivity2 extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        // Save the user's current game state
-       /// savedInstanceState.putInt(STATE_SCORE, mCurrentScore);
 
-        // Always call the superclass so it can save the view hierarchy state
-        super.onSaveInstanceState(savedInstanceState);
-    }
 
     private void loadInterstialAd(){
 
-        interstitialAd = new InterstitialAd(this) ;
-        interstitialAd.setAdUnitId (getResources().getString(R.string.interstitial_adunit) ) ;
-        //String deviceId = md5(android_id).toUpperCase();
-        interstitialAd.loadAd(new AdRequest.Builder().addTestDevice("9D16E23BB90EF4BFA204300CCDCCF264").build());
-        //mInterstitialAd.loadAd(adRequest);
+//        interstitialAd = new InterstitialAd(this) ;
+//        interstitialAd.setAdUnitId (getResources().getString(R.string.interstitial_adunit) ) ;
+//        //String deviceId = md5(android_id).toUpperCase();
+//        interstitialAd.loadAd(new AdRequest.Builder().addTestDevice("9D16E23BB90EF4BFA204300CCDCCF264").build());
+//        //mInterstitialAd.loadAd(adRequest);
+
+
+        AdManager.initInterstitialAd(GameActivity2.this);
 
 
     }
 
 
     private void showInterstitial() {
-        Log.i("checkInt",String.valueOf(interstitialAd.isLoaded()));
-        if (interstitialAd.isLoaded()) {
+//        Log.i("checkInt",String.valueOf(interstitialAd.isLoaded()));
+//        if (interstitialAd.isLoaded()) {
+//
+//            interstitialAd.show();
+//        }else{
+//            interstitialAd.setAdListener(new AdListener() {
+//                public void onAdLoaded() {
+//                    loadInterstialAd();
+//                }
+//            });
+//        }
 
-            interstitialAd.show();
-        }else{
-            interstitialAd.setAdListener(new AdListener() {
-                public void onAdLoaded() {
-                    loadInterstialAd();
-                }
-            });
-        }
+         AdManager.initInterstitialAd(GameActivity2.this);
     }
 
 
@@ -1981,5 +2034,42 @@ public void rotateView(ImageView refreshIcon, View videoIcon, View refreshBTN){
             votingContainer.setVisibility(View.GONE);
 
       //  }
+    }
+
+    void saveNoOfCorrectAnswer() {
+        SharedPreferences sharedPref = getSharedPreferences("application_data", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt("noOfCorrectAnswer", noOfCorrectAnswer);
+        editor.putBoolean("_2question",_2question);
+        editor.putBoolean("askFriend",askFriend);
+        editor.putBoolean("vote",vote);
+        editor.putString("amountWon",amountWon);
+        editor.apply();
+        Log.i("instantstate", String.valueOf(readNoOfCorrectAnswer()));
+    }
+
+    int readNoOfCorrectAnswer() {
+        SharedPreferences sharedPref = getSharedPreferences("application_data", Context.MODE_PRIVATE);
+
+        return sharedPref.getInt("noOfCorrectAnswer", 0);
+
+    }
+
+    public void readSavedData(){
+        SharedPreferences sharedPref = getSharedPreferences("application_data", Context.MODE_PRIVATE);
+
+
+
+
+         _2question  =   sharedPref.getBoolean("_2question",false);
+        askFriend =   sharedPref.getBoolean("askFriend",false);
+        vote = sharedPref.getBoolean("vote",false);
+        amountWon = sharedPref.getString("amountWon","0");
+
+
+
+
+
+
     }
 }

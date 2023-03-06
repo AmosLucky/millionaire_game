@@ -7,6 +7,7 @@ import android.net.NetworkInfo;
 import java.text.DecimalFormat;
 
 public class Utils {
+    public static boolean IS_DONE_INSERTING =false;
 
 
     public static String addCommaToNumber(double number){

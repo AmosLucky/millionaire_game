@@ -142,7 +142,7 @@ class DBHelper extends SQLiteOpenHelper {
 
 
     public Cursor getQuestionByLevel(String level){
-        Log.i("uuuuuuu",level);
+       // Log.i("uuuuuuu",level);
 
         SharedPreferences sharedPreferences = context.getSharedPreferences("settings", Context.MODE_PRIVATE);
         String game_level = sharedPreferences.getString("game_level","1");

@@ -111,8 +111,10 @@ public class WinnersActivity extends AppCompatActivity {
 
         ///////////////////////////
 
-        usernameTXT.setText(username.substring(0,1).toUpperCase()+username.substring(1,username.length()));
-        amountWonTXT.setText(Utils.addDollarSign(Utils.addCommaToNumber(Integer.parseInt(amountWon))));
+       try{
+           usernameTXT.setText(username.substring(0,1).toUpperCase()+username.substring(1,username.length()));
+           amountWonTXT.setText(Utils.addDollarSign(Utils.addCommaToNumber(Integer.parseInt(amountWon))));
+       }catch (Exception e){}
         bg = findViewById(R.id.rootview);
         imageRoot = findViewById(R.id.imageroot);
         new Particles(this,bg,R.layout.image_xml,20);
@@ -159,13 +161,15 @@ public class WinnersActivity extends AppCompatActivity {
     }
 
     private void playBackgroundSound(){
-        if(GameActivity2.mWinning_sound!=null) {
-            CountDownActivity.mMediaPlayer.stop();
+        try{
+            if(GameActivity2.mWinning_sound!=null) {
+                CountDownActivity.mMediaPlayer.stop();
 
-            GameActivity2.mWinning_sound.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            GameActivity2.mWinning_sound.setLooping(true);
-            GameActivity2.mWinning_sound.start();
-        }
+                GameActivity2.mWinning_sound.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                GameActivity2.mWinning_sound.setLooping(true);
+                GameActivity2.mWinning_sound.start();
+            }
+        }catch (Exception e){}
     }
 
     private String setAvatar(ImageView imageView,String avatar){

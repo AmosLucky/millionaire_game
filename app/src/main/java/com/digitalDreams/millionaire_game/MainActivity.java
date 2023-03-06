@@ -63,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout dataScienceContainer;
     LinearLayout container;
     private static final long COUNTER_TIME = 5;
+    public  static boolean ACTIVITY_PASSED = false;
+
 
     private long secondsRemaining;
 
@@ -105,27 +107,30 @@ public class MainActivity extends AppCompatActivity {
 //        appOpenAdManager.fetchAd();
 
         //Log.i("response","t "+text);
-            new Thread(new Runnable(){
-                @Override
-                public void run(){
-                    String text = null;
-                    try {
-                        if(dbHelper.getQuestionSize()==0) {
-                            text = readRawTextFile(R.raw.exam_json5);
-                            parseJSON(text);
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
+        new Thread(new Runnable(){
+            @Override
+            public void run(){
+                String text = null;
+                try {
+                    if(dbHelper.getQuestionSize()==0) {
+                        Utils.IS_DONE_INSERTING = false;
+                        text = readRawTextFile(R.raw.exam_json6);
+                        parseJSON(text);
+                    }else{
+                        Utils.IS_DONE_INSERTING = true;
                     }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            }).start();
+            }
+        }).start();
 
 
         webDevContainer = findViewById(R.id.web_development);
-            mobileDevContainer = findViewById(R.id.mobile_development);
-            digitalMarketingContainer = findViewById(R.id.digital_marketing);
-            dataScienceContainer = findViewById(R.id.data_science);
-            container = findViewById(R.id.container);
+        mobileDevContainer = findViewById(R.id.mobile_development);
+        digitalMarketingContainer = findViewById(R.id.digital_marketing);
+        dataScienceContainer = findViewById(R.id.data_science);
+        container = findViewById(R.id.container);
         TextView trainTxt = findViewById(R.id.train_text);
 
 
@@ -310,7 +315,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             JSONObject jsonObject = new JSONObject(json);
             Iterator<String> iter=jsonObject.keys();
-            lent = jsonObject.length();
+
 
 
             while (iter.hasNext()) {
@@ -328,6 +333,13 @@ public class MainActivity extends AppCompatActivity {
 
                     while (iter3.hasNext()) {
                         String each_level_key = iter3.next();
+                        lent++;
+                        Log.i("lentiiiii", String.valueOf(lent));
+                        Log.i("lentiiiii2", String.valueOf(Utils.IS_DONE_INSERTING));
+
+                        if(lent == 2){
+                            Utils.IS_DONE_INSERTING = true;
+                        }
 
 
                         JSONObject json_each_level = each_level_name.getJSONObject(each_level_key);
@@ -336,9 +348,9 @@ public class MainActivity extends AppCompatActivity {
 
                             String key = iter4.next();
                             Log.i("kkkkkkkkkkkkkkkkkkkkk",String.valueOf(key));
-                       JSONArray jsonArray = json_each_level.getJSONArray(key);
+                            JSONArray jsonArray = json_each_level.getJSONArray(key);
 
-                           Log.i("tables", String.valueOf(jsonArray));
+                            Log.i("tables", String.valueOf(jsonArray));
                             //   Log.i("tables", String.valueOf(jsonArray));
                             Log.i("stage_name", String.valueOf(levels));
                             Log.i("stage", String.valueOf(each_level_key));
@@ -356,7 +368,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-                                 dbHelper.insertDetails(k,key,id,content,type,answer,correct,levels,each_level_key);
+                                dbHelper.insertDetails(k,key,id,content,type,answer,correct,levels,each_level_key);
                             }
 
                         }
@@ -404,15 +416,15 @@ public class MainActivity extends AppCompatActivity {
         Log.i("JsonDetails", String.valueOf(lent));
         SharedPreferences sharedPreferences = getSharedPreferences("settings",MODE_PRIVATE);
         String username = sharedPreferences.getString("username","");
-        if(!username.isEmpty()) {
-            Intent intent = new Intent(MainActivity.this, Dashboard.class);
-            startActivity(intent);
-            finish();
-        }else {
-            Intent intent = new Intent(MainActivity.this, UserDetails.class);
-            startActivity(intent);
-            finish();
-        }
+//        if(!username.isEmpty()) {
+//            Intent intent = new Intent(MainActivity.this, Dashboard.class);
+//            startActivity(intent);
+//            finish();
+//        }else {
+//            Intent intent = new Intent(MainActivity.this, UserDetails.class);
+//            startActivity(intent);
+//            finish();
+//        }
 
     }
 
@@ -555,8 +567,8 @@ public class MainActivity extends AppCompatActivity {
                 new CountDownTimer(seconds * 1000, 1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
-                       // secondsRemaining = ((millisUntilFinished / 1000) + 1);
-                       // counterTextView.setText("App is done loading in: " + secondsRemaining);
+                        // secondsRemaining = ((millisUntilFinished / 1000) + 1);
+                        // counterTextView.setText("App is done loading in: " + secondsRemaining);
                     }
 
                     @Override
@@ -569,7 +581,7 @@ public class MainActivity extends AppCompatActivity {
                         // If the application is not an instance of MyApplication, log an error message and
                         // start the MainActivity without showing the app open ad.
                         if (!(application instanceof MyApplication)) {
-                           // Log.e(LOG_TAG, "Failed to cast application to MyApplication.");
+                            // Log.e(LOG_TAG, "Failed to cast application to MyApplication.");
                             startDashboardActivity();
                             return;
                         }

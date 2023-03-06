@@ -19,6 +19,7 @@ import android.widget.GridLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -159,9 +160,21 @@ public class UserDetails extends AppCompatActivity {
             editor.putBoolean("isFirstTime",true);
 
             editor.apply();
-            Intent intent = new Intent(UserDetails.this,Dashboard.class);
+            Log.i("lentiiiii3", String.valueOf(Utils.IS_DONE_INSERTING));
+
+            Intent intent;
+            if(Utils.IS_DONE_INSERTING) {
+                Log.i("lentiiiii3", "Dashboard");
+
+                intent = new Intent(UserDetails.this, Dashboard.class);
+            }else{
+                Log.i("lentiiiii3", "Welcome");
+                intent = new Intent(UserDetails.this, WelcomeActivity.class);
+
+            }
             startActivity(intent);
             finish();
+
         }
     }
 
@@ -177,30 +190,40 @@ public class UserDetails extends AppCompatActivity {
     }
 
     public  void addCountries(){
+       // Log.i("llllll","flag");
         try{
             String json = readRawTextFile(R.raw.country_json);
-            JSONObject jsonObject = new JSONObject(json);
-            Iterator<String> iterator = jsonObject.keys();
+            JSONArray jsonArray = new JSONArray(json);
+            //Iterator<String> iterator = jsonObject.keys();
 
-            while (iterator.hasNext()){
-                String key = iterator.next();
-                JSONObject obj1 = jsonObject.getJSONObject(key);
+            //Log.i("llllll","flag");
+            for(int j =0; j < jsonArray.length();j++){
+                JSONObject obj1 = jsonArray.getJSONObject(j);
                 String name = obj1.getString("name");
                 String flag = obj1.getString("image");
                 countries.add(name);
                 flags.add(flag);
-
-                Log.i("llllll",flag);
-
-               /// countryAdapter.notifyDataSetChanged();
             }
+
+//            while (iterator.hasNext()){
+//                String key = iterator.next();
+//                JSONObject obj1 = jsonObject.getJSONObject(key);
+//                String name = obj1.getString("name");
+//                String flag = obj1.getString("image");
+//                countries.add(name);
+//                flags.add(flag);
+//
+//                Log.i("llllll",flag);
+//
+//               /// countryAdapter.notifyDataSetChanged();
+//            }
 
         }catch(Exception e){
             e.printStackTrace();
         }
     }
 
-    String[] countries4 = new String[]{"Select country","Afghanistan", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla",
+    String[] countries4ii = new String[]{"Select country","Afghanistan", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla",
             "Antarctica", "Antigua and Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas",
             "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia",
             "Bosnia and Herzegowina", "Botswana", "Bouvet Island", "Brazil", "British Indian Ocean Territory", "Brunei Darussalam",

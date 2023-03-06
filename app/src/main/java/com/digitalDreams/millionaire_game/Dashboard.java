@@ -11,16 +11,20 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
@@ -31,9 +35,8 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+
 
 import java.util.Locale;
 
@@ -44,8 +47,10 @@ public class Dashboard extends AppCompatActivity {
     RelativeLayout bg;
     RelativeLayout newGameBtn,leaderBoardBtn,exitBtn,gotoYoutubeBtn,new_particle;
     ImageView settingBtn;
+    //AdManager adManager;
     //DBHelper dbHelper;
    // public static RewardedVideoAd mRewardedVideoAd;
+    AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
 
 
     @Override
@@ -54,6 +59,7 @@ public class Dashboard extends AppCompatActivity {
        // mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
 
         setContentView(R.layout.activity_dashboard);
+         AdManager.initInterstitialAd(this);
 
 
         loadInterstialAd();
@@ -75,7 +81,9 @@ public class Dashboard extends AppCompatActivity {
 
 
         TextView highscoreTxt = findViewById(R.id.highscore);
-        highscoreTxt.setText("$"+Utils.prettyCount(Integer.parseInt(highscore)));
+        try{
+            highscoreTxt.setText("$"+Utils.prettyCount(Integer.parseInt(highscore)));
+        }catch (Exception e){}
         AdView mAdView;
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -112,21 +120,29 @@ public class Dashboard extends AppCompatActivity {
         leaderBoardBtn.setBackgroundColor(cardBackground);
         settingBtn.setBackgroundColor(cardBackground);*/
 
+
+
+
+
+
         newGameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(Dashboard.this,CountDownActivity.class);
-//                startActivity(intent);
-//                finish();
+              ///  newGameBtn.startAnimation(buttonClick);
+                blink(newGameBtn,R.drawable.dark_play,R.drawable.playbtn_bg);
+               MediaPlayer.create(Dashboard.this, R.raw.play).start();
                 Intent intent = new Intent(Dashboard.this,CountDownActivity.class);
                 startActivity(intent);
-                //finish();
+                finish();
             }
         });
         gotoYoutubeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                blink(gotoYoutubeBtn, R.drawable.ic_hex_2, R.drawable.ic_hexnow);
+
                 try{
+                    MediaPlayer.create(Dashboard.this, R.raw.others).start();
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/channel/UC7AAQdgwQ204aU5ztp19FKg")));
 
                 }catch (Exception e){
@@ -137,6 +153,8 @@ public class Dashboard extends AppCompatActivity {
         new_particle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                MediaPlayer.create(Dashboard.this, R.raw.others).start();
                 Intent i = new Intent(Dashboard.this,WinnersActivity.class);
                 startActivity(i);
             }
@@ -145,6 +163,9 @@ public class Dashboard extends AppCompatActivity {
         leaderBoardBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                blink(leaderBoardBtn, R.drawable.ic_hex_2, R.drawable.ic_hexnow);
+
+                MediaPlayer.create(Dashboard.this, R.raw.others).start();
                 Intent intent = new Intent(Dashboard.this,LeaderBoard.class);
                 startActivity(intent);
             }
@@ -154,6 +175,8 @@ public class Dashboard extends AppCompatActivity {
         settingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                settingBtn.startAnimation(buttonClick);
+                MediaPlayer.create(Dashboard.this, R.raw.others).start();
                 Intent intent = new Intent(Dashboard.this,SettingActivity.class);
                 startActivity(intent);
 
@@ -183,12 +206,16 @@ public class Dashboard extends AppCompatActivity {
         moreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                MediaPlayer.create(Dashboard.this, R.raw.others).start();
+                blink(moreBtn, R.drawable.ic_hex_2, R.drawable.ic_hexnow);
                // Uri uri = Uri.parse("https://play.google.com/store/apps/developer?id=DIGITAL+DREAMS+LIMITED");
                 Uri uri = Uri.parse("https://www.facebook.com/MillionaireGameApp");
 
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(uri);
-                startActivity(intent);
+               try {
+                   Intent intent = new Intent(Intent.ACTION_VIEW);
+                   intent.setData(uri);
+                   startActivity(intent);
+               }catch (Exception e){}
             }
         });
 
@@ -358,9 +385,10 @@ public class Dashboard extends AppCompatActivity {
 
 
     private void loadInterstialAd(){
-        interstitialAd = new InterstitialAd(this) ;
-        interstitialAd.setAdUnitId (getResources().getString(R.string.interstitial_adunit) ) ;
-        interstitialAd.loadAd(new AdRequest.Builder().build());
+        interstitialAd = AdManager.mInterstitialAd; //new InterstitialAd(this) ;
+        AdManager.initInterstitialAd(Dashboard.this);
+//        interstitialAd.setAdUnitId (getResources().getString(R.string.interstitial_adunit) ) ;
+//        interstitialAd.loadAd(new AdRequest.Builder().build());
     }
 
 //    public  void loadVideoAd() {
@@ -374,5 +402,7 @@ public class Dashboard extends AppCompatActivity {
 //        }
 //
 //    }
+
+
 
 }
