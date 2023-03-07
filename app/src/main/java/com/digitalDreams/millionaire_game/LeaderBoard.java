@@ -539,8 +539,8 @@ public class LeaderBoard extends AppCompatActivity {
                Log.i("efi",country_flag+" "+username+" "+country);
 
             }
-            Log.i("ok" +
-                    "iii", obj.toString());
+//            Log.i("ok" +
+//                    "iii", obj.toString());
             if(username.length() > 13){
                 username = username.substring(0,13)+"...";
             }

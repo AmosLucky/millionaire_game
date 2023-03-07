@@ -171,12 +171,14 @@ public class WrongAnswerDialog extends Dialog {
                         e.printStackTrace();
 
                         AdManager.showInterstitial((Activity) context);
-                        AdManager.mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
-                            @Override
-                            public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
-                                super.onAdFailedToShowFullScreenContent(adError);
-                            }
-                        });
+                       if(AdManager.mInterstitialAd != null){
+                           AdManager.mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                               @Override
+                               public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+                                   super.onAdFailedToShowFullScreenContent(adError);
+                               }
+                           });
+                       }
 
 
                     }

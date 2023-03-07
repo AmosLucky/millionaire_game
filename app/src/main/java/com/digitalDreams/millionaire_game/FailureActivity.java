@@ -156,6 +156,8 @@ public class FailureActivity extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_IMMERSIVE);
 
+
+
         new_games.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -164,11 +166,12 @@ public class FailureActivity extends AppCompatActivity {
                     CountDownActivity.mMediaPlayer.stop();
                 }
 
-                if(AdManager.mInterstitialAd != null){
-                    AdManager.showInterstitial(FailureActivity.this);;
+                if (AdManager.mInterstitialAd != null) {
+                    AdManager.showInterstitial(FailureActivity.this);
+                    ;
 
 //                    interstitialAd.show();
-                }else{
+                } else {
                     Intent i = new Intent(FailureActivity.this, CountDownActivity.class);
                     // startActivity(i);
 
@@ -176,25 +179,28 @@ public class FailureActivity extends AppCompatActivity {
                     startActivity(i);
                     finish();
                 }
+                if(AdManager.mInterstitialAd != null){
 
-              AdManager.mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
-                  @Override
-                  public void onAdClicked() {
-                      // Called when a click is recorded for an ad.
-                      Log.d("Admob", "Ad was clicked.");
-                  }
+                AdManager.mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                    @Override
+                    public void onAdClicked() {
+                        // Called when a click is recorded for an ad.
+                        Log.d("Admob", "Ad was clicked.");
+                    }
 
 
-                  @Override
-                  public void onAdDismissedFullScreenContent() {
-                      Intent i = new Intent(FailureActivity.this, CountDownActivity.class);
-                      // startActivity(i);
+                    @Override
+                    public void onAdDismissedFullScreenContent() {
+                        Intent i = new Intent(FailureActivity.this, CountDownActivity.class);
+                        // startActivity(i);
 
-                      startActivity(i);
-                      finish();
-                      super.onAdDismissedFullScreenContent();
-                  }
-              });
+                        startActivity(i);
+                        finish();
+                        super.onAdDismissedFullScreenContent();
+                    }
+                });
+
+            }
 
 
 
