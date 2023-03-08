@@ -34,6 +34,8 @@ class ExitDialog extends Dialog {
         super.onStart();
     }
 
+    RelativeLayout relativeLayout;
+
 
 
     @Override
@@ -58,6 +60,14 @@ class ExitDialog extends Dialog {
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
         //mAdView.setAdSize(new AdSize(AdSize.FULL_WIDTH, 50));
+        relativeLayout = findViewById(R.id.close_dialog);
+
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+            }
+        });
 
         yesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,10 +81,15 @@ class ExitDialog extends Dialog {
 
                 }
 
-                Intent a = new Intent(Intent.ACTION_MAIN);
-                a.addCategory(Intent.CATEGORY_HOME);
-                a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(a);
+//                Intent a = new Intent(Intent.ACTION_MAIN);
+//                a.addCategory(Intent.CATEGORY_HOME);
+//                a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                context.startActivity(a);
+
+                int pid = android.os.Process.myPid();
+                android.os.Process.killProcess(pid);
+                getOwnerActivity().finish();
+                System.exit(0);
 
             }
         });
