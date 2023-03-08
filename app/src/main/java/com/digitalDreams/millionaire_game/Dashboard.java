@@ -386,6 +386,8 @@ public class Dashboard extends AppCompatActivity {
         window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 
+    //////
+
 
     private void loadInterstialAd(){
         interstitialAd = AdManager.mInterstitialAd; //new InterstitialAd(this) ;
