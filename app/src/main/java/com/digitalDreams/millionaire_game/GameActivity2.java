@@ -1186,6 +1186,9 @@ public class GameActivity2 extends AppCompatActivity {
                         if (hasOldWinningAmount) {
                             intent.putExtra("hasOldWinningAmount", hasOldWinningAmount);
                         }
+                        if(CountDownActivity.mMediaPlayer != null){
+                            CountDownActivity.mMediaPlayer.pause();
+                        }
                         startActivity(intent);
                     }
                 }, 500);

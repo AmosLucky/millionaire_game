@@ -37,6 +37,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAd;
 public class ExitGameDialog extends Dialog {
     Context context;
     String amountWon;
+    RelativeLayout relativeLayout;
     public static int MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE=100;
     File imagePath;
     public static InterstitialAd interstitialAd;
@@ -54,6 +55,7 @@ public class ExitGameDialog extends Dialog {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.exit_dialog_2);
         //adManager =  new AdManager(context);
+        relativeLayout = findViewById(R.id.close_dialog);
 
         AdManager.initInterstitialAd((Activity) context);
         AdManager.initRewardedVideo((Activity) context);
@@ -97,6 +99,12 @@ public class ExitGameDialog extends Dialog {
         });
         TextView amountwonText = findViewById(R.id.amount_won);
         amountwonText.setText(Utils.addCommaAndDollarSign(Integer.parseInt(amountWon)));
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+            }
+        });
 
         continueBtn.setOnClickListener(new View.OnClickListener() {
             @Override

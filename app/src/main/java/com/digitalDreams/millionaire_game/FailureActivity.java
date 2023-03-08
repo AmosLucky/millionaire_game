@@ -168,39 +168,37 @@ public class FailureActivity extends AppCompatActivity {
 
                 if (AdManager.mInterstitialAd != null) {
                     AdManager.showInterstitial(FailureActivity.this);
-                    ;
+
+                        AdManager.mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                            @Override
+                            public void onAdClicked() {
+                                // Called when a click is recorded for an ad.
+                                Log.d("Admob", "Ad was clicked.");
+                            }
+
+
+                            @Override
+                            public void onAdDismissedFullScreenContent() {
+                                Intent i = new Intent(FailureActivity.this, CountDownActivity.class);
+                                // startActivity(i);
+
+                                startActivity(i);
+                                finish();
+                                super.onAdDismissedFullScreenContent();
+                            }
+                        });
 
 //                    interstitialAd.show();
-                } else {
+
+
+
+            }else{
                     Intent i = new Intent(FailureActivity.this, CountDownActivity.class);
                     // startActivity(i);
-
 
                     startActivity(i);
                     finish();
                 }
-                if(AdManager.mInterstitialAd != null){
-
-                AdManager.mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
-                    @Override
-                    public void onAdClicked() {
-                        // Called when a click is recorded for an ad.
-                        Log.d("Admob", "Ad was clicked.");
-                    }
-
-
-                    @Override
-                    public void onAdDismissedFullScreenContent() {
-                        Intent i = new Intent(FailureActivity.this, CountDownActivity.class);
-                        // startActivity(i);
-
-                        startActivity(i);
-                        finish();
-                        super.onAdDismissedFullScreenContent();
-                    }
-                });
-
-            }
 
 
 
@@ -303,30 +301,40 @@ public class FailureActivity extends AppCompatActivity {
                 AdManager.showRewardAd(FailureActivity.this);
 
                 try {
-                    AdManager.rewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {
-                        @Override
-                        public void onAdClicked() {
-                            continueGame = true;
-                            finish();
-                            super.onAdClicked();
-                        }
+                    if(AdManager.rewardedAd != null) {
+                        AdManager.rewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                            @Override
+                            public void onAdClicked() {
+                                continueGame = true;
+                                finish();
+                                super.onAdClicked();
+                            }
 
-                        @Override
-                        public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
-                            super.onAdFailedToShowFullScreenContent(adError);
-                        }
+                            @Override
+                            public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+                                super.onAdFailedToShowFullScreenContent(adError);
+                            }
 
-                        @Override
-                        public void onAdDismissedFullScreenContent() {
-                            continueGame = true;
-                          finish();
-                            super.onAdDismissedFullScreenContent();
-                        }
-                    });
+                            @Override
+                            public void onAdDismissedFullScreenContent() {
+                                continueGame = true;
+                                finish();
+                                super.onAdDismissedFullScreenContent();
+                            }
+                        });
+                    }else {
+                        Toast.makeText(FailureActivity.this, "Ad failed to load", Toast.LENGTH_LONG).show();
+                        Intent i =  new Intent(FailureActivity.this,CountDownActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
 
                 }catch (Exception e){
                     e.printStackTrace();
-                    new_games.callOnClick();
+                    Toast.makeText(FailureActivity.this,"Ad failed to load",Toast.LENGTH_LONG).show();
+                   Intent i =  new Intent(FailureActivity.this,CountDownActivity.class);
+                   startActivity(i);
+                   finish();
 
                 }
 

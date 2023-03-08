@@ -40,7 +40,7 @@ public class AdManager {
 
 
     public  static void  initInterstitialAd(Activity context){
-        if(mInterstitialAd == null) {
+       // if(mInterstitialAd == null) {
             MobileAds.initialize(context, new OnInitializationCompleteListener() {
                 @Override
                 public void onInitializationComplete(InitializationStatus initializationStatus) {
@@ -68,7 +68,7 @@ public class AdManager {
                         }
                     });
 
-        }
+       // }
     }
 
 
@@ -84,7 +84,7 @@ public static   void showInterstitial(Activity context){
 }
 
 public static   void  initRewardedVideo(Activity context){
-    if(rewardedAd == null) {
+   // if(rewardedAd == null) {
         AdRequest adRequest = new AdRequest.Builder().build();
         RewardedAd.load(context, "ca-app-pub-4696224049420135/7768937909",
                 adRequest, new RewardedAdLoadCallback() {
@@ -106,7 +106,7 @@ public static   void  initRewardedVideo(Activity context){
                     }
                 });
 
-    }
+   // }
 
 
 //    rewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {

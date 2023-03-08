@@ -118,11 +118,12 @@ public class WrongAnswerDialog extends Dialog {
             @Override
             public void onClick(View view) {
                 Utils.greenBlink(continue_btn, context);
+                if (CountDownActivity. mMediaPlayer != null) {
+                    CountDownActivity. mMediaPlayer.pause();
+                }
 
                 if(Utils.isOnline(context)) {
-                    if (mMediaPlayer != null) {
-                        mMediaPlayer.pause();
-                    }
+
                    // if (mRewardedVideoAd != null) {
 
                         AdManager.showRewardAd((Activity) context);
@@ -178,6 +179,11 @@ public class WrongAnswerDialog extends Dialog {
                                    super.onAdFailedToShowFullScreenContent(adError);
                                }
                            });
+                       }else{
+                           dismiss();
+                           Intent i = new Intent(context,FailureActivity.class);
+                           context.startActivity(i);
+
                        }
 
 
@@ -196,6 +202,10 @@ public class WrongAnswerDialog extends Dialog {
 //                }
                 else {
                     Toast.makeText(context,"Connect to internet and try again",Toast.LENGTH_LONG).show();
+                    dismiss();
+                    Intent intent = new Intent(getContext(), FailureActivity.class);
+                    context.startActivity(intent);
+
 
                 }
 
@@ -260,11 +270,15 @@ public class WrongAnswerDialog extends Dialog {
             @Override
             public void onClick(View view) {
                 Utils.darkBlueBlink(give_up, context);
+                if (CountDownActivity. mMediaPlayer != null) {
+                    CountDownActivity. mMediaPlayer.pause();
+                }
 
                 dismiss();
 
                 Intent intent = new Intent(getContext(), FailureActivity.class);
                 context.startActivity(intent);
+
 
 
 

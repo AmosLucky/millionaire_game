@@ -24,6 +24,7 @@
         <entry key="app/src/main/res/layout-h1024dp/activity_loader.xml" value="0.1" />
         <entry key="app/src/main/res/layout-h1024dp/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout-h1024dp/activity_play_details.xml" value="0.100390625" />
+        <entry key="app/src/main/res/layout-h1024dp/exit_dialog_layout.xml" value="0.1" />
         <entry key="app/src/main/res/layout-h1024dp/leader_score_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout-h1024dp/options_layout.xml" value="0.1" />
         <entry key="app/src/main/res/layout-h1024dp/optionsview.xml" value="0.1" />
@@ -35,16 +36,19 @@
         <entry key="app/src/main/res/layout-h300dp/activity_leader_board.xml" value="0.23693693693693693" />
         <entry key="app/src/main/res/layout-h300dp/activity_play_details.xml" value="0.23153153153153153" />
         <entry key="app/src/main/res/layout-h300dp/card.xml" value="0.17117117117117117" />
+        <entry key="app/src/main/res/layout-h300dp/exit_dialog_layout.xml" value="0.14234234234234233" />
         <entry key="app/src/main/res/layout-h300dp/leader_score_item.xml" value="0.165" />
         <entry key="app/src/main/res/layout-h300dp/options_layout.xml" value="0.17927927927927928" />
         <entry key="app/src/main/res/layout-h300dp/optionsview.xml" value="0.3318112633181126" />
         <entry key="app/src/main/res/layout-h300dp/qo_1.xml" value="0.17117117117117117" />
         <entry key="app/src/main/res/layout-h480dp/activity_count_down.xml" value="0.3225" />
         <entry key="app/src/main/res/layout-h480dp/activity_dashboard.xml" value="0.24875" />
+        <entry key="app/src/main/res/layout-h480dp/activity_exam_game2.xml" value="0.305" />
         <entry key="app/src/main/res/layout-h480dp/activity_failure.xml" value="0.335" />
         <entry key="app/src/main/res/layout-h480dp/activity_leader_board.xml" value="0.32875" />
         <entry key="app/src/main/res/layout-h480dp/activity_play_details.xml" value="0.32125" />
         <entry key="app/src/main/res/layout-h480dp/content_exam2.xml" value="0.16" />
+        <entry key="app/src/main/res/layout-h480dp/exit_dialog_layout.xml" value="0.1975" />
         <entry key="app/src/main/res/layout-h480dp/leader_score_item.xml" value="0.335" />
         <entry key="app/src/main/res/layout-h480dp/options_layout.xml" value="0.475" />
         <entry key="app/src/main/res/layout-h480dp/optionsview.xml" value="0.17875" />
@@ -57,6 +61,7 @@
         <entry key="app/src/main/res/layout-h600dp/activity_leader_board.xml" value="0.4174603174603175" />
         <entry key="app/src/main/res/layout-h600dp/activity_play_details.xml" value="0.40793650793650793" />
         <entry key="app/src/main/res/layout-h600dp/card.xml" value="0.31587301587301586" />
+        <entry key="app/src/main/res/layout-h600dp/exit_dialog_layout.xml" value="0.2507936507936508" />
         <entry key="app/src/main/res/layout-h600dp/leader_score_item.xml" value="0.45" />
         <entry key="app/src/main/res/layout-h600dp/leaderboard_item1.xml" value="0.2015873015873016" />
         <entry key="app/src/main/res/layout-h600dp/options_layout.xml" value="0.35275080906148865" />
@@ -70,6 +75,8 @@
         <entry key="app/src/main/res/layout-h720dp/activity_leader_board.xml" value="0.13697916666666668" />
         <entry key="app/src/main/res/layout-h720dp/activity_play_details.xml" value="0.18645833333333334" />
         <entry key="app/src/main/res/layout-h720dp/activity_progress.xml" value="0.1" />
+        <entry key="app/src/main/res/layout-h720dp/exit_dialog_2.xml" value="0.12708333333333333" />
+        <entry key="app/src/main/res/layout-h720dp/exit_dialog_layout.xml" value="0.1" />
         <entry key="app/src/main/res/layout-h720dp/leader_score_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout-h720dp/leaderboard_item1.xml" value="0.1" />
         <entry key="app/src/main/res/layout-h720dp/options_layout.xml" value="0.1" />
@@ -93,6 +100,7 @@
         <entry key="app/src/main/res/layout/card.xml" value="0.4185022026431718" />
         <entry key="app/src/main/res/layout/country_leader_board.xml" value="0.13697916666666668" />
         <entry key="app/src/main/res/layout/daily_layout.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/exit_dialog_layout.xml" value="0.34801762114537443" />
         <entry key="app/src/main/res/layout/fragment_ask_a_friend.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_ask_computer.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_minus_two.xml" value="0.1" />

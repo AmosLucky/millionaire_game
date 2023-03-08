@@ -7,10 +7,45 @@
     android:orientation="vertical"
    android:id="@+id/rootview"
     >
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+
+            >
+            <RelativeLayout
+                android:id="@+id/close_dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+
+                >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/hexagon"
+                    app:tint="@color/white" />
+
+                <ImageView
+
+                    android:id="@+id/close"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_baseline_close_24"
+                    app:tint="@color/black" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

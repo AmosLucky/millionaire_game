@@ -289,7 +289,9 @@ public class LeaderBoard extends AppCompatActivity {
             public void onClick(View view) {
                 Utils.darkBlueBlink(closeBtn, getApplicationContext());
                 showInterstitial();
-                onBackPressed();
+            Intent i = new Intent(LeaderBoard.this,Dashboard.class);
+            startActivity(i);
+            finish();
 
             }
         });
