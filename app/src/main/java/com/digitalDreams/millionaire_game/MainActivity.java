@@ -114,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     if(dbHelper.getQuestionSize()==0) {
                         Utils.IS_DONE_INSERTING = false;
+                        saveAnonymouseUser();
                         text = readRawTextFile(R.raw.exam_json6);
                         parseJSON(text);
                     }else{
@@ -319,7 +320,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             while (iter.hasNext()) {
-                lent++;
+               // lent++;
                 String k = iter.next(); //// LANGUAGEs LEVEL
 
                 JSONObject language_keys = jsonObject.getJSONObject(k);
@@ -333,18 +334,19 @@ public class MainActivity extends AppCompatActivity {
 
                     while (iter3.hasNext()) {
                         String each_level_key = iter3.next();
-                        lent++;
-                        Log.i("lentiiiii", String.valueOf(lent));
-                        Log.i("lentiiiii2", String.valueOf(Utils.IS_DONE_INSERTING));
 
-                        if(lent == 2){
-                            Utils.IS_DONE_INSERTING = true;
-                        }
 
 
                         JSONObject json_each_level = each_level_name.getJSONObject(each_level_key);
                         Iterator<String> iter4 = json_each_level.keys();
                         while (iter4.hasNext()) {
+                            lent++;
+                            Utils.NUMBER_OF_INSERT ++;
+
+
+                            if(lent == 15){
+                                Utils.IS_DONE_INSERTING = true;
+                            }
 
                             String key = iter4.next();
                             Log.i("kkkkkkkkkkkkkkkkkkkkk",String.valueOf(key));
@@ -609,12 +611,16 @@ public class MainActivity extends AppCompatActivity {
                 public void run() {
                     SharedPreferences sharedPreferences = getSharedPreferences("settings",MODE_PRIVATE);
                     String username = sharedPreferences.getString("username","");
-                    if(!username.isEmpty()) {
+                    if(Utils.IS_DONE_INSERTING) {
                         Intent intent = new Intent(MainActivity.this, Dashboard.class);
                         startActivity(intent);
                         finish();
                     }else {
-                        Intent intent = new Intent(MainActivity.this, UserDetails.class);
+
+
+
+
+                        Intent intent = new Intent(MainActivity.this, WelcomeActivity.class);
                         startActivity(intent);
                         finish();
                     }
@@ -622,4 +628,18 @@ public class MainActivity extends AppCompatActivity {
             },SPLASH_SCREEN_DELAY);
         }
     }
+
+   public void  saveAnonymouseUser(){
+       SharedPreferences sharedPreferences = getSharedPreferences("settings",MODE_PRIVATE);
+       SharedPreferences.Editor editor = sharedPreferences.edit();
+       editor.putString("username",getResources().getString(R.string.anonymous_user));
+       editor.putString("avatar","1");
+       editor.putString("country","default");
+       editor.putString("country_flag","https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AX.svg");
+       editor.putString("game_level","1");
+       editor.putString("current_play_level","1");
+       editor.putBoolean("isFirstTime",true);
+
+       editor.apply();
+   }
 }

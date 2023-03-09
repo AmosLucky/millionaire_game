@@ -31,7 +31,10 @@ import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.Random;
 
 public class UserDetails extends AppCompatActivity {
     EditText usernameEdt;
@@ -62,6 +65,9 @@ public class UserDetails extends AppCompatActivity {
         usernameEdt = findViewById(R.id.username);
         SharedPreferences sharedPreferences = getSharedPreferences("settings",MODE_PRIVATE);
         String username = sharedPreferences.getString("username","");
+        if(username.equals(getResources().getString(R.string.anonymous_user))){
+            username = "";
+        }
         usernameEdt.setText(username);
         Button continueBtn = findViewById(R.id.continueBtn);
         spinner = findViewById(R.id.country);
@@ -147,33 +153,33 @@ public class UserDetails extends AppCompatActivity {
             Toast.makeText(UserDetails.this,"Select your country",Toast.LENGTH_SHORT).show();
 
 
-        }else if(avatar.isEmpty()){
-            Toast.makeText(UserDetails.this,"Select an avatar",Toast.LENGTH_SHORT).show();
-
         }else {
+            //Random = new Random()
+            final int min = 1;
+            final int max = 3;
+             int random = new Random().nextInt((max - min) + 1) + min;
+            avatar =  String.valueOf(random);
+
+
             SharedPreferences sharedPreferences = getSharedPreferences("settings",MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("username",username);
-            editor.putString("avatar",avatar);
+            editor.putString("avatar","1");
             editor.putString("country",country);
             editor.putString("country_flag",flag);
-            editor.putString("game_level","1");
+            editor.putString("game_level",avatar);
             editor.putString("current_play_level","1");
             editor.putBoolean("isFirstTime",true);
 
             editor.apply();
-            Log.i("lentiiiii3", String.valueOf(Utils.IS_DONE_INSERTING));
+
+
+            checkScore();
 
             Intent intent;
-            if(Utils.IS_DONE_INSERTING) {
-                Log.i("lentiiiii3", "Dashboard");
 
-                intent = new Intent(UserDetails.this, Dashboard.class);
-            }else{
-                Log.i("lentiiiii3", "Welcome");
-                intent = new Intent(UserDetails.this, WelcomeActivity.class);
+                intent = new Intent(UserDetails.this, LeaderBoard.class);
 
-            }
             startActivity(intent);
             finish();
 
@@ -280,5 +286,38 @@ public class UserDetails extends AppCompatActivity {
 
         String jsonString = writer.toString();
         return jsonString;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i =  new Intent(UserDetails.this,Dashboard.class);
+        startActivity(i);
+        super.onBackPressed();
+    }
+
+   public void  checkScore(){
+        String modeValue = "";
+        SharedPreferences sharedPreferences = getSharedPreferences("settings", MODE_PRIVATE);
+        String highscore = sharedPreferences.getString("high_score", "0");
+        String username = sharedPreferences.getString("username", "");
+        String country = sharedPreferences.getString("country", "");
+        String country_flag = sharedPreferences.getString("country_flag", "");
+        String oldAmountWon = sharedPreferences.getString("amountWon", "");
+        String mode = sharedPreferences.getString("game_mode", "0");
+        //TextView modeTxt = findViewById(R.id.mode);
+        if (mode.equals("0")) {
+            //  modeTxt.setText("Mode: Normal");
+            modeValue = "normal";
+        } else {
+            // modeTxt.setText("Mode: Hard");
+            modeValue = "hard";
+        }
+
+       Map userDetails = new HashMap();
+       userDetails.put("username",username);
+       userDetails.put("country",country);
+       userDetails.put("country_flag",country_flag);
+
+       Utils.sendScoreToSever(UserDetails.this,highscore,userDetails,modeValue);
     }
 }

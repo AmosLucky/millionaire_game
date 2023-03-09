@@ -678,6 +678,7 @@ public class FailureActivity extends AppCompatActivity {
         String country = sharedPreferences.getString("country", "");
         String country_flag = sharedPreferences.getString("country_flag", "");
         String oldAmountWon = sharedPreferences.getString("amountWon", "");
+
         int h = Integer.parseInt(highscore);
         String score = GameActivity2.amountWon;
         ///score = score.substring(1);

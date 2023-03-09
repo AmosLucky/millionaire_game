@@ -42,9 +42,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 ;
 
@@ -267,6 +269,7 @@ public class LeaderBoard extends AppCompatActivity {
         int startColor = sharedPreferences.getInt("start_color",getResources().getColor(R.color.purple_500));
         int cardBackground = sharedPreferences.getInt("card_background",0x219ebc);
          username = sharedPreferences.getString("username","");
+         moveToSignUp(username);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
@@ -289,9 +292,7 @@ public class LeaderBoard extends AppCompatActivity {
             public void onClick(View view) {
                 Utils.darkBlueBlink(closeBtn, getApplicationContext());
                 showInterstitial();
-            Intent i = new Intent(LeaderBoard.this,Dashboard.class);
-            startActivity(i);
-            finish();
+
 
             }
         });
@@ -740,6 +741,30 @@ public class LeaderBoard extends AppCompatActivity {
 //            });
 //        }
         AdManager.showInterstitial(LeaderBoard.this);
+        if(AdManager.mInterstitialAd != null){
+            AdManager.mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                @Override
+                public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+                    Intent i = new Intent(LeaderBoard.this,Dashboard.class);
+                    startActivity(i);
+                    finish();
+                    super.onAdFailedToShowFullScreenContent(adError);
+                }
+
+                @Override
+                public void onAdDismissedFullScreenContent() {
+                    super.onAdDismissedFullScreenContent();
+                    Intent i = new Intent(LeaderBoard.this,Dashboard.class);
+                    startActivity(i);
+                    finish();
+                }
+            });
+
+        }else{
+            Intent i = new Intent(LeaderBoard.this,Dashboard.class);
+            startActivity(i);
+            finish();
+        }
     }
     public void checkPermission() {
         if (ContextCompat.checkSelfPermission(LeaderBoard.this,
@@ -960,7 +985,7 @@ public class LeaderBoard extends AppCompatActivity {
 
 
             }catch (Exception e){
-                Log.i("ooooopp",e.toString());
+               /// Log.i("ooooopp",e.toString());
                 e.printStackTrace();
 
             }
@@ -972,6 +997,13 @@ public class LeaderBoard extends AppCompatActivity {
 
 
     }
+public void moveToSignUp(String username){
+        if(username.equals(getResources().getString(R.string.anonymous_user))){
+            Intent i =  new Intent(LeaderBoard.this,UserDetails.class);
+            startActivity(i);
+            finish();
+        }
 
+}
 
 }

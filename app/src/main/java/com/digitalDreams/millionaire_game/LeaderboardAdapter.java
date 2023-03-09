@@ -45,13 +45,12 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
         String highscore = obj.getHighscore();
         String country = obj.getCountry();
         String country_flag = obj.getCountry_flag();
-       if(!country_flag.isEmpty() ){
+       if(!country_flag.isEmpty() && country_flag.length() > 4){
            SVGLoader.fetchSvg(context,country_flag, holder.flag_img);
 
-          //Picasso.get().load(country_flag).into(holder.flag_img);
+
            holder.flag_img.setVisibility(View.VISIBLE);
-           //holder.flag_img.setImageResource(R.drawable.bad);
-           Log.i("efi2",country_flag+" : "+playerName+" :"+country);
+
        }
 
         /////

@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.digitalDreams.millionaire_game.slider.AskComputer;
@@ -25,6 +26,7 @@ public class WelcomeActivity extends AppCompatActivity {
     ViewPager viewpager;
     private PageViewAdapter viewPagerAdapter;
     Timer timer;
+    ProgressBar progressBar;
 
 
     @Override
@@ -46,6 +48,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         // setting up the adapter
         viewPagerAdapter = new PageViewAdapter(getSupportFragmentManager());
+        progressBar =  findViewById(R.id.progress);
 
         // add the fragments
         viewPagerAdapter.add(new MinusTwo(), "Page 1");
@@ -67,12 +70,7 @@ public class WelcomeActivity extends AppCompatActivity {
         viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                Log.i("check--","Checkoooo");
-                if(Utils.IS_DONE_INSERTING){
-                    Intent i =  new Intent(WelcomeActivity.this,Dashboard.class);
-                    startActivity(i);
-                    finish();
-                }
+
 
             }
 
@@ -91,6 +89,20 @@ public class WelcomeActivity extends AppCompatActivity {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
+
+                progressBar.setProgress((Utils.NUMBER_OF_INSERT*8));
+                progressBar.setMax(100);
+                Log.i("check--","Checkoooo");
+                if(Utils.IS_DONE_INSERTING){
+                    Intent i =  new Intent(WelcomeActivity.this,Dashboard.class);
+                    startActivity(i);
+                    finish();
+                }
+
+
+
+
+
                 viewpager.post(new Runnable(){
 
                     @Override
