@@ -973,6 +973,9 @@ public class LeaderBoard extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(LeaderBoard.this,CountryLeaderBoard.class);
+                        Utils.darkBlueBlink(convertView,getApplicationContext());
+
+
 //                   Map<String,String> map = new HashMap<>();
 //                   map.put("country",country);
 //                   map.put("country_flag",country_flag);
@@ -1006,4 +1009,11 @@ public void moveToSignUp(String username){
 
 }
 
+    @Override
+    public void onBackPressed() {
+        Intent i =  new Intent(LeaderBoard.this,Dashboard.class);
+        startActivity(i);
+
+        super.onBackPressed();
+    }
 }
