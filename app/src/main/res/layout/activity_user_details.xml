@@ -258,28 +258,32 @@
                     </GridLayout>
 
                 </LinearLayout>
+                <androidx.cardview.widget.CardView
+                    android:layout_marginHorizontal="40dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:keyboardNavigationCluster="true"
+                    android:windowSoftInputMode="adjustPan"
+                    app:cardElevation="5dp"
+                    >
+                    <Button
+                        android:id="@+id/continueBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="30dp"
+                        android:textColor="@color/white"
+                        android:layout_margin="10dp"
+                        android:text="Continue"
+                        android:background="@color/green"
+                        android:textSize="14sp"
+                        />
+                </androidx.cardview.widget.CardView>
             </LinearLayout>
 
         </ScrollView>
-<androidx.cardview.widget.CardView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    app:cardElevation="5dp"
-    >
-    <Button
-        android:id="@+id/continueBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
-        android:textColor="@color/white"
-        android:layout_margin="10dp"
-        android:text="Continue"
-        android:background="@color/green"
-        android:textSize="14sp"
-        />
-</androidx.cardview.widget.CardView>
+
 
 </RelativeLayout>

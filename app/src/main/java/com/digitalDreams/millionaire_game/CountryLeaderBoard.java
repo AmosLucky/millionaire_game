@@ -42,9 +42,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.rewarded.RewardedAd;
 
@@ -160,6 +162,7 @@ public class CountryLeaderBoard extends AppCompatActivity {
         allBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.darkBlueBlink(allBtn, getApplicationContext());
                 list.clear();
                 emptyText.setVisibility(View.GONE);
                 selector(0);
@@ -180,6 +183,7 @@ public class CountryLeaderBoard extends AppCompatActivity {
         weekBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.darkBlueBlink(weekBtn, getApplicationContext());
                 list.clear();
                 emptyText.setVisibility(View.GONE);
                 container.removeAllViews();
@@ -201,6 +205,7 @@ public class CountryLeaderBoard extends AppCompatActivity {
         dailyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.darkBlueBlink(dailyBtn, getApplicationContext());
                 list.clear();
                 emptyText.setVisibility(View.GONE);
                 selector(2);
@@ -280,8 +285,12 @@ public class CountryLeaderBoard extends AppCompatActivity {
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               AdManager.initInterstitialAd(CountryLeaderBoard.this);
-                onBackPressed();
+
+                Utils.darkBlueBlink(closeBtn, getApplicationContext());
+                showInterstitial();
+
+
+               // onBackPressed();
 
             }
         });
@@ -873,6 +882,43 @@ public class CountryLeaderBoard extends AppCompatActivity {
 
 
 
+    }
+
+    private void showInterstitial() {
+//        if (interstitialAd.isLoaded()) {
+//            interstitialAd.show();
+//        }else{
+//            interstitialAd.setAdListener(new AdListener() {
+//                public void onAdLoaded() {
+//                    showInterstitial();
+//                }
+//            });
+//        }
+        AdManager.showInterstitial(CountryLeaderBoard.this);
+        if(AdManager.mInterstitialAd != null){
+            AdManager.mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                @Override
+                public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+                    Intent i = new Intent(CountryLeaderBoard.this,Dashboard.class);
+                    startActivity(i);
+                    finish();
+                    super.onAdFailedToShowFullScreenContent(adError);
+                }
+
+                @Override
+                public void onAdDismissedFullScreenContent() {
+                    super.onAdDismissedFullScreenContent();
+                    Intent i = new Intent(CountryLeaderBoard.this,Dashboard.class);
+                    startActivity(i);
+                    finish();
+                }
+            });
+
+        }else{
+            Intent i = new Intent(CountryLeaderBoard.this,Dashboard.class);
+            startActivity(i);
+            finish();
+        }
     }
 
 

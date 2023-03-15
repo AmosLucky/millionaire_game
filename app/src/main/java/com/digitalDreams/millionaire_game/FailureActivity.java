@@ -131,6 +131,7 @@ public class FailureActivity extends AppCompatActivity {
         int endcolor = sharedPreferences.getInt("end_color", getResources().getColor(R.color.purple_dark));
         int startColor = sharedPreferences.getInt("start_color", getResources().getColor(R.color.purple_500));
         int cardBackground = sharedPreferences.getInt("card_background", 0x219ebc);
+        String username = sharedPreferences.getString("username", "");
 
         String mode = sharedPreferences.getString("game_mode", "0");
         //TextView modeTxt = findViewById(R.id.mode);
@@ -212,6 +213,12 @@ public class FailureActivity extends AppCompatActivity {
         noThankBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if(username.equals(getResources().getString(R.string.anonymous_user))){
+                    Intent i =  new Intent(FailureActivity.this, UserDetails.class);
+                    startActivity(i);
+                    return;
+                }
 
                 //showInterstitial();
 
