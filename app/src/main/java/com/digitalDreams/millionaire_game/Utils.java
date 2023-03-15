@@ -2,6 +2,7 @@ package com.digitalDreams.millionaire_game;
 
 import static com.digitalDreams.millionaire_game.FailureActivity.getDeviceId;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
@@ -28,6 +29,7 @@ import java.util.Map;
 public class Utils {
     public static boolean IS_DONE_INSERTING =false;
     public static int NUMBER_OF_INSERT = 0;
+    public  static Class destination_activity = Dashboard.class;
 
 
     public static String addCommaToNumber(double number){

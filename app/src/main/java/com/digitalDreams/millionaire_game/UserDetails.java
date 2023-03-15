@@ -40,7 +40,9 @@ public class UserDetails extends AppCompatActivity {
     EditText usernameEdt;
     CardView avatarContainer1,avatarContainer2,avatarContainer3,avatarContainer4;
     GridLayout gridLayout;
-    String username="",avatar="",country="",flag="";
+    String username="",avatar="",
+            country="Afghanistan"
+            ,flag="";
     Spinner spinner;
     CountryAdapter countryAdapter;
     ArrayList countries = new ArrayList();
@@ -65,6 +67,7 @@ public class UserDetails extends AppCompatActivity {
         usernameEdt = findViewById(R.id.username);
         SharedPreferences sharedPreferences = getSharedPreferences("settings",MODE_PRIVATE);
         String username = sharedPreferences.getString("username","");
+         country = sharedPreferences.getString("country","");
         if(username.equals(getResources().getString(R.string.anonymous_user))){
             username = "";
         }
@@ -102,6 +105,9 @@ public class UserDetails extends AppCompatActivity {
 
      //   ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,countries);
         spinner.setAdapter(countryAdapter);
+        int spinnerPosition = countryAdapter.getPosition(country);
+        spinner.setSelection(spinnerPosition);
+
 
 
         //////////////////////////
@@ -119,6 +125,7 @@ public class UserDetails extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
+                //adapterView.getItemAtPosition(5).toString();
 
             }
         });
@@ -168,7 +175,7 @@ public class UserDetails extends AppCompatActivity {
             editor.putString("country",country);
             editor.putString("country_flag",flag);
             editor.putString("game_level",avatar);
-            editor.putString("current_play_level","1");
+           // editor.putString("current_play_level","1");
             editor.putBoolean("isFirstTime",true);
 
             editor.apply();
@@ -178,7 +185,7 @@ public class UserDetails extends AppCompatActivity {
 
             Intent intent;
 
-                intent = new Intent(UserDetails.this, LeaderBoard.class);
+                intent = new Intent(UserDetails.this, Utils.destination_activity);
 
             startActivity(intent);
             finish();

@@ -217,7 +217,9 @@ public class FailureActivity extends AppCompatActivity {
                  username = sharedPreferences.getString("username", "");
 
                 if(username.equals(getResources().getString(R.string.anonymous_user))){
+                    Utils.destination_activity = PlayDetailsActivity.class;
                     Intent i =  new Intent(FailureActivity.this, UserDetails.class);
+
                     startActivity(i);
                     return;
                 }
