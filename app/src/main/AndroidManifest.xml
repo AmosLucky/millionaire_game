@@ -24,7 +24,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Trivia"
-        android:usesCleartextTraffic="true" >
+        android:usesCleartextTraffic="true"
+        android:hardwareAccelerated="false"
+        android:largeHeap="true">
         <activity
             android:name=".WelcomeActivity"
             android:exported="false" />
@@ -70,6 +72,12 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <meta-data
+            android:name="com.google.android.gms.ads.flag.OPTIMIZE_INITIALIZATION"
+            android:value="true"/>
+        <meta-data
+            android:name="com.google.android.gms.ads.flag.OPTIMIZE_AD_LOADING"
+            android:value="true"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -84,6 +92,7 @@
         <receiver
             android:name=".NotificationService"
             android:process=":service" />
+
     </application>
 
 </manifest>

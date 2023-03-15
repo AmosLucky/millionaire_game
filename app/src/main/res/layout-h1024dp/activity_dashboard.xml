@@ -38,13 +38,13 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/hexagon"
-                        android:rotation="90"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="-5dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
-                        app:tint="@color/basic_color"/>
+                        android:rotation="90"
+                        android:src="@drawable/hexagon"
+                        app:tint="@color/basic_color" />
                     <ImageView
                         android:layout_width="32dp"
                         android:layout_marginLeft="15dp"

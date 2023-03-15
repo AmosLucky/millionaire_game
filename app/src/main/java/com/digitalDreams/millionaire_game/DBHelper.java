@@ -100,12 +100,18 @@ class DBHelper extends SQLiteOpenHelper {
     }
 
     public Cursor getQuestionByLevel2(String level){
+        SQLiteDatabase db = getWritableDatabase();
+        if(!db.isOpen()){
+            //db.close();
+            db = getWritableDatabase();
+
+        }
         SharedPreferences sharedPreferences = context.getSharedPreferences("settings", Context.MODE_PRIVATE);
         String game_level = sharedPreferences.getString("game_level","1");
         String current_play_level = sharedPreferences.getString("current_play_level","1");
         Log.i("current_play_level",current_play_level);
 
-        SQLiteDatabase db = getWritableDatabase();
+
         String selectQuery = "SELECT * FROM " + JSON_TABLE + " where LEVEL = "+level+" ORDER BY RANDOM() LIMIT 1";
         //String selectQuery = "SELECT * FROM " + JSON_TABLE + " where LEVEL = "+level+" and STAGE = " +current_play_level+ " ORDER BY RANDOM() LIMIT 1";
 
@@ -124,6 +130,7 @@ class DBHelper extends SQLiteOpenHelper {
             return  res2;
 
         }
+        db.close();
 
 
         return res;
@@ -153,7 +160,12 @@ class DBHelper extends SQLiteOpenHelper {
 
 
         int count = res.getCount();
-        int randomNumber = new Random().nextInt(count);
+        int randomNumber ;
+                if(count < 0) {
+                    randomNumber =new Random().nextInt(30);
+                }else {
+                    randomNumber = new Random().nextInt(count);
+                }
         String selectQuery1 = "SELECT * FROM " + JSON_TABLE + " where LEVEL = "+level+ " ORDER BY ID LIMIT "+randomNumber+",1";
 
         //String selectQuery1 = "SELECT * FROM " + JSON_TABLE + " where LEVEL = "+level+" ORDER BY ID LIMIT "+randomNumber+",1";
@@ -183,7 +195,7 @@ class DBHelper extends SQLiteOpenHelper {
             JSONObject jsonObject = new JSONObject();
             JSONObject qObj = new JSONObject();
             JSONArray arr = new JSONArray();
-            for(int a=1;a<16;a++) {
+            for(int a=1; a<16; a++) {
                 Cursor res = getQuestionByLevel2(String.valueOf(a));
 
                 res.moveToNext();

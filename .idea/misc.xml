@@ -17,14 +17,14 @@
         <entry key="app/src/main/res/drawable/playbtn_bg.xml" value="0.131" />
         <entry key="app/src/main/res/layout-h1024dp/activity_count_down.xml" value="0.1" />
         <entry key="app/src/main/res/layout-h1024dp/activity_credit.xml" value="0.1" />
-        <entry key="app/src/main/res/layout-h1024dp/activity_dashboard.xml" value="0.1" />
+        <entry key="app/src/main/res/layout-h1024dp/activity_dashboard.xml" value="0.25" />
         <entry key="app/src/main/res/layout-h1024dp/activity_exam_game2.xml" value="0.1" />
         <entry key="app/src/main/res/layout-h1024dp/activity_failure.xml" value="0.100390625" />
         <entry key="app/src/main/res/layout-h1024dp/activity_game.xml" value="0.1" />
         <entry key="app/src/main/res/layout-h1024dp/activity_leader_board.xml" value="0.102734375" />
         <entry key="app/src/main/res/layout-h1024dp/activity_loader.xml" value="0.1" />
         <entry key="app/src/main/res/layout-h1024dp/activity_main.xml" value="0.1" />
-        <entry key="app/src/main/res/layout-h1024dp/activity_play_details.xml" value="0.100390625" />
+        <entry key="app/src/main/res/layout-h1024dp/activity_play_details.xml" value="0.125" />
         <entry key="app/src/main/res/layout-h1024dp/exit_dialog_layout.xml" value="0.1" />
         <entry key="app/src/main/res/layout-h1024dp/leader_score_item.xml" value="0.25" />
         <entry key="app/src/main/res/layout-h1024dp/options_layout.xml" value="0.1" />
@@ -92,7 +92,7 @@
         <entry key="app/src/main/res/layout/activity_leader_board.xml" value="0.579295154185022" />
         <entry key="app/src/main/res/layout/activity_loader.xml" value="0.4185022026431718" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.4185022026431718" />
-        <entry key="app/src/main/res/layout/activity_play_details.xml" value="0.566079295154185" />
+        <entry key="app/src/main/res/layout/activity_play_details.xml" value="0.45232558139534884" />
         <entry key="app/src/main/res/layout/activity_result_dialog.xml" value="0.1234375" />
         <entry key="app/src/main/res/layout/activity_user_details.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/activity_welcome.xml" value="0.1" />

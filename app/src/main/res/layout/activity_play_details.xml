@@ -18,6 +18,8 @@
         android:orientation="vertical">
 
 
+
+
             <ImageView
                 android:layout_width="200dp"
                 android:layout_height="150dp"
@@ -183,6 +185,16 @@
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:fontFamily="@font/arimo"/>
+
+            <TextView
+                android:id="@+id/mode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:fontFamily="@font/arimo"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="18sp" />
         </LinearLayout>
 
     </LinearLayout>

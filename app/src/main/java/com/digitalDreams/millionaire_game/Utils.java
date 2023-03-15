@@ -181,7 +181,7 @@ public class Utils {
                 }catch (Exception e){
                     e.printStackTrace();
                 }
-                Log.i("ooooop",score);
+               // Log.i("ooooop",score);
                 param.put("score", score);
                 param.put("username", userDetails.get("username"));
                 param.put("country", userDetails.get("country"));
