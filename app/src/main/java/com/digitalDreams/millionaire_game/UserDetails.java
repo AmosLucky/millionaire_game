@@ -7,6 +7,7 @@ import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -16,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -38,6 +40,8 @@ import java.util.Random;
 
 public class UserDetails extends AppCompatActivity {
     EditText usernameEdt;
+    RelativeLayout bg;
+    RelativeLayout close_container;
     CardView avatarContainer1,avatarContainer2,avatarContainer3,avatarContainer4;
     GridLayout gridLayout;
     String username="",avatar="",
@@ -59,18 +63,32 @@ public class UserDetails extends AppCompatActivity {
 
         Intent intent = getIntent();
         String type = intent.getStringExtra("type");
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
-        getSupportActionBar().setTitle("");
+       // Toolbar toolbar = findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
+//        getSupportActionBar().setTitle("");
+        close_container = findViewById(R.id.close_container);
+
+        bg = findViewById(R.id.rootview);
+
+
         usernameEdt = findViewById(R.id.username);
         SharedPreferences sharedPreferences = getSharedPreferences("settings",MODE_PRIVATE);
         String username = sharedPreferences.getString("username","");
          country = sharedPreferences.getString("country","");
+        int endcolor = sharedPreferences.getInt("end_color",getResources().getColor(R.color.purple_dark));
+        int startColor = sharedPreferences.getInt("start_color",getResources().getColor(R.color.purple_500));
+        int cardBackground = sharedPreferences.getInt("card_background",0x219ebc);
         if(username.equals(getResources().getString(R.string.anonymous_user))){
             username = "";
         }
+        new Particles(this,bg,R.layout.image_xml,20);
+        GradientDrawable gd = new GradientDrawable(
+                GradientDrawable.Orientation.TOP_BOTTOM,
+                new int[] {startColor,endcolor});
+
+        bg.setBackgroundDrawable(gd);
         usernameEdt.setText(username);
         Button continueBtn = findViewById(R.id.continueBtn);
         spinner = findViewById(R.id.country);
@@ -127,6 +145,14 @@ public class UserDetails extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> adapterView) {
                 //adapterView.getItemAtPosition(5).toString();
 
+            }
+        });
+
+        close_container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i =  new Intent(UserDetails.this, Utils.destination_activity);
+                startActivity(i);
             }
         });
     }
@@ -192,6 +218,8 @@ public class UserDetails extends AppCompatActivity {
 
         }
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
