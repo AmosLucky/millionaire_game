@@ -30,15 +30,16 @@
         >
         <RelativeLayout
             android:id="@+id/exitBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:orientation="vertical">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/hexagon"
                 android:layout_centerInParent="true"
-                app:tint="@color/basic_color"/>
+                android:src="@drawable/hexagon"
+                app:tint="@color/basic_color" />
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"

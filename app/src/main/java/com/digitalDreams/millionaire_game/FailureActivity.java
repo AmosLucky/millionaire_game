@@ -164,6 +164,7 @@ public class FailureActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+
                 if (CountDownActivity.mMediaPlayer != null) {
                     CountDownActivity.mMediaPlayer.stop();
                 }
@@ -178,6 +179,15 @@ public class FailureActivity extends AppCompatActivity {
                                 Log.d("Admob", "Ad was clicked.");
                             }
 
+                            @Override
+                            public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+                                Intent i = new Intent(FailureActivity.this, CountDownActivity.class);
+                                // startActivity(i);
+
+                                startActivity(i);
+                                finish();
+                                super.onAdFailedToShowFullScreenContent(adError);
+                            }
 
                             @Override
                             public void onAdDismissedFullScreenContent() {

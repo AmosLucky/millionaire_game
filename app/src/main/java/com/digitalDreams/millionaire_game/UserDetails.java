@@ -197,10 +197,10 @@ public class UserDetails extends AppCompatActivity {
             SharedPreferences sharedPreferences = getSharedPreferences("settings",MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("username",username);
-            editor.putString("avatar","1");
+            ///editor.putString("avatar","1");
             editor.putString("country",country);
             editor.putString("country_flag",flag);
-            editor.putString("game_level",avatar);
+            editor.putString("avatar",avatar);
            // editor.putString("current_play_level","1");
             editor.putBoolean("isFirstTime",true);
 
