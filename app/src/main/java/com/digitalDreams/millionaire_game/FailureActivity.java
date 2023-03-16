@@ -163,6 +163,7 @@ public class FailureActivity extends AppCompatActivity {
         new_games.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.darkBlueBlink(new_games, getApplicationContext());
 
 
                 if (CountDownActivity.mMediaPlayer != null) {
