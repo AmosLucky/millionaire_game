@@ -160,6 +160,7 @@ public class Utils {
     }
 
     public static void sendScoreToSever(Context context,String score, Map<String,String> userDetails,String modeValue) {
+        Log.i("ogabet2", String.valueOf(userDetails));
         String url = context.getResources().getString(R.string.base_url)+"/post_score.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override

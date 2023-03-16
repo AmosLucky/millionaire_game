@@ -480,6 +480,7 @@ public class PlayDetailsActivity extends AppCompatActivity {
 
     //@RequiresApi(api = Build.VERSION_CODES.M)
     private void sendScoreToSever(String score, Map<String,String> userDetails) {
+        Log.i("ogabet3", String.valueOf(userDetails));
         try{
            /// initializeNotification();
         }catch (Exception e){
@@ -487,6 +488,7 @@ public class PlayDetailsActivity extends AppCompatActivity {
         }
         String url = getResources().getString(R.string.base_url)+"/post_score.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+
             @Override
             public void onResponse(String response) {
                 try {
@@ -546,6 +548,12 @@ public class PlayDetailsActivity extends AppCompatActivity {
                 Map<String, String> param = new HashMap<>();
 
                 JSONObject country_json = new JSONObject();
+                try{
+                    country_json.put("name",userDetails.get("country"));
+                    country_json.put("url", userDetails.get("country_flag"));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 param.put("score", score);
                 param.put("username", userDetails.get("username"));
                 param.put("country", userDetails.get("country"));

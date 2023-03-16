@@ -740,6 +740,7 @@ public class FailureActivity extends AppCompatActivity {
     }
 
     private void sendScoreToSever(String score,Map<String,String> userDetails) {
+        Log.i("ogabet", String.valueOf(userDetails));
         String url = getResources().getString(R.string.base_url)+"/post_score.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
