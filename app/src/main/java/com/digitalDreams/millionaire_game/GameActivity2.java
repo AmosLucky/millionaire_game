@@ -419,7 +419,7 @@ public class GameActivity2 extends AppCompatActivity {
 
 
     public void render2(String a,JSONObject b,JSONObject j,int d) throws JSONException {
-        LinearLayout lay=findViewById(R.id.displayExam);
+        LinearLayout lay= findViewById(R.id.displayExam);
 
 
         try {
@@ -496,7 +496,7 @@ public class GameActivity2 extends AppCompatActivity {
     }
 
 
-    public void qo(LinearLayout a,JSONObject b,int qNo){
+    public void qo(LinearLayout a, JSONObject b, int qNo){
         try {
             String questionId = b.getString("id");
             String cleaned = b.getString("content");
@@ -508,7 +508,7 @@ public class GameActivity2 extends AppCompatActivity {
             }catch (StringIndexOutOfBoundsException e){
                 //e.printStackTrace();
             }
-            View v= LayoutInflater.from(this).inflate(R.layout.qo_1,a,false);
+            View v = LayoutInflater.from(GameActivity2.this).inflate(R.layout.qo_1,a,false);
 
             TextView questionNumber = v.findViewById(R.id.question_progress);
             questionNumber.setText(number+" / 15");
@@ -1802,11 +1802,17 @@ public class GameActivity2 extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if(requestCode==MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE){
-            if ( grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Bitmap bitmap = takeScreenshot();
-                saveBitmap(bitmap);
-                shareIt();
-            }
+
+           if(grantResults.length >= 1){
+
+               if ( grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                   Bitmap bitmap = takeScreenshot();
+                   saveBitmap(bitmap);
+                   shareIt();
+               }else{
+                   ///
+               }
+           }
         }
     }
 

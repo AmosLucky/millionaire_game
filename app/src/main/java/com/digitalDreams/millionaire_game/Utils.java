@@ -30,6 +30,7 @@ public class Utils {
     public static boolean IS_DONE_INSERTING =false;
     public static int NUMBER_OF_INSERT = 0;
     public  static Class destination_activity = Dashboard.class;
+    public static  int leaderboardClick = 0;
 
 
     public static String addCommaToNumber(double number){

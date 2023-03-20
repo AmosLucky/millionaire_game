@@ -899,26 +899,28 @@ public class CountryLeaderBoard extends AppCompatActivity {
             AdManager.mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
                 @Override
                 public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
-                    Intent i = new Intent(CountryLeaderBoard.this,Dashboard.class);
-                    startActivity(i);
-                    finish();
+                    goBack();
+
                     super.onAdFailedToShowFullScreenContent(adError);
                 }
 
                 @Override
                 public void onAdDismissedFullScreenContent() {
                     super.onAdDismissedFullScreenContent();
-                    Intent i = new Intent(CountryLeaderBoard.this,Dashboard.class);
-                    startActivity(i);
-                    finish();
+                    goBack();
                 }
             });
 
         }else{
-            Intent i = new Intent(CountryLeaderBoard.this,Dashboard.class);
-            startActivity(i);
-            finish();
+            goBack();
         }
+    }
+
+    public  void goBack(){
+        Utils.leaderboardClick+=1;
+        Intent i = new Intent(CountryLeaderBoard.this,LeaderBoard.class);
+        startActivity(i);
+        finish();
     }
 
 

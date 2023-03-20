@@ -225,6 +225,7 @@ public class FailureActivity extends AppCompatActivity {
         noThankBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.destination_activity = PlayDetailsActivity.class;
                  username = sharedPreferences.getString("username", "");
 
                 if(username.equals(getResources().getString(R.string.anonymous_user))){

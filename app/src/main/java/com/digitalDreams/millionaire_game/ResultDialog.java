@@ -71,6 +71,7 @@ public class ResultDialog extends Dialog {
         view_ranking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.destination_activity = LeaderBoard.class;
                 Intent i = new Intent(context,LeaderBoard.class);
 
                 context.startActivity(i);

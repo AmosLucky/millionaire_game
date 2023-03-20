@@ -1001,16 +1001,28 @@ public class LeaderBoard extends AppCompatActivity {
 
     }
 public void moveToSignUp(String username){
+    Utils.destination_activity = LeaderBoard.class;
+
+
         if(username.equals(getResources().getString(R.string.anonymous_user))){
-            Intent i =  new Intent(LeaderBoard.this,UserDetails.class);
-            startActivity(i);
-            finish();
+            Utils.leaderboardClick = Utils.leaderboardClick+1;
+           if( Utils.leaderboardClick < 2) {
+               Intent i = new Intent(LeaderBoard.this, UserDetails.class);
+               startActivity(i);
+               finish();
+           }else{
+
+               Utils.leaderboardClick = 0;
+
+           }
         }
+
 
 }
 
     @Override
     public void onBackPressed() {
+
         Intent i =  new Intent(LeaderBoard.this,Dashboard.class);
         startActivity(i);
 

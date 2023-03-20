@@ -253,7 +253,8 @@ public class PlayDetailsActivity extends AppCompatActivity {
         newGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Utils.darkBlueBlink(homeBtn, getApplicationContext());
+                Utils.destination_activity = LeaderBoard.class;
+                Utils.darkBlueBlink(newGame, getApplicationContext());
                 String json = dbHelper.buildJson();
                 Intent intent = new Intent(PlayDetailsActivity.this, LeaderBoard.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

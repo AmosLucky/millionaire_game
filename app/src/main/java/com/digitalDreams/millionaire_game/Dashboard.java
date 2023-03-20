@@ -164,6 +164,7 @@ public class Dashboard extends AppCompatActivity {
         leaderBoardBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.destination_activity = LeaderBoard.class;
 
                 Utils.darkBlueBlink(leaderBoardBtn, getApplicationContext());
 
@@ -226,6 +227,7 @@ public class Dashboard extends AppCompatActivity {
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.destination_activity = Dashboard.class;
                 Intent intent = new Intent(Dashboard.this,UserDetails.class);
                 intent.putExtra("type","edit");
                 startActivity(intent);

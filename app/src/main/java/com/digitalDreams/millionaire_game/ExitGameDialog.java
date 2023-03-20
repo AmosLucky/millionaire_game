@@ -160,6 +160,7 @@ public class ExitGameDialog extends Dialog {
                         MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE);
             } else {
                 // No explanation needed; request the permission
+
                 ActivityCompat.requestPermissions((Activity) context,
                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE);
