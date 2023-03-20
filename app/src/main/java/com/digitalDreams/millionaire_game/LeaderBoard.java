@@ -564,7 +564,8 @@ public class LeaderBoard extends AppCompatActivity {
                 country_name2.setVisibility(View.VISIBLE);
                 country_name2.setText(country);
                 if(!country_flag.isEmpty()) {
-                    SVGLoader.fetchSvg(LeaderBoard.this,country_flag,flag2);
+                    loadFlag(country_flag,flag2);
+                   // SVGLoader.fetchSvg(LeaderBoard.this,country_flag,flag2);
                     flag2.setVisibility(View.VISIBLE);
 
                 }
@@ -577,7 +578,8 @@ public class LeaderBoard extends AppCompatActivity {
                 country_name1.setVisibility(View.VISIBLE);
 
                 if(!country_flag.isEmpty()) {
-                    SVGLoader.fetchSvg(LeaderBoard.this,country_flag,flag1);
+                   // SVGLoader.fetchSvg(LeaderBoard.this,country_flag,flag1);
+                    loadFlag(country_flag,flag1);
                     flag1.setVisibility(View.VISIBLE);
                 }
 
@@ -589,7 +591,8 @@ public class LeaderBoard extends AppCompatActivity {
                 country_name3.setText(country);
                 country_name3.setVisibility(View.VISIBLE);
                 if(!country_flag.isEmpty()) {
-                    SVGLoader.fetchSvg(LeaderBoard.this,country_flag,flag3);
+                    loadFlag(country_flag,flag3);
+                    //SVGLoader.fetchSvg(LeaderBoard.this,country_flag,flag3);
                     flag3.setVisibility(View.VISIBLE);
                 }
             }else{
@@ -950,7 +953,8 @@ public class LeaderBoard extends AppCompatActivity {
                 String country_flag = country_json_object.getString("url");
 
                 if(!country_flag.isEmpty()) {
-                    SVGLoader.fetchSvg(LeaderBoard.this, country_flag, flag);
+                   // SVGLoader.fetchSvg(LeaderBoard.this, country_flag, flag);
+                    loadFlag(country_flag,flag);
                 }else {
                     flag.setVisibility(View.GONE);
 
@@ -1027,5 +1031,11 @@ public void moveToSignUp(String username){
         startActivity(i);
 
         super.onBackPressed();
+    }
+
+    public void loadFlag(String url,ImageView imageView){
+       try {
+           SVGLoader.fetchSvg(LeaderBoard.this,url,imageView);
+       }catch (Exception e){}
     }
 }

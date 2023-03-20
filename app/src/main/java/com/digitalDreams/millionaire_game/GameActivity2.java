@@ -508,7 +508,8 @@ public class GameActivity2 extends AppCompatActivity {
             }catch (StringIndexOutOfBoundsException e){
                 //e.printStackTrace();
             }
-            View v = LayoutInflater.from(GameActivity2.this).inflate(R.layout.qo_1,a,false);
+           LayoutInflater inflater = LayoutInflater.from(GameActivity2.this);
+            View v   =   inflater.inflate(R.layout.qo_1,a,false);
 
             TextView questionNumber = v.findViewById(R.id.question_progress);
             questionNumber.setText(number+" / 15");

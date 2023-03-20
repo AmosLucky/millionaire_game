@@ -563,7 +563,8 @@ public class CountryLeaderBoard extends AppCompatActivity {
                 country_name1.setText(country);
                 country_name1.setVisibility(View.VISIBLE);
                 if(!country_flag.isEmpty()) {
-                    SVGLoader.fetchSvg(CountryLeaderBoard.this,country_flag,flag1);
+                    loadFlag(country_flag, flag1);
+                   // SVGLoader.fetchSvg(CountryLeaderBoard.this,country_flag,flag1);
                     flag1.setVisibility(View.VISIBLE);
                 }
             }else if(a==1){
@@ -575,7 +576,8 @@ public class CountryLeaderBoard extends AppCompatActivity {
                 country_name2.setVisibility(View.VISIBLE);
 
                 if(!country_flag.isEmpty()) {
-                    SVGLoader.fetchSvg(CountryLeaderBoard.this,country_flag,flag2);
+                    loadFlag(country_flag, flag2);
+                   // SVGLoader.fetchSvg(CountryLeaderBoard.this,country_flag,flag2);
                     flag2.setVisibility(View.VISIBLE);
                 }
 
@@ -587,7 +589,8 @@ public class CountryLeaderBoard extends AppCompatActivity {
                 country_name3.setText(country);
                 country_name3.setVisibility(View.VISIBLE);
                 if(!country_flag.isEmpty()) {
-                    SVGLoader.fetchSvg(CountryLeaderBoard.this,country_flag,flag3);
+                    loadFlag(country_flag, flag3);
+                   // SVGLoader.fetchSvg(CountryLeaderBoard.this,country_flag,flag3);
                     flag3.setVisibility(View.VISIBLE);
                 }
             }
@@ -922,6 +925,13 @@ public class CountryLeaderBoard extends AppCompatActivity {
         startActivity(i);
         finish();
     }
+
+    public void loadFlag(String url,ImageView imageView){
+        try {
+            SVGLoader.fetchSvg(CountryLeaderBoard.this,url,imageView);
+        }catch (Exception e){}
+    }
+
 
 
 }
