@@ -210,4 +210,21 @@ public class Utils {
         return avatar;
     }
 
+    public static void  saveAnonymouseUser(Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("settings",context.MODE_PRIVATE);
+        String username = sharedPreferences.getString("username","");
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("username",context.getResources().getString(R.string.anonymous_user));
+        editor.putString("avatar","1");
+        editor.putString("country","default");
+        editor.putString("country_flag","https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AX.svg");
+        editor.putString("game_level","1");
+        editor.putString("current_play_level","1");
+        editor.putBoolean("isFirstTime",true);
+
+        if(username.isEmpty()){
+            editor.apply();
+        }
+    }
+
 }

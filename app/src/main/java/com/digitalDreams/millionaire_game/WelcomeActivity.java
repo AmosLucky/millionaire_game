@@ -43,6 +43,15 @@ public class WelcomeActivity extends AppCompatActivity {
         int cardBackground = sharedPreferences.getInt("card_background",0x219ebc);
         String highscore = sharedPreferences.getString("high_score","0");
         String game_level = sharedPreferences.getString("game_level","1");
+        boolean  IS_DONE_INSERTING = sharedPreferences.getBoolean("IS_DONE_INSERTING",false);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        String username = sharedPreferences.getString("username","");
+
+        if(IS_DONE_INSERTING){
+            startActivity(new Intent(WelcomeActivity.this,Dashboard.class));
+            finish();
+
+        }
 
        // setLocale(this,languageCode);
 
@@ -93,7 +102,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 progressBar.setProgress((Utils.NUMBER_OF_INSERT*8));
                 progressBar.setMax(100);
                 Log.i("check--","Checkoooo");
-                if(Utils.IS_DONE_INSERTING){
+                if(Utils.IS_DONE_INSERTING || IS_DONE_INSERTING){
                     Intent i =  new Intent(WelcomeActivity.this,Dashboard.class);
                     startActivity(i);
                     finish();

@@ -38,6 +38,8 @@ public class WelcomeDialog extends Dialog {
        // background.getBackground().setAlpha(45);
 
 
+
+
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
@@ -47,7 +48,7 @@ public class UserDetails extends AppCompatActivity {
     String username="",avatar="",
             country="Afghanistan"
             ,flag="";
-    Spinner spinner;
+    AutoCompleteTextView spinner;
     CountryAdapter countryAdapter;
     ArrayList countries = new ArrayList();
     ArrayList flags = new ArrayList();
@@ -77,6 +78,7 @@ public class UserDetails extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("settings",MODE_PRIVATE);
         String username = sharedPreferences.getString("username","");
          country = sharedPreferences.getString("country","");
+         flag = sharedPreferences.getString("country_flag","");
         int endcolor = sharedPreferences.getInt("end_color",getResources().getColor(R.color.purple_dark));
         int startColor = sharedPreferences.getInt("start_color",getResources().getColor(R.color.purple_500));
         int cardBackground = sharedPreferences.getInt("card_background",0x219ebc);
@@ -119,40 +121,71 @@ public class UserDetails extends AppCompatActivity {
         }
 
 
-        /////////////////////////
-
-     //   ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,countries);
-        spinner.setAdapter(countryAdapter);
-        int spinnerPosition = countryAdapter.getPosition(country);
-        spinner.setSelection(spinnerPosition);
-
-
-
         //////////////////////////
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, countries);
+
+
+        //   ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,countries);
+        spinner.setAdapter(adapter);
+       // int spinnerPosition = countryAdapter.getPosition(country);
+        if(!country.equals("default")){
+            spinner.setText(country);
+        }
+        Log.i("Flag",country);
+        Log.i("Flag",flag);
+
+
+        spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
                 String selectedItem = adapterView.getItemAtPosition(i).toString();
                 country = selectedItem;
-                flag = flags.get(i).toString();
-                //Log.i("Flag",flags.get(i).toString());
+                flag = flags.get(countries.indexOf(country)).toString();
+                //spinner.setText(country);
 
+                Log.i("Flag",flags.get( countries.indexOf(country)).toString());
+                Log.i("Flag",selectedItem);
+                //Log.i("Flag",countries.get(i).toString());
 
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                //adapterView.getItemAtPosition(5).toString();
 
             }
         });
 
+
+
+        //////////////////////////
+//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                String selectedItem = adapterView.getItemAtPosition(i).toString();
+//                country = selectedItem;
+//                flag = flags.get(i).toString();
+//                //spinner.setText(country);
+//                Log.i("Flag",flags.get(i).toString());
+//                Log.i("Flag",country);
+//
+//
+//
+//            }
+//
+//
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//                //adapterView.getItemAtPosition(5).toString();
+//
+//            }
+//        });
+
         close_container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i =  new Intent(UserDetails.this, Utils.destination_activity);
-                startActivity(i);
+
+              Utils.saveAnonymouseUser(UserDetails.this);
+              naviget();
+
             }
         });
     }
@@ -182,7 +215,7 @@ public class UserDetails extends AppCompatActivity {
         username = usernameEdt.getText().toString();
         if(username.isEmpty()){
             Toast.makeText(UserDetails.this,"Player name can't be empty",Toast.LENGTH_SHORT).show();
-        }else if(country == "" || country == "Select country"){
+        }else if(country.equals("") || country.equals("Select country") || country.equals("default")){
             Toast.makeText(UserDetails.this,"Select your country",Toast.LENGTH_SHORT).show();
 
 
@@ -209,12 +242,7 @@ public class UserDetails extends AppCompatActivity {
 
             checkScore();
 
-            Intent intent;
-
-                intent = new Intent(UserDetails.this, Utils.destination_activity);
-
-            startActivity(intent);
-            finish();
+naviget();
 
         }
     }
@@ -325,8 +353,9 @@ public class UserDetails extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent i =  new Intent(UserDetails.this,Dashboard.class);
-        startActivity(i);
+
+
+       naviget();
         super.onBackPressed();
     }
 
@@ -355,4 +384,33 @@ public class UserDetails extends AppCompatActivity {
 
        Utils.sendScoreToSever(UserDetails.this,highscore,userDetails,modeValue);
     }
+
+
+    public  void naviget(){
+
+        Intent i;
+
+        if(Utils.IS_DONE_INSERTING){
+             i =  new Intent(UserDetails.this, Utils.destination_activity);
+
+        }else{
+            i =  new Intent(UserDetails.this, WelcomeActivity.class);
+
+        }
+
+        startActivity(i);
+        finish();
+
+//        Intent intent;
+//
+//        intent = new Intent(UserDetails.this, Utils.destination_activity);
+//
+//        startActivity(intent);
+//        finish();
+//        Intent i =  new Intent(UserDetails.this,Dashboard.class);
+//        startActivity(i);
+
+
+    }
+
 }

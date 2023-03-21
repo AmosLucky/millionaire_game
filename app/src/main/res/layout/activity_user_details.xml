@@ -105,15 +105,11 @@
                         android:id="@+id/emailWrapper_login"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
                         android:textColorHint="@color/white"
                         app:boxStrokeWidthFocused="0.5dp"
                         app:boxStrokeWidth="0.5dp"
-
                         app:boxStrokeColor="@color/white"
                         android:hint="Create Your Player Name"
-
-
                         android:layout_margin="20dp">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -123,7 +119,7 @@
                             android:layout_height="wrap_content"
                             android:textStyle="bold"
                             android:drawablePadding="10dp"
-                            android:inputType="textEmailAddress"
+                            android:inputType="text"
                             android:textSize="14sp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -146,14 +142,21 @@
 
 
                            >
-                           <Spinner
-                               android:paddingLeft="0dp"
-                               android:backgroundTint="@color/white"
 
 
+                           <AutoCompleteTextView
+                               android:textColor="@color/white"
                                android:layout_width="match_parent"
-                               android:layout_height="wrap_content"
+                               android:layout_height="50dp"
+                               android:textStyle="bold"
+                               android:drawablePadding="10dp"
+                               android:inputType="text"
+                               app:boxStrokeWidth="0.5dp"
+                               android:textColorHint="@color/white"
+                               android:hint="Start typing country name"
+                               android:textSize="14sp"
                                android:id="@+id/country"/>
+
                        </LinearLayout>
 
 

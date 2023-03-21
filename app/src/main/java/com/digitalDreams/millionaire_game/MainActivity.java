@@ -101,6 +101,13 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //
 //        });
+
+        SharedPreferences sharedPreferences = getSharedPreferences("settings",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        String username = sharedPreferences.getString("username","");
+
+
+
         createTimer(COUNTER_TIME);
         new RequestConfiguration.Builder().setTestDeviceIds(Arrays.asList("C5C6588E00A996967AA2085A167B0F4E","9D16E23BB90EF4BFA204300CCDCCF264"));
 //        appOpenAdManager = new AppOpenManager(this);
@@ -114,11 +121,13 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     if(dbHelper.getQuestionSize()==0) {
                         Utils.IS_DONE_INSERTING = false;
-                        saveAnonymouseUser();
+                      //  saveAnonymouseUser();
                         text = readRawTextFile(R.raw.exam_json6);
                         parseJSON(text);
                     }else{
                         Utils.IS_DONE_INSERTING = true;
+                        editor.putBoolean("IS_DONE_INSERTING",true);
+                        editor.commit();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -416,8 +425,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         Log.i("JsonDetails", String.valueOf(lent));
-        SharedPreferences sharedPreferences = getSharedPreferences("settings",MODE_PRIVATE);
-        String username = sharedPreferences.getString("username","");
+
 //        if(!username.isEmpty()) {
 //            Intent intent = new Intent(MainActivity.this, Dashboard.class);
 //            startActivity(intent);
@@ -611,8 +619,8 @@ public class MainActivity extends AppCompatActivity {
                 public void run() {
                     SharedPreferences sharedPreferences = getSharedPreferences("settings",MODE_PRIVATE);
                     String username = sharedPreferences.getString("username","");
-                    if(Utils.IS_DONE_INSERTING) {
-                        Intent intent = new Intent(MainActivity.this, Dashboard.class);
+                    if(username.isEmpty()) {
+                        Intent intent = new Intent(MainActivity.this, UserDetails.class);
                         startActivity(intent);
                         finish();
                     }else {
@@ -620,7 +628,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-                        Intent intent = new Intent(MainActivity.this, WelcomeActivity.class);
+                        Intent intent = new Intent(MainActivity.this, Dashboard.class);
                         startActivity(intent);
                         finish();
                     }
@@ -629,17 +637,5 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-   public void  saveAnonymouseUser(){
-       SharedPreferences sharedPreferences = getSharedPreferences("settings",MODE_PRIVATE);
-       SharedPreferences.Editor editor = sharedPreferences.edit();
-       editor.putString("username",getResources().getString(R.string.anonymous_user));
-       editor.putString("avatar","1");
-       editor.putString("country","default");
-       editor.putString("country_flag","https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AX.svg");
-       editor.putString("game_level","1");
-       editor.putString("current_play_level","1");
-       editor.putBoolean("isFirstTime",true);
 
-       editor.apply();
-   }
 }
