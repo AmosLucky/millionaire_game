@@ -82,7 +82,7 @@ public class CountryLeaderBoard extends AppCompatActivity {
     LinearLayout emptyLayout;
     TextView emptyText;
     ProgressBar progressBar;
-    public static InterstitialAd interstitialAd;
+    //public static InterstitialAd interstitialAd;
     RelativeLayout share_container;
 
     private boolean mIsBackVisible = false;

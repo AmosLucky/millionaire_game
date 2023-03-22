@@ -141,9 +141,9 @@ public class GameActivity2 extends AppCompatActivity {
     public static Runnable run;
     File imagePath;
     public static int MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE=100;
-    public static RewardedAd mRewardedVideoAd;
+    //public static RewardedAd mRewardedVideoAd;
     //boolean hasOldWinningAmount = false;
-    public static InterstitialAd interstitialAd;
+    //public static InterstitialAd interstitialAd;
     public static boolean fromProgress = true;
     public static boolean fromProgress2 = false;
     boolean removeOptions = false;
@@ -173,7 +173,7 @@ public class GameActivity2 extends AppCompatActivity {
 
         AdManager.initInterstitialAd(this);
         AdManager.initRewardedVideo(this);
-        mRewardedVideoAd = AdManager.rewardedAd; //MobileAds.getRewardedVideoAdInstance(this);
+        //mRewardedVideoAd = AdManager.rewardedAd; //MobileAds.getRewardedVideoAdInstance(this);
         loadVideoAd();
         loadInterstialAd();
 

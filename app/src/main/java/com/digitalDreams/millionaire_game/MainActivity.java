@@ -52,8 +52,8 @@ import java.util.Iterator;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    public static final int SPLASH_SCREEN_DELAY=100;
-    public static List<String> columnList = new ArrayList<>();
+    public  final int SPLASH_SCREEN_DELAY=100;
+    public  List<String> columnList = new ArrayList<>();
     DBHelper dbHelper;
     ImageView ddLogo;
     long logoStartTime=0;
@@ -69,13 +69,6 @@ public class MainActivity extends AppCompatActivity {
     private long secondsRemaining;
 
 
-    @Override
-    protected void onStart() {
-//        AppOpenAdManager appOpenAdManager;
-//        appOpenAdManager.loadAd();
-
-        super.onStart();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

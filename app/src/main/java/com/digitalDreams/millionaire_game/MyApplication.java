@@ -41,7 +41,7 @@ public class MyApplication extends Application
 
     private AppOpenAdManager appOpenAdManager;
     private Activity currentActivity;
-    private static final String TAG = "MyApplication";
+    private  final String TAG = "MyApplication";
 
     @Override
     public void onCreate() {

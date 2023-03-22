@@ -5,19 +5,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -48,10 +57,12 @@ public class UserDetails extends AppCompatActivity {
     String username="",avatar="",
             country="Afghanistan"
             ,flag="";
-    AutoCompleteTextView spinner;
+    //AutoCompleteTextView spinner;
     CountryAdapter countryAdapter;
     ArrayList countries = new ArrayList();
     ArrayList flags = new ArrayList();
+    EditText country_name;
+    Dialog dialog;
 
 
 
@@ -70,11 +81,14 @@ public class UserDetails extends AppCompatActivity {
 //        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
 //        getSupportActionBar().setTitle("");
         close_container = findViewById(R.id.close_container);
+        country_name = findViewById(R.id.country_name);
+
 
         bg = findViewById(R.id.rootview);
 
 
         usernameEdt = findViewById(R.id.username);
+
         SharedPreferences sharedPreferences = getSharedPreferences("settings",MODE_PRIVATE);
         String username = sharedPreferences.getString("username","");
          country = sharedPreferences.getString("country","");
@@ -91,9 +105,10 @@ public class UserDetails extends AppCompatActivity {
                 new int[] {startColor,endcolor});
 
         bg.setBackgroundDrawable(gd);
+        usernameEdt.requestFocus();
         usernameEdt.setText(username);
         Button continueBtn = findViewById(R.id.continueBtn);
-        spinner = findViewById(R.id.country);
+        //spinner = findViewById(R.id.country);
         countryAdapter = new CountryAdapter(this,countries,flags);
         continueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,31 +141,22 @@ public class UserDetails extends AppCompatActivity {
 
 
         //   ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,countries);
-        spinner.setAdapter(adapter);
+        //spinner.setAdapter(adapter);
        // int spinnerPosition = countryAdapter.getPosition(country);
         if(!country.equals("default")){
-            spinner.setText(country);
+            country_name.setText(country);
         }
         Log.i("Flag",country);
         Log.i("Flag",flag);
 
 
-        spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                String selectedItem = adapterView.getItemAtPosition(i).toString();
-                country = selectedItem;
-                flag = flags.get(countries.indexOf(country)).toString();
-                //spinner.setText(country);
-
-                Log.i("Flag",flags.get( countries.indexOf(country)).toString());
-                Log.i("Flag",selectedItem);
-                //Log.i("Flag",countries.get(i).toString());
-
-
-            }
-        });
+//        spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//
+//
+//            }
+//        });
 
 
 
@@ -188,6 +194,87 @@ public class UserDetails extends AppCompatActivity {
 
             }
         });
+
+
+        country_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // Initialize dialog
+                dialog=new Dialog(UserDetails.this);
+
+                // set custom dialog
+                dialog.setContentView(R.layout.dialog_searchable_spinner);
+
+                // set custom height and width
+                dialog.getWindow().setLayout(650,800);
+
+                // set transparent background
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(R.drawable.hex_blue));
+                //dialog.getWindow().se
+
+                // show dialog
+
+
+                // Initialize and assign variable
+
+                dialog.show();
+
+
+
+                EditText editText=dialog.findViewById(R.id.edit_text);
+                ListView listView=dialog.findViewById(R.id.list_view);
+                editText.requestFocus();
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_IMPLICIT);
+
+
+                // Initialize array adapter
+                ArrayAdapter<String> adapter=new ArrayAdapter<String>(UserDetails.this, R.layout.single_tv,countries);
+
+                // set adapter
+                listView.setAdapter(adapter);
+                editText.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        adapter.getFilter().filter(s);
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        // when item selected from list
+                        // set selected item on textView
+                        country_name.setText(adapter.getItem(position));
+
+                        String selectedItem = adapter.getItem(position).toString();
+                        country = selectedItem;
+                        flag = flags.get(countries.indexOf(country)).toString();
+                        //spinner.setText(country);
+
+                        Log.i("Flag",flags.get( countries.indexOf(country)).toString());
+                        Log.i("Flag",selectedItem);
+                        //Log.i("Flag",countries.get(i).toString());
+
+
+                        // Dismiss dialog
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
+
     }
 
     private void selectAvatar(CardView cardView){

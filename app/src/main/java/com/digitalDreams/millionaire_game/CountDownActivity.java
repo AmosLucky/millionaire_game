@@ -27,11 +27,11 @@ import java.text.DecimalFormat;
 public class CountDownActivity extends AppCompatActivity {
     String time = "5000";
     DBHelper dbHelper;
-    public static MediaPlayer mMediaPlayer;
+   public static MediaPlayer mMediaPlayer;
     public static MediaPlayer mSuccessPlayer;
     public static MediaPlayer mFailurePlayer;
     boolean hasOldWinningAmount = false;
-    public static RewardedAd mRewardedVideoAd;
+  //  public static RewardedAd mRewardedVideoAd;
     TextView count_down_level;
     TextView amount_to_win;
    // AdManager adManager;
@@ -50,7 +50,7 @@ public class CountDownActivity extends AppCompatActivity {
 
 
 
-        mRewardedVideoAd = AdManager.rewardedAd; //MobileAds.getRewardedVideoAdInstance(this);
+       // mRewardedVideoAd = AdManager.rewardedAd; //MobileAds.getRewardedVideoAdInstance(this);
 
         loadVideoAd();
 

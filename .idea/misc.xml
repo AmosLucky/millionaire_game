@@ -16,6 +16,7 @@
         <entry key="app/src/main/res/drawable/ic_hexnow_1.xml" value="0.12" />
         <entry key="app/src/main/res/drawable/playbtn_bg.xml" value="0.131" />
         <entry key="app/src/main/res/drawable/rounded_edittext.xml" value="0.131" />
+        <entry key="app/src/main/res/drawable/spinner_bg.xml" value="0.1255" />
         <entry key="app/src/main/res/layout-h1024dp/activity_count_down.xml" value="0.1" />
         <entry key="app/src/main/res/layout-h1024dp/activity_credit.xml" value="0.1" />
         <entry key="app/src/main/res/layout-h1024dp/activity_dashboard.xml" value="0.25" />
@@ -102,6 +103,7 @@
         <entry key="app/src/main/res/layout/card.xml" value="0.4185022026431718" />
         <entry key="app/src/main/res/layout/country_leader_board.xml" value="0.13697916666666668" />
         <entry key="app/src/main/res/layout/daily_layout.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/dialog_searchable_spinner.xml" value="0.20260416666666667" />
         <entry key="app/src/main/res/layout/exit_dialog_layout.xml" value="0.34801762114537443" />
         <entry key="app/src/main/res/layout/fragment_ask_a_friend.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_ask_computer.xml" value="0.1" />
@@ -119,6 +121,7 @@
         <entry key="app/src/main/res/layout/single_country.xml" value="0.165" />
         <entry key="app/src/main/res/layout/single_level_layout.xml" value="0.1" />
         <entry key="app/src/main/res/layout/single_star.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/single_tv.xml" value="0.13125" />
         <entry key="app/src/main/res/layout/test_layout.xml" value="0.1" />
         <entry key="app/src/main/res/layout/week_layout.xml" value="0.1" />
         <entry key="app/src/main/res/layout/welcom_dialog.xml" value="0.1" />

@@ -89,7 +89,7 @@
                         android:textColor="@color/orange"
                         android:layout_marginHorizontal="50dp"
                         android:textStyle="bold"
-                        android:text="We need you to create a player profile for display"/>
+                        android:text="Create your player profile"/>
 
                 </LinearLayout>
 
@@ -99,65 +99,54 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_margin="20dp">
+                    android:layout_marginHorizontal="30dp"
+                    android:layout_marginTop="20dp"
+                 >
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/emailWrapper_login"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColorHint="@color/white"
-                        app:boxStrokeWidthFocused="0.5dp"
-                        app:boxStrokeWidth="0.5dp"
-                        app:boxStrokeColor="@color/white"
-                        android:hint="Create Your Player Name"
-                        android:layout_margin="20dp">
 
-                        <com.google.android.material.textfield.TextInputEditText
+
+                        <EditText
                             android:id="@+id/username"
                             android:textColor="@color/white"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textStyle="bold"
                             android:drawablePadding="10dp"
+                            android:hint="Create player name"
+                            android:focusable="true"
                             android:inputType="text"
                             android:textSize="14sp" />
 
-                    </com.google.android.material.textfield.TextInputLayout>
+
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/white"
-                            android:layout_marginHorizontal="25dp"
+                            android:layout_marginHorizontal="0dp"
                             android:textStyle="bold"
+
                             android:text="Select Your Country"
-                            android:layout_marginTop="0dp"/>
-
-                       <LinearLayout
-
-                           android:layout_marginTop="10dp"
-                           android:layout_width="match_parent"
-                           android:layout_height="55dp"
-                           android:layout_marginHorizontal="25dp"
+                            android:layout_marginTop="20dp"/>
 
 
-                           >
+
+                    <EditText
+                        android:id="@+id/country_name"
+                        android:textColor="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:drawablePadding="10dp"
+                        android:hint="Click to select country"
+                        android:focusable="false"
+                        android:inputType="text"
+                        android:textSize="14sp" />
 
 
-                           <AutoCompleteTextView
-                               android:textColor="@color/white"
-                               android:layout_width="match_parent"
-                               android:layout_height="50dp"
-                               android:textStyle="bold"
-                               android:drawablePadding="10dp"
-                               android:inputType="text"
-                               app:boxStrokeWidth="0.5dp"
-                               android:textColorHint="@color/white"
-                               android:hint="Start typing country name"
-                               android:textSize="14sp"
-                               android:id="@+id/country"/>
 
-                       </LinearLayout>
+
+
 
 
                     <TextView
@@ -322,10 +311,10 @@
                     android:keyboardNavigationCluster="true"
                     android:windowSoftInputMode="adjustPan"
                     app:cardElevation="5dp"
-                    android:background="@color/black"
+                    android:background="@color/white"
                     android:layout_marginTop="30dp"
                     >
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/continueBtn"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
@@ -335,7 +324,9 @@
                         android:textColor="@color/white"
                         android:layout_margin="10dp"
                         android:text="Continue"
+                        android:backgroundTint="@color/green"
                         android:background="@color/green"
+                        style="@style/green"
                         android:textSize="14sp"
                         />
                 </androidx.cardview.widget.CardView>

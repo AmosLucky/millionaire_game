@@ -363,130 +363,10 @@ public class FailureActivity extends AppCompatActivity {
 
             }
         });
-        try{
-        if (GameActivity2.mRewardedVideoAd == null) {
-//            mRewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
-//                @Override
-//                public void onRewardedVideoAdLoaded() {
-//                    if (clicked) {
-//                        showRewardedVideo();
-//                    }
-//                }
-//
-//                @Override
-//                public void onRewardedVideoAdOpened() {
-//
-//                }
-//
-//                @Override
-//                public void onRewardedVideoStarted() {
-//
-//                }
-//
-//                @Override
-//                public void onRewardedVideoAdClosed() {
-//                    continueGame = true;
-//                    finish();
-//                }
-//
-//                @Override
-//                public void onRewarded(com.google.android.gms.ads.reward.RewardItem rewardItem) {
-//
-//                }
-//
-//                @Override
-//                public void onRewardedVideoAdLeftApplication() {
-//
-//                }
-//
-//                @Override
-//                public void onRewardedVideoAdFailedToLoad(int i) {
-//
-//                }
-//
-//                @Override
-//                public void onRewardedVideoCompleted() {
-//                    continueGame = true;
-//                    finish();
-//                }
-//
-//            });
-//        } else {
-//            GameActivity2.mRewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
-//                @Override
-//                public void onRewardedVideoAdLoaded() {
-//
-//                }
-//
-//                @Override
-//                public void onRewardedVideoAdOpened() {
-//
-//                }
-//
-//                @Override
-//                public void onRewardedVideoStarted() {
-//
-//                }
-//
-//                @Override
-//                public void onRewardedVideoAdClosed() {
-//                    CountDownActivity.mRewardedVideoAd.loadAd("ca-app-pub-4696224049420135/7768937909", new AdRequest.Builder().build());
-//
-//                    continueGame = true;
-//                    finish();
-//                }
-//
-//                @Override
-//                public void onRewarded(com.google.android.gms.ads.reward.RewardItem rewardItem) {
-//
-//                }
-//
-//                @Override
-//                public void onRewardedVideoAdLeftApplication() {
-//
-//                }
-//
-//                @Override
-//                public void onRewardedVideoAdFailedToLoad(int i) {
-//
-//                }
-//
-//                @Override
-//                public void onRewardedVideoCompleted() {
-//                    CountDownActivity.mRewardedVideoAd.loadAd("ca-app-pub-4696224049420135/7768937909", new AdRequest.Builder().build());
-//
-//                    continueGame = true;
-//                    finish();
-//                }
-//
-//            });
-        }
-    }catch(Exception e){
-            e.printStackTrace();
-        }
+
 
         loadInterstialAd();
-        if(GameActivity2.mRewardedVideoAd==null) {
-            loadVideoAd();
-        }
 
-//       adManager.mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback(){
-//           @Override
-//           public void onAdClicked() {
-//
-//                Intent intent = new Intent(FailureActivity.this,PlayDetailsActivity.class);
-//                startActivity(intent);
-//                finish();
-//            }
-//
-////            @Override
-////            public void onAdFailedToLoad(LoadAdError loadAdError) {
-////                super.onAdFailedToLoad(loadAdError);
-////                Intent intent = new Intent(FailureActivity.this,PlayDetailsActivity.class);
-////                startActivity(intent);
-////                finish();
-////            }
-//        });
     }
 
     private void animateWebContainer(View view){
@@ -644,14 +524,7 @@ public class FailureActivity extends AppCompatActivity {
 //        }
     }
 
-    private void loadVideoAd() {
-        // Load a reward based video ad
-       if(GameActivity2.mRewardedVideoAd != null){
-          // GameActivity2. loadVideoAd();
-       }
-      ///  GameActivity2.mRewardedVideoAd.loadAd("ca-app-pub-4696224049420135/7768937909", new AdRequest.Builder().build());
-      //  mRewardedVideoAd.loadAd("ca-app-pub-4696224049420135/7768937909", new AdRequest.Builder().build());
-    }
+
 
     public void showRewardedVideo() {
 //

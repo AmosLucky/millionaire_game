@@ -41,8 +41,8 @@ import com.google.android.gms.ads.interstitial.InterstitialAd;
 import java.util.Locale;
 
 public class Dashboard extends AppCompatActivity {
-    public static InterstitialAd interstitialAd;
-    public static boolean refresh =false;
+    //public static InterstitialAd interstitialAd;
+   // public static boolean refresh =false;
     TextView newGameTxt,playTxt,leaderboardText,seeRankTxt,moreTxt,playTxt2,gotoYotubetxt;
     RelativeLayout bg;
     RelativeLayout newGameBtn,leaderBoardBtn,exitBtn,gotoYoutubeBtn,new_particle;
@@ -392,7 +392,7 @@ public class Dashboard extends AppCompatActivity {
 
 
     private void loadInterstialAd(){
-        interstitialAd = AdManager.mInterstitialAd; //new InterstitialAd(this) ;
+       // interstitialAd = AdManager.mInterstitialAd; //new InterstitialAd(this) ;
         AdManager.initInterstitialAd(Dashboard.this);
 //        interstitialAd.setAdUnitId (getResources().getString(R.string.interstitial_adunit) ) ;
 //        interstitialAd.loadAd(new AdRequest.Builder().build());

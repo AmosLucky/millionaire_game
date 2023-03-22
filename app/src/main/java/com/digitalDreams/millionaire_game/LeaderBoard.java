@@ -81,7 +81,7 @@ public class LeaderBoard extends AppCompatActivity {
     LinearLayout emptyLayout;
     TextView emptyText;
     ProgressBar progressBar;
-    public static InterstitialAd interstitialAd;
+    //public static InterstitialAd interstitialAd;
     RelativeLayout share_container;
     LinearLayout country_layout_container;
 
@@ -727,7 +727,7 @@ public class LeaderBoard extends AppCompatActivity {
 
 
     private void loadInterstialAd(){
-        interstitialAd = AdManager.mInterstitialAd; //new InterstitialAd(LeaderBoard.this) ;
+        //interstitialAd = AdManager.mInterstitialAd; //new InterstitialAd(LeaderBoard.this) ;
 //        interstitialAd.setAdUnitId (LeaderBoard.this.getResources().getString(R.string.interstitial_adunit) ) ;
 //        interstitialAd.loadAd(new AdRequest.Builder().build());
         AdManager.initInterstitialAd(LeaderBoard.this);

@@ -58,5 +58,8 @@
     <item name="android:windowNoTitle">true</item>
     <item name="android:windowIsFloating">false</item>
     </style>
+    <style name="green">
+        <item name="colorAccent">@color/green</item>
+    </style>
 
 </resources>
