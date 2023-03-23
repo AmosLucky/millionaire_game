@@ -127,11 +127,11 @@ class DBHelper extends SQLiteOpenHelper {
             String selectQuery2 = "SELECT * FROM " + JSON_TABLE + " where  STAGE = " +current_play_level+ " ORDER BY RANDOM() LIMIT 1";
 
             Cursor res2 = db.rawQuery(selectQuery2,null);
-            db.close();
+            res2.close();
             return  res2;
 
         }
-        db.close();
+        res.close();
 
 
         return res;
@@ -144,7 +144,10 @@ class DBHelper extends SQLiteOpenHelper {
 
         Cursor res = db.rawQuery(selectQuery,null);
 
+
+        res.close();
         return res;
+
 
     }
 
