@@ -30,7 +30,9 @@ public class SVGLoader {
             @Override
             public void onFailure(Call call, IOException e) {
                 // we are adding a default image if we gets any error.
-                target.setImageResource(R.drawable.youtube1);
+              try{
+                  target.setImageResource(R.drawable.youtube1);
+              }catch (Exception f){}
             }
 
             @Override

@@ -526,7 +526,13 @@ public class PlayDetailsActivity extends AppCompatActivity {
 
                     // r.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.));
 
-                    r.show();
+                    if(!isFinishing()){
+
+                        r.show();
+
+                    }
+
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();

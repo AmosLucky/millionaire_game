@@ -508,8 +508,18 @@ public class GameActivity2 extends AppCompatActivity {
             }catch (StringIndexOutOfBoundsException e){
                 //e.printStackTrace();
             }
-           LayoutInflater inflater = LayoutInflater.from(GameActivity2.this);
-            View v   =   inflater.inflate(R.layout.qo_1,a,false);
+            LayoutInflater inflater = LayoutInflater.from(GameActivity2.this);
+            View v;
+          try{
+
+             v  =   inflater.inflate(R.layout.qo_1,a,false);
+              Log.i("errorrr", "========11");
+          }catch (Exception e){
+              e.printStackTrace();
+              Log.i("errorrr", "========");
+
+              v  =   inflater.inflate(R.layout.qo_1,a,false);
+          }
 
             TextView questionNumber = v.findViewById(R.id.question_progress);
             questionNumber.setText(number+" / 15");
@@ -518,7 +528,7 @@ public class GameActivity2 extends AppCompatActivity {
             TextView txt=v.findViewById(R.id.qo_text);
             txt.setText(content);
             CardView  cardView =v.findViewById(R.id.card);
-            RelativeLayout progress_container = v.findViewById(R.id.progress_container);
+            //RelativeLayout progress_container = v.findViewById(R.id.progress_container);
             RelativeLayout _question = v.findViewById(R.id._questions);
             RelativeLayout askaFriend = v.findViewById(R.id.ask_friend);
             RelativeLayout voting = v.findViewById(R.id.voting);
@@ -534,10 +544,10 @@ public class GameActivity2 extends AppCompatActivity {
 
             v.setVisibility(View.GONE);
             String qImage = b.optString("question_image");
-            ImageView questionImage = v.findViewById(R.id.question_pic);
-            if(!qImage.isEmpty()) {
-                questionImage.setVisibility(View.VISIBLE);
-            }
+           // ImageView questionImage = v.findViewById(R.id.question_pic);
+//            if(!qImage.isEmpty()) {
+//                questionImage.setVisibility(View.VISIBLE);
+//            }
 
             v.setTag("qo");
             a.addView(v);
@@ -558,7 +568,7 @@ public class GameActivity2 extends AppCompatActivity {
 
             fedInAnimation(refresh,1600);
             fedInAnimation(opt_dec_4,1600);
-            fedInAnimation(progress_container,500);
+            //fedInAnimation(progress_container,500);
             fedInAnimation(cardView,500);
             fedInAnimation(txt,550);
             fedInAnimation(progressBtn,500);
@@ -698,6 +708,8 @@ public class GameActivity2 extends AppCompatActivity {
                     public void onClick(View view) {
 
                        ImageView video_ad_Icon2 = a.findViewById(R.id.video_ad2);
+
+                        AdManager.showInterstitial(GameActivity2.this);
 //                        if(hasRefreshed && fromProgress2){
 //                            showInterstitial();
 //                            hasRefreshed = false;
@@ -710,6 +722,7 @@ public class GameActivity2 extends AppCompatActivity {
 //                            //fromProgress2 = false;
 //
 //                        }
+
                         showInterstitial();
 
 
@@ -1235,8 +1248,8 @@ public class GameActivity2 extends AppCompatActivity {
        loadInterstialAd();
         loadVideoAd();
 
-        ImageView video_ad_Icon1 = current.findViewById(R.id.video_ad1);
-        ImageView video_ad_Icon2 = current.findViewById(R.id.video_ad2);
+//        ImageView video_ad_Icon1 = current.findViewById(R.id.video_ad1);
+    //    ImageView video_ad_Icon2 = current.findViewById(R.id.video_ad2);
         if(removeOptions && fromProgress2){
            /// video_ad_Icon1.setVisibility(View.VISIBLE);
 
@@ -1931,6 +1944,7 @@ public class GameActivity2 extends AppCompatActivity {
 //                }
 //            });
 //        }
+
 
          AdManager.initInterstitialAd(GameActivity2.this);
     }

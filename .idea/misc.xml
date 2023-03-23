@@ -11,12 +11,17 @@
         <entry key="app/src/main/res/drawable/continue_btn_bg.xml" value="0.131" />
         <entry key="app/src/main/res/drawable/custom_drawable_bg.xml" value="0.131" />
         <entry key="app/src/main/res/drawable/dark_play.xml" value="0.131" />
+        <entry key="app/src/main/res/drawable/ic_baseline_autorenew_24.xml" value="0.118" />
         <entry key="app/src/main/res/drawable/ic_hex_2.xml" value="0.131" />
         <entry key="app/src/main/res/drawable/ic_hexnow.xml" value="0.121" />
         <entry key="app/src/main/res/drawable/ic_hexnow_1.xml" value="0.12" />
+        <entry key="app/src/main/res/drawable/motion_video.xml" value="0.118" />
         <entry key="app/src/main/res/drawable/playbtn_bg.xml" value="0.131" />
         <entry key="app/src/main/res/drawable/rounded_edittext.xml" value="0.131" />
         <entry key="app/src/main/res/drawable/spinner_bg.xml" value="0.1255" />
+        <entry key="app/src/main/res/drawable/star.xml" value="0.118" />
+        <entry key="app/src/main/res/font/.xml" value="0.21851851851851853" />
+        <entry key="app/src/main/res/font/arimo.xml" value="0.21851851851851853" />
         <entry key="app/src/main/res/layout-h1024dp/activity_count_down.xml" value="0.1" />
         <entry key="app/src/main/res/layout-h1024dp/activity_credit.xml" value="0.1" />
         <entry key="app/src/main/res/layout-h1024dp/activity_dashboard.xml" value="0.25" />

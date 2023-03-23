@@ -510,14 +510,12 @@
                             <ImageView
 
 
-
                                 android:id="@+id/video_ad2"
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:layout_marginLeft="40dp"
                                 android:layout_alignParentBottom="true"
-                                android:src="@drawable/vicon2"
-                                />
+                                android:layout_marginLeft="40dp"
+                                android:src="@drawable/vicon2" />
                             <ImageView
                                 android:id="@+id/bad4"
                                 android:layout_width="48dp"

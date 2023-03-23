@@ -312,6 +312,8 @@
                     android:windowSoftInputMode="adjustPan"
                     app:cardElevation="5dp"
                     android:background="@color/white"
+                    android:id="@+id/card"
+                    app:cardBackgroundColor="@color/white"
                     android:layout_marginTop="30dp"
                     >
                     <androidx.appcompat.widget.AppCompatButton

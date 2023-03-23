@@ -32,6 +32,9 @@ public class Utils {
     public  static Class destination_activity = Dashboard.class;
     public static  int leaderboardClick = 0;
 
+    Utils(){
+
+    }
 
     public static String addCommaToNumber(double number){
         String pattern = "#,###,###.###";

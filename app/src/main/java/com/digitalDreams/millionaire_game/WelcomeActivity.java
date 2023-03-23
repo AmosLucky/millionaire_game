@@ -48,6 +48,13 @@ public class WelcomeActivity extends AppCompatActivity {
         String username = sharedPreferences.getString("username","");
 
         if(IS_DONE_INSERTING){
+
+
+
+            Utils.IS_DONE_INSERTING = true;
+            editor.putBoolean("IS_DONE_INSERTING",true);
+            editor.commit();
+
             startActivity(new Intent(WelcomeActivity.this,Dashboard.class));
             finish();
 

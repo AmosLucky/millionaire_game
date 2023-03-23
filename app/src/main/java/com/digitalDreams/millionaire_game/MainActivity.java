@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("settings",MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         String username = sharedPreferences.getString("username","");
+        Utils.IS_DONE_INSERTING = sharedPreferences.getBoolean("IS_DONE_INSERTING",false);
 
 
 
@@ -617,6 +618,12 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     }else {
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+
+                        Utils.IS_DONE_INSERTING = true;
+                        editor.putBoolean("IS_DONE_INSERTING",true);
+                        editor.commit();
 
 
 

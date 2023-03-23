@@ -98,10 +98,20 @@ class ExitDialog extends Dialog {
             @Override
             public void onClick(View view) {
 
-                context.startActivity(
-                        new Intent(Intent.ACTION_VIEW,
-                                Uri.parse("https://play.google.com/store/apps/details?id=com.digitalDreams.millionaire_game")));
+             try{
+                if(Utils.isOnline(context)){
+                    context.startActivity(
+                            new Intent(Intent.ACTION_VIEW,
+                                    Uri.parse("https://play.google.com/store/apps/details?id=com.digitalDreams.millionaire_game")));
+             }else{
 
+                    System.exit(0);
+
+
+                }
+             }catch (Exception e){
+
+             }
             }
         });
     }

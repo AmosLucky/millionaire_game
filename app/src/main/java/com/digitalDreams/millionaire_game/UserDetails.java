@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -14,6 +15,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -63,6 +65,7 @@ public class UserDetails extends AppCompatActivity {
     ArrayList flags = new ArrayList();
     EditText country_name;
     Dialog dialog;
+    CardView card;
 
 
 
@@ -85,9 +88,12 @@ public class UserDetails extends AppCompatActivity {
 
 
         bg = findViewById(R.id.rootview);
+        card = findViewById(R.id.card);
 
 
         usernameEdt = findViewById(R.id.username);
+
+
 
         SharedPreferences sharedPreferences = getSharedPreferences("settings",MODE_PRIVATE);
         String username = sharedPreferences.getString("username","");
@@ -118,6 +124,7 @@ public class UserDetails extends AppCompatActivity {
                 validateInput();
             }
         });
+
 
         gridLayout = findViewById(R.id.grid);
         for (int a=0;a<gridLayout.getChildCount();a++){
@@ -224,9 +231,30 @@ public class UserDetails extends AppCompatActivity {
 
                 EditText editText=dialog.findViewById(R.id.edit_text);
                 ListView listView=dialog.findViewById(R.id.list_view);
-                editText.requestFocus();
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_IMPLICIT);
+               // editText.requestFocus();
+//                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.SHOW_IMPLICIT);
+                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+
+
+                        editText.clearFocus();
+                       // imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+
+                    }
+                });
+
+                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface dialogInterface) {
+                        editText.clearFocus();
+                       // imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+
+                    }
+                });
+
+
 
 
                 // Initialize array adapter
@@ -251,6 +279,8 @@ public class UserDetails extends AppCompatActivity {
                     }
                 });
 
+
+
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -263,13 +293,20 @@ public class UserDetails extends AppCompatActivity {
                         flag = flags.get(countries.indexOf(country)).toString();
                         //spinner.setText(country);
 
-                        Log.i("Flag",flags.get( countries.indexOf(country)).toString());
-                        Log.i("Flag",selectedItem);
+                       // Log.i("Flag",flags.get( countries.indexOf(country)).toString());
+                       // Log.i("Flag",selectedItem);
                         //Log.i("Flag",countries.get(i).toString());
+
+
+                        editText.clearFocus();
+                        //imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
 
 
                         // Dismiss dialog
                         dialog.dismiss();
+
+
+
                     }
                 });
             }
@@ -332,6 +369,14 @@ public class UserDetails extends AppCompatActivity {
 naviget();
 
         }
+    }
+
+
+    @Override
+    protected void onResume() {
+
+
+        super.onResume();
     }
 
 
@@ -499,5 +544,9 @@ naviget();
 
 
     }
+
+
+    //@SuppressLint("ResourceAsColor")
+   // @SuppressLint("ResourceAsColor")
 
 }
