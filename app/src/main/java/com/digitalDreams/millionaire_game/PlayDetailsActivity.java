@@ -150,7 +150,12 @@ public class PlayDetailsActivity extends AppCompatActivity {
         AdsFromExitGameDialog = getIntent().getBooleanExtra("AdsFromExitGameDialog",false);
         wonTxt = findViewById(R.id.wontxt);
         usernameField =  findViewById(R.id.username);
-        usernameField.setText(username.substring(0,1).toUpperCase()+username.substring(1,username.length()));
+        if(username.length() > 1) {
+            usernameField.setText(username.substring(0, 1).toUpperCase() + username.substring(1, username.length()));
+        }else{
+            usernameField.setText(getResources().getText(R.string.anonymous_user));
+
+        }
         if(isWon){
             wonTxt.setText(getResources().getString(R.string.won));
         }
