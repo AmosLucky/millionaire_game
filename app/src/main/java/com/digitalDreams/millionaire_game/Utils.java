@@ -31,8 +31,15 @@ public class Utils {
     public static int NUMBER_OF_INSERT = 0;
     public  static Class destination_activity = Dashboard.class;
     public static  int leaderboardClick = 0;
+    public  static  int highScore = 500;
 
     Utils(){
+
+    }
+
+    public  static  String removeExtra(String data){
+        return  data.replaceAll(",","").replaceAll("$","")
+                .replaceAll(".","");
 
     }
 

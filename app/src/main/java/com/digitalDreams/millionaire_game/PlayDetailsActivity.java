@@ -444,7 +444,16 @@ public class PlayDetailsActivity extends AppCompatActivity {
         String country = sharedPreferences.getString("country", "");
         String country_flag = sharedPreferences.getString("country_flag", "");
         //Log.i("flag",country_flag);
-        int h = Integer.parseInt(highscore);
+
+        int h;
+
+        try {
+            h = Integer.parseInt(Utils.removeExtra(highscore));
+        }catch (Exception e){
+            h = Utils.highScore;
+
+        }
+
         String score = GameActivity2.amountWon;
         //score = score.substring(1);
         score = score.replace(",", "");
