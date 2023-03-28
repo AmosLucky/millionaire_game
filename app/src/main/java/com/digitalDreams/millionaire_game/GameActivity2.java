@@ -1693,7 +1693,9 @@ public class GameActivity2 extends AppCompatActivity {
                 dialog = new FailDialog(GameActivity2.this,amountWon);
                 dialog.setCancelable(false);
                 dialog.setCanceledOnTouchOutside(false);
-                dialog.show();
+                if(!isFinishing()) {
+                    dialog.show();
+                }
                 Window window = dialog.getWindow();
                 window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
