@@ -19,6 +19,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.VectorDrawable;
 import android.media.AudioManager;
@@ -29,7 +30,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
-import android.os.PersistableBundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.text.Html;
@@ -45,8 +45,6 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
-import android.view.animation.BounceInterpolator;
-import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.view.animation.TranslateAnimation;
@@ -58,13 +56,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.RequestConfiguration;
-import com.google.android.gms.ads.interstitial.InterstitialAd;
-import com.google.android.gms.ads.rewarded.RewardedAd;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -76,7 +69,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.Timer;
@@ -758,11 +750,12 @@ public class GameActivity2 extends AppCompatActivity {
                                 cTimer.cancel();
                             }
                             your_ans.setText(k.getText().toString());
-                            VectorDrawable gd = (VectorDrawable) r.getBackground().mutate();
+                            Drawable gd =  r.getBackground().mutate();
+                            //LayerDrawable gd = new LayerDrawable(new Drawable[] { r.getBackground().mutate() });
                             gd.setColorFilter(ContextCompat.getColor(GameActivity2.this,R.color.orange), PorterDuff.Mode.SRC_IN);
                             r.setBackground(gd);
                             final RelativeLayout[] relativeLayout = {(RelativeLayout) q.getChildAt(finalC)};
-                            final VectorDrawable[] vectorDrawable = {gd};
+                            final Drawable[] vectorDrawable = {gd};
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -1093,7 +1086,7 @@ public class GameActivity2 extends AppCompatActivity {
         return false;
     }
 
-    private void checkAnswer(String answer,String correct,int number1,VectorDrawable vectorDrawable
+    private void checkAnswer(String answer, String correct, int number1, Drawable vectorDrawable
     , RelativeLayout relativeLayout){
         loadVideoAd();
         noOfQuestionAnswered++;

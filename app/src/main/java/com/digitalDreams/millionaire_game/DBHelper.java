@@ -199,6 +199,7 @@ class DBHelper extends SQLiteOpenHelper {
             JSONObject jsonObject = new JSONObject();
             JSONObject qObj = new JSONObject();
             JSONArray arr = new JSONArray();
+
             for(int a=1; a<16; a++) {
                 Cursor res = getQuestionByLevel2(String.valueOf(a));
 
@@ -220,6 +221,8 @@ class DBHelper extends SQLiteOpenHelper {
                 contentObj.put("correct", correct);
                 contentObj.put("question_image", "");
                 arr.put(contentObj);
+
+                res.close();
 
             }
             qObj.put("0", arr);
