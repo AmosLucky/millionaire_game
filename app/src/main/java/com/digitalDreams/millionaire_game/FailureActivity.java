@@ -217,6 +217,7 @@ public class FailureActivity extends AppCompatActivity {
 
 
                         // Do something after 5s = 5000ms
+                finishGameActivity();
 
             }
         });
@@ -233,6 +234,7 @@ public class FailureActivity extends AppCompatActivity {
                     Intent i =  new Intent(FailureActivity.this, UserDetails.class);
 
                     startActivity(i);
+                    finish();
                     return;
                 }
 
@@ -255,6 +257,8 @@ public class FailureActivity extends AppCompatActivity {
                 intent.putExtra("noThanks", true);
 
                 startActivity(intent);
+
+                finishGameActivity();
                 finish();
 
 
@@ -268,6 +272,9 @@ public class FailureActivity extends AppCompatActivity {
 //                        //buttons[inew][jnew].setBackgroundColor(Color.BLACK);
 //                    }
 //                }, 7000);
+
+
+
 
             }
         });
@@ -300,8 +307,11 @@ public class FailureActivity extends AppCompatActivity {
 
                 if (!isNetworkConnected()) {
                     startActivity(new Intent(FailureActivity.this, PlayDetailsActivity.class));
+                    finishGameActivity();
                     finish();
+
                     Toast.makeText(FailureActivity.this, "No Internet Connection", Toast.LENGTH_LONG).show();
+
                 }
 
 
@@ -346,17 +356,21 @@ public class FailureActivity extends AppCompatActivity {
                             }
                         });
                     }else {
-                        Toast.makeText(FailureActivity.this, "Ad failed to load", Toast.LENGTH_LONG).show();
+                        Toast.makeText(FailureActivity.this, "Ad failed to load0", Toast.LENGTH_LONG).show();
                         Intent i =  new Intent(FailureActivity.this,CountDownActivity.class);
                         startActivity(i);
+
+                        finishGameActivity();
                         finish();
                     }
 
                 }catch (Exception e){
                     e.printStackTrace();
-                    Toast.makeText(FailureActivity.this,"Ad failed to load",Toast.LENGTH_LONG).show();
+                    Toast.makeText(FailureActivity.this,"Ad failed to load1",Toast.LENGTH_LONG).show();
                    Intent i =  new Intent(FailureActivity.this,CountDownActivity.class);
                    startActivity(i);
+                    finishGameActivity();
+
                    finish();
 
                 }
@@ -367,6 +381,12 @@ public class FailureActivity extends AppCompatActivity {
 
         loadInterstialAd();
 
+    }
+
+    void finishGameActivity(){
+        if( GameActivity2.gameActivity2 != null){
+            GameActivity2.gameActivity2.finish();
+        }
     }
 
     private void animateWebContainer(View view){

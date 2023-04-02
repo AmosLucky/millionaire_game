@@ -158,6 +158,7 @@ public class Dashboard extends AppCompatActivity {
                 MediaPlayer.create(Dashboard.this, R.raw.others).start();
                 Intent i = new Intent(Dashboard.this,WinnersActivity.class);
                 startActivity(i);
+
             }
         });
 
@@ -171,6 +172,7 @@ public class Dashboard extends AppCompatActivity {
                 MediaPlayer.create(Dashboard.this, R.raw.others).start();
                 Intent intent = new Intent(Dashboard.this,LeaderBoard.class);
                 startActivity(intent);
+                finish();
             }
         });
 

@@ -74,13 +74,17 @@ public class AdManager {
 
 
 public static   void showInterstitial(Activity context){
-    if (mInterstitialAd != null) {
-        mInterstitialAd.show(context);
-    } else {
-        initInterstitialAd(context);
-        Log.d("TAG", "The interstitial ad wasn't ready yet.");
-    }
+    try{
+        if (mInterstitialAd != null) {
+            mInterstitialAd.show(context);
+        } else {
+            initInterstitialAd(context);
+            Log.d("TAG", "The interstitial ad wasn't ready yet.");
+        }
 
+    }catch (Exception e){
+
+    }
 }
 
 public static   void  initRewardedVideo(Activity context){
@@ -148,22 +152,26 @@ public static   void  initRewardedVideo(Activity context){
 }
 
 public static void showRewardAd(Activity context){
-    if (rewardedAd != null) {
-        //Activity activityContext = MainActivity.this;
+    try {
+        if (rewardedAd != null) {
+            //Activity activityContext = MainActivity.this;
 
-        rewardedAd.show( context, new OnUserEarnedRewardListener() {
+            rewardedAd.show( context, new OnUserEarnedRewardListener() {
 
-            @Override
-            public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
-                // Handle the reward.
-                Log.d("rewarded", "The user earned the reward.");
-                int rewardAmount = rewardItem.getAmount();
-                String rewardType = rewardItem.getType();
-            }
-        });
-    } else {
-        Log.d("rewarded", "The rewarded ad wasn't ready yet.");
-        initRewardedVideo(context);
+                @Override
+                public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
+                    // Handle the reward.
+                    Log.d("rewarded", "The user earned the reward.");
+                    int rewardAmount = rewardItem.getAmount();
+                    String rewardType = rewardItem.getType();
+                }
+            });
+        } else {
+            Log.d("rewarded", "The rewarded ad wasn't ready yet.");
+            initRewardedVideo(context);
+        }
+    }catch (Exception e){
+
     }
 }
 

@@ -30,8 +30,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
+import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 
 public class ExitGameDialog extends Dialog {
@@ -90,10 +92,7 @@ public class ExitGameDialog extends Dialog {
                 if(CountDownActivity.mMediaPlayer!=null) {
                     CountDownActivity.mMediaPlayer.stop();
                 }
-                Intent intent = new Intent(context,PlayDetailsActivity.class);
-                intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP );
-                intent.putExtra("isShowAd",false);
-                context.startActivity(intent);
+
 
             }
         });
@@ -132,17 +131,49 @@ public class ExitGameDialog extends Dialog {
 
     private void showInterstitial() {
         AdManager.showInterstitial((Activity) context);
-//        if (interstitialAd.isLoaded()) {
-//            interstitialAd.show();
-//        }else{
-//            interstitialAd.setAdListener(new AdListener() {
-//                public void onAdLoaded() {
-//                    showInterstitial();
-//                }
-//            });
-//        }
+
+        if(AdManager.mInterstitialAd != null){
+            AdManager.mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                @Override
+                public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+                    super.onAdFailedToShowFullScreenContent(adError);
+                    quite();
+                }
+
+                @Override
+                public void onAdDismissedFullScreenContent() {
+                    quite();
+                    super.onAdDismissedFullScreenContent();
+                }
+
+                @Override
+                public void onAdClicked() {
+                    quite();
+                    super.onAdClicked();
+                }
+
+            });
+
+
+
+        }else{
+
+            quite();
+
+
+        }
+
     }
 
+    public  void quite(){
+
+        Intent intent = new Intent(context,PlayDetailsActivity.class);
+        intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP );
+        intent.putExtra("isShowAd",false);
+        context.startActivity(intent);
+        GameActivity2.gameActivity2.finish();
+
+    }
 
 
 

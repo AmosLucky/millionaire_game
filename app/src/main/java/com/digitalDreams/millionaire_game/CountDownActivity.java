@@ -135,9 +135,15 @@ public class CountDownActivity extends AppCompatActivity {
         new Handler().post(new Runnable() {
             @Override
             public void run() {
-                mMediaPlayer = MediaPlayer.create(CountDownActivity.this, R.raw.background_sound);
-                mFailurePlayer  = MediaPlayer.create(CountDownActivity.this, R.raw.failure_sound2);
-                mSuccessPlayer  = MediaPlayer.create(CountDownActivity.this, R.raw.success_sound);
+
+                try{
+                    mMediaPlayer = MediaPlayer.create(CountDownActivity.this, R.raw.background_sound);
+                    mFailurePlayer  = MediaPlayer.create(CountDownActivity.this, R.raw.failure_sound2);
+                    mSuccessPlayer  = MediaPlayer.create(CountDownActivity.this, R.raw.success_sound);
+                }catch(Exception e){
+
+                }
+
             }
         });
 

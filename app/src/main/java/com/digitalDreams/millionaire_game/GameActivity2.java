@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
@@ -67,6 +68,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.security.PublicKey;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -146,6 +148,7 @@ public class GameActivity2 extends AppCompatActivity {
     int number_of_failure = 0;
     LinearLayout lifeGuardContainers = null;
     //AdManager adManager;
+    public  static Activity gameActivity2;
 
 
 
@@ -154,6 +157,7 @@ public class GameActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exam_game2);
         fromProgress = getIntent().getBooleanExtra("fromProgress",false);
+        gameActivity2 = this;
 
 
         hasOldWinningAmount = getIntent().getBooleanExtra("hasOldWinningAmount",false);
@@ -766,7 +770,7 @@ public class GameActivity2 extends AppCompatActivity {
 
                                         if (k.getText().toString().trim().equals(ans.getText().toString().trim())) {
                                             relativeLayout[0] = (RelativeLayout) q.getChildAt(c);
-                                            vectorDrawable[0] = (VectorDrawable)  relativeLayout[0].getBackground().mutate();
+                                            vectorDrawable[0] =  relativeLayout[0].getBackground().mutate();
 
                                            if(number_of_failure >= 1){
                                                vectorDrawable[0].setColorFilter(ContextCompat.getColor(GameActivity2.this,R.color.green), PorterDuff.Mode.SRC_IN);
