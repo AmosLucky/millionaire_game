@@ -93,8 +93,8 @@ public class PlayDetailsActivity extends AppCompatActivity {
 
         //adManager =  new AdManager(this);
         RelativeLayout bg = findViewById(R.id.rootview);
-        new_game_text = findViewById(R.id.new_game_text);
-        new_game_text.setText("New Game");
+//        new_game_text = findViewById(R.id.new_game_text);
+//        new_game_text.setText("New Game");
 
         AdView mAdView;
         mAdView = findViewById(R.id.adView);

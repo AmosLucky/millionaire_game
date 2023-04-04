@@ -318,7 +318,7 @@
                                     android:id="@+id/new_game_text"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/hard_level"
+                                    android:text="@string/new_game"
                                     android:textColor="@color/white"
                                     android:textSize="16sp"
                                     android:textStyle="bold" />
