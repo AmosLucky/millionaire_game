@@ -72,10 +72,13 @@
     <string name="failure_text">Failing does not mean you are a failure </string>
     <string name="play_again"><u>Play Again</u></string>
     <string name="view_ranking"><u>View Ranking</u></string>
+    <string name="view_history"><u>View Answers</u></string>
     <string name="count_down_amount">1000000</string>
     <string name="count_down_level">Level 1</string>
+    <string name="play_history">Play History</string>
     <string name="give_up"><u>Give up</u></string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="anonymous_user">Anonymous user</string>
+    <string name="readmore">Read More</string>
 </resources>

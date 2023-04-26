@@ -4,6 +4,7 @@ import static com.digitalDreams.millionaire_game.FailureActivity.getDeviceId;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
@@ -23,7 +24,12 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class Utils {
@@ -32,6 +38,8 @@ public class Utils {
     public  static Class destination_activity = Dashboard.class;
     public static  int leaderboardClick = 0;
     public  static  int highScore = 500;
+    public  static String lastDatePlayed = "";
+    public  static  String readMoreUrl = "https://weirdtrivia.com/post/";
 
     Utils(){
 
@@ -235,6 +243,44 @@ public class Utils {
         if(username.isEmpty()){
             editor.apply();
         }
+    }
+
+    public  static  String getDate()  {
+
+
+        Date c = Calendar.getInstance().getTime();
+        System.out.println("Current time => " + c);
+
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+        String formattedDate = df.format(c);
+        return  formattedDate;
+    }
+
+    public  static  String getTime(){
+        Date currentTime = Calendar.getInstance().getTime();
+        return  currentTime.toString();
+    }
+
+    public  static String  capitalizeFirstWord(String text){
+        String upperString = "";
+        if(text != null && text != "" && text.length() > 1) {
+
+            upperString = text.substring(0, 1).toUpperCase() + text.substring(1);
+        }else
+             if(text.length() == 1){
+                 upperString = text;
+
+             }
+
+        return  upperString;
+
+    }
+
+    public static void navigateToWebview(String questionId, Context context){
+        Intent intent =  new Intent(context,WebviewActivity.class);
+        intent.putExtra("questionId", questionId);
+        context.startActivity(intent);
+
     }
 
 }

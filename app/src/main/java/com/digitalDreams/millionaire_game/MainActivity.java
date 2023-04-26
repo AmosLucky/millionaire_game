@@ -115,8 +115,8 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     if(dbHelper.getQuestionSize()==0) {
                         Utils.IS_DONE_INSERTING = false;
-                      //  saveAnonymouseUser();
-                        text = readRawTextFile(R.raw.exam_json6);
+                        //  saveAnonymouseUser();
+                        text = readRawTextFile(R.raw.millionaire);
                         parseJSON(text);
                     }else{
                         Utils.IS_DONE_INSERTING = true;
@@ -317,81 +317,74 @@ public class MainActivity extends AppCompatActivity {
     private void parseJSON(String json){
         int lent =0;
         try {
-            JSONObject jsonObject = new JSONObject(json);
-            Iterator<String> iter=jsonObject.keys();
-
-
-
-            while (iter.hasNext()) {
-               // lent++;
-                String k = iter.next(); //// LANGUAGEs LEVEL
-
-                JSONObject language_keys = jsonObject.getJSONObject(k);
-
-                Iterator<String> iter2 = language_keys.keys();
-                while (iter2.hasNext()) {
-                    String levels = iter2.next();
-
-                    JSONObject each_level_name = language_keys.getJSONObject(levels);
-                    Iterator<String> iter3 = each_level_name.keys();
-
-                    while (iter3.hasNext()) {
-                        String each_level_key = iter3.next();
-
-
-
-                        JSONObject json_each_level = each_level_name.getJSONObject(each_level_key);
-                        Iterator<String> iter4 = json_each_level.keys();
-                        while (iter4.hasNext()) {
-                            lent++;
-                            Utils.NUMBER_OF_INSERT ++;
-
-
-                            if(lent == 15){
-                                Utils.IS_DONE_INSERTING = true;
-                            }
-
-                            String key = iter4.next();
-                            Log.i("kkkkkkkkkkkkkkkkkkkkk",String.valueOf(key));
-                            JSONArray jsonArray = json_each_level.getJSONArray(key);
-
-                            Log.i("tables", String.valueOf(jsonArray));
-                            //   Log.i("tables", String.valueOf(jsonArray));
-                            Log.i("stage_name", String.valueOf(levels));
-                            Log.i("stage", String.valueOf(each_level_key));
-                            for (int a = 0; a < jsonArray.length(); a++) {
-                                Log.i("index", String.valueOf(a));
-
-                                JSONObject object = jsonArray.getJSONObject(a);
-                                String id = object.getString("id");
-                                String content = object.getString("content");
-                                String type = object.getString("type");
-                                String answer = object.getString("answer");
-                                String correct = object.getString("correct");
-                                String title = object.getString("title");
-                                String questionImage = object.getString("question_image");
-
-
-
-                                dbHelper.insertDetails(k,key,id,content,type,answer,correct,levels,each_level_key);
-                            }
-
-                        }
+            JSONArray jsonArray = new JSONArray(json);
 
 
 
 
 
 
+//                            String key = iter4.next();
+//                            Log.i("kkkkkkkkkkkkkkkkkkkkk",String.valueOf(key));
+//                            JSONArray jsonArray = json_each_level.getJSONArray(key);
+//
+//                            Log.i("tables", String.valueOf(jsonArray));
+//                            //   Log.i("tables", String.valueOf(jsonArray));
+//                            Log.i("stage_name", String.valueOf(levels));
+//                            Log.i("stage", String.valueOf(each_level_key));
+            for (int a = 0; a < jsonArray.length(); a++) {
+                Log.i("index", String.valueOf(a));
+                lent++;
 
-                    }
+                Utils.NUMBER_OF_INSERT ++;
 
 
+                if(lent == jsonArray.length()){
+                    Utils.IS_DONE_INSERTING = true;
+                }
+
+//                                JSONObject object = jsonArray.getJSONObject(a);
+//                                String id = object.getString("id");
+//                                String content = object.getString("content");
+//                                String type = object.getString("type");
+//                                String answer = object.getString("answer");
+//                                String correct = object.getString("correct");
+//                                String title = object.getString("title");
+//                                String questionImage = object.getString("question_image");
+
+                JSONArray question = jsonArray.getJSONArray(a);
+                String id = String.valueOf(question.getInt(0)); //object.getString("id");
+                String content = question.getString(1); //object.getString("content");
+                String type = "qo";//object.getString("type");
+                String level = String.valueOf(question.getString(2));
+                String language = "GENERAL";
 
 
+                String stage_name = "GENERAL";
+                String stage = "1";
+
+                String correct = question.getString(3).trim();//object.getString("correct");
+                String reason = question.getString(4).trim();
+//                                String title = object.getString("title");
+//                                String questionImage = object.getString("question_image");
+
+                JSONArray answers = new JSONArray();
+
+                for(int j = 5; j < question.length(); j++){
+                    JSONObject obj = new JSONObject();
+                    obj.put("text", question.getString(j));
+                    answers.put(obj);
 
                 }
 
+                String answer = String.valueOf(answers);
+
+
+
+
+
+                dbHelper.insertDetails(language,level,id,content,type,answer,correct,stage_name,stage, reason);
+            }
 
 
 
@@ -414,7 +407,7 @@ public class MainActivity extends AppCompatActivity {
 //                }
 
 
-            }
+
         }catch (JSONException e){
             e.printStackTrace();
         }

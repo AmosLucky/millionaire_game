@@ -207,7 +207,7 @@
 
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:padding="10dp"
         >
 
@@ -222,8 +222,33 @@
             android:textStyle="bold" />
     </RelativeLayout>
 
+        <RelativeLayout
+
+
+            android:id="@+id/view_history"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/ic_hexnow"
+
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+
+                android:text="@string/view_history"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
     <RelativeLayout
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="10dp"
         android:id="@+id/play_again"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -231,7 +256,7 @@
 
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:padding="10dp"
         >
 

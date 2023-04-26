@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.VectorDrawable;
@@ -93,9 +94,20 @@ public class ProgressActivity extends AppCompatActivity {
                 g.setColorFilter(ContextCompat.getColor(ProgressActivity.this,R.color.orange), PorterDuff.Mode.SRC_IN);
                 r.setBackground(g);
             }else if(a<position-1){
-                VectorDrawable g = (VectorDrawable) r.getBackground().mutate();
-                g.setColorFilter(ContextCompat.getColor(ProgressActivity.this,R.color.green), PorterDuff.Mode.SRC_IN);
-                r.setBackground(g);
+
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                    //this code will be executed on devices running ICS or later
+                    VectorDrawable g = (VectorDrawable) r.getBackground().mutate();
+                    g.setColorFilter(ContextCompat.getColor(ProgressActivity.this,R.color.green), PorterDuff.Mode.SRC_IN);
+                    r.setBackground(g);
+                }else{
+                    BitmapDrawable   g = (BitmapDrawable) r.getBackground().mutate();
+                    g.setColorFilter(ContextCompat.getColor(ProgressActivity.this,R.color.green), PorterDuff.Mode.SRC_IN);
+                    r.setBackground(g);
+                }
+
+
+
             }
             container.addView(v);
         }

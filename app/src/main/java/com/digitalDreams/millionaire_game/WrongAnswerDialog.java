@@ -266,23 +266,23 @@ public class WrongAnswerDialog extends Dialog {
 //            }
 //        });
 
-        give_up.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Utils.darkBlueBlink(give_up, context);
-                if (CountDownActivity. mMediaPlayer != null) {
-                    CountDownActivity. mMediaPlayer.pause();
-                }
-
-                dismiss();
-
-                Intent intent = new Intent(getContext(), FailureActivity.class);
-                context.startActivity(intent);
-
-
-
-
-            }
-        });
+//        give_up.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Utils.darkBlueBlink(give_up, context);
+//                if (CountDownActivity. mMediaPlayer != null) {
+//                    CountDownActivity. mMediaPlayer.pause();
+//                }
+//
+//                dismiss();
+//
+//                Intent intent = new Intent(getContext(), FailureActivity.class);
+//                context.startActivity(intent);
+//
+//
+//
+//
+//            }
+//        });
     }
 }

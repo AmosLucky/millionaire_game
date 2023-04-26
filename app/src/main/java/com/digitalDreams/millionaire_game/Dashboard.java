@@ -203,6 +203,11 @@ public class Dashboard extends AppCompatActivity {
         accountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(Dashboard.this,History.class);
+                Utils.darkBlueBlink(accountBtn,Dashboard.this);
+
+                startActivity(intent);
+
 
             }
         });
@@ -229,6 +234,7 @@ public class Dashboard extends AppCompatActivity {
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.darkBlueBlink(profileBtn,Dashboard.this);
                 Utils.destination_activity = Dashboard.class;
                 Intent intent = new Intent(Dashboard.this,UserDetails.class);
                 intent.putExtra("type","edit");

@@ -48,6 +48,7 @@ public class ResultDialog extends Dialog {
 
         ImageView closeBtn = findViewById(R.id.close);
         RelativeLayout view_ranking = findViewById(R.id.view_ranking);
+        RelativeLayout view_history = findViewById(R.id.view_history);
         RelativeLayout play_again = findViewById(R.id.play_again);
         txtField = findViewById(R.id.txt);
         txtField2 = findViewById(R.id.txt2);
@@ -56,12 +57,26 @@ public class ResultDialog extends Dialog {
           closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.darkBlueBlink(closeBtn, context);
+
                 dismiss();
+            }
+        });
+
+        view_history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(context,HistoryDetals.class);
+                Utils.darkBlueBlink(view_history, context);
+                i.putExtra("date_played",Utils.lastDatePlayed);
+
+                context.startActivity(i);
             }
         });
         play_again.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.greenBlink(play_again, context);
                 Intent i = new Intent(context,CountDownActivity.class);
 
                 context.startActivity(i);
@@ -71,6 +86,8 @@ public class ResultDialog extends Dialog {
         view_ranking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.darkBlueBlink(view_ranking, context);
+
                 Utils.destination_activity = LeaderBoard.class;
                 Intent i = new Intent(context,LeaderBoard.class);
 

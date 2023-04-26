@@ -28,6 +28,15 @@
         android:theme="@style/Theme.Trivia"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".WebviewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HistoryDetals"
+            android:exported="false" />
+        <activity
+            android:name=".MainGameActivity"
+            android:exported="false" />
+        <activity
             android:name=".History"
             android:exported="false" />
         <activity

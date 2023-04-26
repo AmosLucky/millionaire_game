@@ -19,11 +19,13 @@
     <string name="simple">Facile</string>
     <string name="no_thanks"><u>No Thanks</u></string>
     <string name="language">Langue</string>
+    <string name="view_history"><u>Voir lhistorique</u></string>
     <string name="on">Sur</string>
     <string name="off">Désactivé</string>
     <string name="timed">Chronométré</string>
     <string name="credits">Crédits</string>
     <string name="default_theme">Défaut</string>
+    <string name="play_history">Plya History</string>
     <string name="theme_1">Thème 1</string>
     <string name="theme_2">Thème 2</string>
     <string name="theme_3">Thème 3</string>
@@ -75,5 +77,6 @@ Beat me if you can !!!
     <string name="give_up"><ul>Give up</ul></string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="anonymous_user">Anonymous user</string>
+    <string name="readmore">Read More</string>
 
 </resources>

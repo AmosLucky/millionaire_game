@@ -12,6 +12,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -52,6 +53,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,6 +61,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -69,14 +73,26 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.PublicKey;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class GameActivity2 extends AppCompatActivity {
+
+
+    DateFormat df = new SimpleDateFormat("EEE, d MMM, HH:mm");
+    String date_1 = df.format(Calendar.getInstance().getTime());
+
+
+    String date_time = date_1;
+    String time_1 = date_1;
+
     public static MediaPlayer mWinning_sound;
     String countdownTime="60000";
     boolean timeOn =false;
@@ -130,6 +146,7 @@ public class GameActivity2 extends AppCompatActivity {
     DBHelper dbHelper;
     public static int noOfQuestionAnswered;
     public static int noOfCorrectAnswer;
+    public static int noOfPagesPassed;
     public static long timing;
     public static Handler h2;
     public static Runnable run;
@@ -149,6 +166,9 @@ public class GameActivity2 extends AppCompatActivity {
     LinearLayout lifeGuardContainers = null;
     //AdManager adManager;
     public  static Activity gameActivity2;
+    JSONArray allQuestion =  new JSONArray();
+    JSONObject singleQuestion  =  new JSONObject();
+
 
 
 
@@ -158,6 +178,7 @@ public class GameActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_exam_game2);
         fromProgress = getIntent().getBooleanExtra("fromProgress",false);
         gameActivity2 = this;
+        Utils.lastDatePlayed = date_1;
 
 
         hasOldWinningAmount = getIntent().getBooleanExtra("hasOldWinningAmount",false);
@@ -165,6 +186,7 @@ public class GameActivity2 extends AppCompatActivity {
         noOfCorrectAnswer=0;
         timing =0;
         amountWon="0";
+        noOfPagesPassed = 0;
 
 
         AdManager.initInterstitialAd(this);
@@ -284,6 +306,7 @@ public class GameActivity2 extends AppCompatActivity {
            // amountWon = oldAmountWon;
             //setAmountWon();
             readSavedData();
+            noOfPagesPassed = noOfQuestionAnswered+1;
 
             next2(current,nextView);
 
@@ -358,16 +381,58 @@ public class GameActivity2 extends AppCompatActivity {
     }
 
     private void setUpDisplay(JSONObject p,int a) throws JSONException {
+
         int c=1;
         try {
             JSONArray exm = p.getJSONArray("q");
-            render2("0", exm, p,c);
+           // render2("0", exm, p,c);
         } catch (JSONException e) {
             e.printStackTrace();
             JSONObject exm = p.getJSONObject("q");
-            render2("0", exm, p,c);
+            //render2("0", exm, p,c);
+            allQuestion = exm.getJSONArray("0");
         }
+
+        Log.i("render2",allQuestion.toString());
+        setQuestion(0);
+
     }
+
+
+    public void setQuestion(int index)throws JSONException {
+        Log.i("render2",String.valueOf(index));
+        LinearLayout lay=findViewById(R.id.displayExam);
+        lay.removeAllViews();
+
+        try {
+
+            JSONObject js = allQuestion.getJSONObject(index);
+            singleQuestion = js;
+
+            if (js != null) {
+                String gid = js.optString("id");
+                String ty = js.getString("type");
+                Log.i("render2", String.valueOf(js.optString("correct")));
+                Log.i("render2", String.valueOf(singleQuestion));
+                switch (ty) {
+                    case "section":
+                        break;
+                    case "qp":
+                        break;
+                    case "qo":
+                        qo(lay, js, index);
+                        break;
+                    case "af":
+                        af(lay, js, false, index);
+                        break;
+
+                }
+                // render2(gid, b, j,d);
+            }
+        }catch (JSONException e){}
+
+    }
+
 
     public void render2(String a,JSONArray b,JSONObject j,int d) throws JSONException {
         LinearLayout lay=findViewById(R.id.displayExam);
@@ -581,6 +646,7 @@ public class GameActivity2 extends AppCompatActivity {
 
 
     public void af(LinearLayout a,JSONObject b, boolean visible,int number){
+
         lifeGuardContainers = a;
 
         float scale = getResources().getDisplayMetrics().density;
@@ -588,8 +654,10 @@ public class GameActivity2 extends AppCompatActivity {
         try {
             if(!b.optString("answer").equals(null) && !b.optString("answer").isEmpty())
             {
+
                 String cleaned = b.optString("answer");
                 String correct = b.optString("correct").trim();
+
                 String content1;
                 View v;
                 if(visible){
@@ -629,6 +697,7 @@ public class GameActivity2 extends AppCompatActivity {
                     LinearLayout a3=a.findViewById(R.id.card_lin);
                     a3.addView(v);
                 }
+
 
 
                 RelativeLayout hideQuestionBtn = a.findViewById(R.id._questions);
@@ -765,6 +834,7 @@ public class GameActivity2 extends AppCompatActivity {
                                 public void run() {
                                     for (int c = 0; c < q.getChildCount(); c++) {
 
+
                                         TextView k = q.getChildAt(c).findViewById(R.id.opt);
 
 
@@ -786,7 +856,15 @@ public class GameActivity2 extends AppCompatActivity {
                                         r.setBackground(gd);
                                         failCount++;
                                     }
-                                    checkAnswer(k.getText().toString(), ans.getText().toString(), (Integer) k.getTag(), vectorDrawable[0],relativeLayout[0]);
+                                    int questionId = 0;
+                                    try {
+                                         questionId = b.getInt("id");
+                                       // Log.i("checking", String.valueOf(questionId));
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    checkAnswer(k.getText().toString(), ans.getText().toString(), (Integer) k.getTag(), vectorDrawable[0],relativeLayout[0],questionId);
+
 
                                 }
                             },1000);
@@ -835,33 +913,38 @@ public class GameActivity2 extends AppCompatActivity {
 
 
 
-    public void next(View view){
+    public void next(View view)throws JSONException {
         checkNext=true;
         LinearLayout parent = findViewById(R.id.displayExam);
+        int i=parent.indexOfChild(current);
+        setQuestion(noOfPagesPassed);
+
 
 
         RelativeLayout r = findViewById(R.id.nav);
 
-        int i=parent.indexOfChild(current);
+
         ImageButton f=findViewById(R.id.fwd);
         ImageButton p=findViewById(R.id.prev);
 
-        nextView = parent.getChildAt(i+1);
+        nextView = parent.getChildAt(i);
+
 
         updateLifelines(nextView);
-        if(parent.getChildAt(i+2)==null)f.setVisibility(View.GONE);
-        if(nextView !=null) {
-            current.setVisibility(view.GONE);
-            current = nextView;
-            nextView.setVisibility(view.VISIBLE);
-            if(nextView.getTag()!=null) {
-                if (nextView.getTag().equals("intro")) {
-                    r.setVisibility(View.GONE);
-                } else {
-                    r.setVisibility(View.VISIBLE);
+        if(parent.getChildAt(i+2)==null)
+            //f.setVisibility(View.GONE);
+            if(nextView !=null) {
+                current.setVisibility(view.GONE);
+                current = nextView;
+                nextView.setVisibility(view.VISIBLE);
+                if(nextView.getTag()!=null) {
+                    if (nextView.getTag().equals("intro")) {
+                        r.setVisibility(View.GONE);
+                    } else {
+                        r.setVisibility(View.VISIBLE);
+                    }
                 }
             }
-        }
         p.setVisibility(View.GONE);
         f.setVisibility(View.GONE);
         r.setVisibility(View.GONE);
@@ -872,13 +955,20 @@ public class GameActivity2 extends AppCompatActivity {
     public void next2(View current_old, View nextView){
         checkNext=true;
         LinearLayout parent = findViewById(R.id.displayExam);
+        int i=parent.indexOfChild(current_old);
+        try {
+            setQuestion(noOfPagesPassed);
+        }catch (Exception e){}
+
+
 
         RelativeLayout r = findViewById(R.id.nav);
 
-        int i=parent.indexOfChild(current_old);
+
         ImageButton f=findViewById(R.id.fwd);
         ImageButton p=findViewById(R.id.prev);
-        //nextView = parent.getChildAt(i+1);
+        nextView = parent.getChildAt(i);
+
         updateLifelines(nextView);
         if(parent.getChildAt(i+2)==null)f.setVisibility(View.GONE);
         if(nextView !=null) {
@@ -993,6 +1083,8 @@ public class GameActivity2 extends AppCompatActivity {
         }
     }
     private void renderQO(String[] arr,String correct1,LinearLayout q,TextView ans,LinearLayout a){
+
+
         String corr=null;
         int t =0;
 
@@ -1091,10 +1183,18 @@ public class GameActivity2 extends AppCompatActivity {
     }
 
     private void checkAnswer(String answer, String correct, int number1, Drawable vectorDrawable
-    , RelativeLayout relativeLayout){
+    , RelativeLayout relativeLayout, int questionID){
+
+
+
+
+
         loadVideoAd();
         noOfQuestionAnswered++;
+        noOfPagesPassed ++;
         continueSound=true;
+        String amountWon_main = GameActivity2.amountWon.replace("$","").replace(",","");
+
         if (answer.trim().equals(correct.trim())) {
             number_of_failure = 0;
 
@@ -1111,100 +1211,297 @@ public class GameActivity2 extends AppCompatActivity {
             }
             noOfCorrectAnswer++;
             saveNoOfCorrectAnswer();
+             amountWon = String.valueOf(moneyArr[p1-2]);
+            String amountWon1 = GameActivity2.amountWon.replace("$","").replace(",","");
+
+
+            saveHistory(questionID, answer, correct,amountWon1,true);
+//            CorrectAnswerDialog correctAnswerDialog = new  CorrectAnswerDialog();
+//            correctAnswerDialog.show(  getSupportFragmentManager(),
+//                    "Customer details Bottom sheet");
+            final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+            bottomSheetDialog.setContentView(R.layout.correct_answer_dialog);
+
+           try{
+               TextView alpha_opt = bottomSheetDialog.findViewById(R.id.alpha_opt);
+               TextView opt = bottomSheetDialog.findViewById(R.id.opt);
+               TextView reason = bottomSheetDialog.findViewById(R.id.reason);
+
+               opt.setText(Utils.capitalizeFirstWord(singleQuestion.getString("correct")));
+               JSONArray opt_answer = new JSONArray(singleQuestion.getString("answer"));
+               int position = getOptionIndex(opt_answer,singleQuestion.getString("correct"));
+               alpha_opt.setText(numbs[position]);
+
+               reason.setText(Utils.capitalizeFirstWord(singleQuestion.getString("reason")));
+               RelativeLayout readMore = bottomSheetDialog.findViewById(R.id.read_more);
+               readMore.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View view) {
+                       Utils.navigateToWebview(String.valueOf(questionID),GameActivity2.this);
+
+                   }
+               });
+//
+
+           }catch (Exception e){
+               e.printStackTrace();
+
+           }
+            bottomSheetDialog.show();
 
 
 
+            //bottomSheetDialog.
 
 
-            amountWon = String.valueOf(moneyArr[p1-2]);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (noOfCorrectAnswer >= 15) {
-                        loadSongs();
-                        SharedPreferences sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
-                        int current_play_level_int = Integer.parseInt(sharedPreferences.getString("current_play_level","1"));
-                        int newGameLevel = current_play_level_int+1;
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                       /// editor.putString("game_level",String.valueOf(newGameLevel));
-                        editor.putString("current_play_level",String.valueOf(newGameLevel));
+//            final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+//
+//            bottomSheetDialog.setContentView(R.layout.correct_answer_dialog);
+           bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+               @Override
+               public void onDismiss(DialogInterface dialogInterface) {
 
-                        if(hasOldWinningAmount){
-                            String amountWon = GameActivity2.amountWon.replace("$","").replace(",","");
-                            String oldAmountWon = sharedPreferences.getString("amountWon","0").replace("$","").replace(",","");
-                            int newAmount = Integer.parseInt(amountWon) + Integer.parseInt(oldAmountWon);
-                            DecimalFormat formatter = new DecimalFormat("#,###,###");
-                            String formatted_newAmount = formatter.format(newAmount);
-                            editor.putString("amountWon",formatted_newAmount);
+                    bottomSheetDialog.dismiss();
 
-                        }else{
-                            editor.putString("amountWon",amountWon);
+
+
+                    /////
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (noOfCorrectAnswer >= 15) {
+                                loadSongs();
+                                SharedPreferences sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
+                                int current_play_level_int = Integer.parseInt(sharedPreferences.getString("current_play_level","1"));
+                                int newGameLevel = current_play_level_int+1;
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                /// editor.putString("game_level",String.valueOf(newGameLevel));
+                                editor.putString("current_play_level",String.valueOf(newGameLevel));
+
+                                if(hasOldWinningAmount){
+                                    String amountWon = GameActivity2.amountWon.replace("$","").replace(",","");
+                                    String oldAmountWon = sharedPreferences.getString("amountWon","0").replace("$","").replace(",","");
+                                    int newAmount = Integer.parseInt(amountWon) + Integer.parseInt(oldAmountWon);
+                                    DecimalFormat formatter = new DecimalFormat("#,###,###");
+                                    String formatted_newAmount = formatter.format(newAmount);
+                                    editor.putString("amountWon",formatted_newAmount);
+
+                                }else{
+                                    editor.putString("amountWon",amountWon);
+                                }
+                                editor.apply();
+
+                                Intent intent = new Intent(GameActivity2.this,WinnersActivity.class);
+                                intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP );
+                                intent.putExtra("isWon",true);
+                                intent.putExtra("isShowAd",false);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                Intent intent = new Intent(GameActivity2.this, ProgressActivity.class);
+                                intent.putExtra("number", number1);
+                                intent.putExtra("timer", "true");
+                                if (Build.VERSION.SDK_INT > 20) {
+                                    ActivityOptions options =
+                                            ActivityOptions.makeSceneTransitionAnimation(GameActivity2.this);
+                                    startActivity(intent);
+                                } else {
+                                    startActivity(intent);
+                                }
+                                wonder();
+                            }
                         }
-                        editor.apply();
 
-                        Intent intent = new Intent(GameActivity2.this,WinnersActivity.class);
-                        intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP );
-                        intent.putExtra("isWon",true);
-                        intent.putExtra("isShowAd",false);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Intent intent = new Intent(GameActivity2.this, ProgressActivity.class);
-                        intent.putExtra("number", number1);
-                        intent.putExtra("timer", "true");
-                        if (Build.VERSION.SDK_INT > 20) {
-                            ActivityOptions options =
-                                    ActivityOptions.makeSceneTransitionAnimation(GameActivity2.this);
-                            startActivity(intent);
-                        } else {
-                            startActivity(intent);
-                        }
-                        wonder();
-                    }
+                    },1000);
+
+                    //bottomSheetDialog.show();
+
+
+
+
+                    /////
+
                 }
+            });
 
-            },1000);
+
+
+            RelativeLayout close_dialog = bottomSheetDialog.findViewById(R.id.close_dialog);
+            close_dialog.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    bottomSheetDialog.dismiss();
+
+
+
+                }
+            });
+
 
         } else {
-            if(sound.equals("1")) {
+            saveHistory(questionID, answer, correct, amountWon_main, false);
+            if (sound.equals("1")) {
                 playFailureSound();
             }
 
-            if(vibrate.equals("1")) {
+            if (vibrate.equals("1")) {
                 Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
                 }
             }
 
-            if(number_of_failure < 1){
+            if (number_of_failure < 1) {
                 //////First Failure//////
                 number_of_failure++;
-                WrongAnswerDialog wrongAnswerDialog = new WrongAnswerDialog(GameActivity2.this,CountDownActivity.mMediaPlayer);
+                WrongAnswerDialog wrongAnswerDialog = new WrongAnswerDialog(GameActivity2.this, CountDownActivity.mMediaPlayer);
 
                 wrongAnswerDialog.show();
                 wrongAnswerDialog.setCancelable(false);
+                RelativeLayout giveUp = wrongAnswerDialog.findViewById(R.id.give_up);
+                RelativeLayout play_again = wrongAnswerDialog.findViewById(R.id.play_again);
 
+//                play_again.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        Log.i("oroor","oroor");
+//                    }
+//                });
 
-            }
-            else {
-                /////Total Fsilure///
-                new Handler().postDelayed(new Runnable() {
+                giveUp.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void run() {
+                    public void onClick(View view) {
+                        wrongAnswerDialog.dismiss();
 
-                        Intent intent = new Intent(GameActivity2.this, FailureActivity.class);
-                        if (hasOldWinningAmount) {
-                            intent.putExtra("hasOldWinningAmount", hasOldWinningAmount);
+                        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(GameActivity2.this);
+                        bottomSheetDialog.setContentView(R.layout.correct_answer_dialog);
+
+                        try {
+                            TextView alpha_opt = bottomSheetDialog.findViewById(R.id.alpha_opt);
+                            TextView opt = bottomSheetDialog.findViewById(R.id.opt);
+                            opt.setText(Utils.capitalizeFirstWord(singleQuestion.getString("correct")));
+                            TextView reason = bottomSheetDialog.findViewById(R.id.reason);
+                            reason.setText(Utils.capitalizeFirstWord(singleQuestion.getString("reason")));
+                            JSONArray opt_answer = new JSONArray(singleQuestion.getString("answer"));
+                            int position = getOptionIndex(opt_answer, singleQuestion.getString("correct"));
+                            alpha_opt.setText(numbs[position]);
+                            RelativeLayout readMore = bottomSheetDialog.findViewById(R.id.read_more);
+                            readMore.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Utils.navigateToWebview(String.valueOf(questionID),GameActivity2.this);
+
+                                }
+                            });
+//
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+
                         }
-                        if(CountDownActivity.mMediaPlayer != null){
-                            CountDownActivity.mMediaPlayer.pause();
-                        }
-                        startActivity(intent);
+                        bottomSheetDialog.show();
+                        RelativeLayout close_dialog = bottomSheetDialog.findViewById(R.id.close_dialog);
+                        close_dialog.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                bottomSheetDialog.dismiss();
+
+                            }
+                        });
+                        bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialogInterface) {
+
+
+                                bottomSheetDialog.dismiss();
+
+//
+                                if (CountDownActivity.mMediaPlayer != null) {
+                                    CountDownActivity.mMediaPlayer.pause();
+                                }
+
+
+                                Intent intent = new Intent(GameActivity2.this, FailureActivity.class);
+                                startActivity(intent);
+
+
+                            }
+                        });
+
                     }
-                }, 500);
+                });
+
+
+            } else {
+                /////Total Failure///
+
+                final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(GameActivity2.this);
+                bottomSheetDialog.setContentView(R.layout.correct_answer_dialog);
+
+                try {
+                    TextView alpha_opt = bottomSheetDialog.findViewById(R.id.alpha_opt);
+                    TextView opt = bottomSheetDialog.findViewById(R.id.opt);
+                    opt.setText(Utils.capitalizeFirstWord(singleQuestion.getString("correct")));
+                    TextView reason = bottomSheetDialog.findViewById(R.id.reason);
+                    JSONArray opt_answer = new JSONArray(singleQuestion.getString("answer"));
+                    reason.setText(Utils.capitalizeFirstWord(singleQuestion.getString("reason")));
+                    int position = getOptionIndex(opt_answer, singleQuestion.getString("correct"));
+                    alpha_opt.setText(numbs[position]);
+                    RelativeLayout readMore = bottomSheetDialog.findViewById(R.id.read_more);
+                    readMore.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Utils.navigateToWebview(String.valueOf(questionID),GameActivity2.this);
+
+                        }
+                    });
+//
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                }
+                bottomSheetDialog.show();
+                RelativeLayout close_dialog = bottomSheetDialog.findViewById(R.id.close_dialog);
+                close_dialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        bottomSheetDialog.dismiss();
+
+                    }
+                });
+                bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+
+
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                Intent intent = new Intent(GameActivity2.this, FailureActivity.class);
+                                if (hasOldWinningAmount) {
+                                    intent.putExtra("hasOldWinningAmount", hasOldWinningAmount);
+                                }
+                                if(CountDownActivity.mMediaPlayer != null){
+                                    CountDownActivity.mMediaPlayer.pause();
+                                }
+                                startActivity(intent);
+                            }
+                        }, 500);
+
+
+                    }
+                });
 
             }
+
+
+
+
+
 
         }
 
@@ -2069,7 +2366,7 @@ public void rotateView(ImageView refreshIcon, View videoIcon, View refreshBTN){
         editor.putBoolean("vote",vote);
         editor.putString("amountWon",amountWon);
         editor.apply();
-        Log.i("instantstate", String.valueOf(readNoOfCorrectAnswer()));
+        //Log.i("instantstate", String.valueOf(readNoOfCorrectAnswer()));
     }
 
     int readNoOfCorrectAnswer() {
@@ -2095,5 +2392,30 @@ public void rotateView(ImageView refreshIcon, View videoIcon, View refreshBTN){
 
 
 
+    }
+
+    public void saveHistory(int questionId,String answer, String correctAnswer, String high_score, boolean is_correct){
+        Log.i("checking", String.valueOf(questionId));
+
+        dbHelper.saveHistory(String.valueOf(questionId), answer,correctAnswer,time_1,time_1,high_score,is_correct);
+
+
+    }
+
+    public  int getOptionIndex(JSONArray jsonArray, String correctAswer){
+        try {
+            for(int i = 0; i < jsonArray.length(); i++){
+                JSONObject object = jsonArray.getJSONObject(i);
+               // text.getString("text").trim().equals(correctAnswer.trim())
+                if(object.getString("text").trim().equals(correctAswer.trim())){
+                    return  i;
+                }
+
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+
+        }
+        return  3;
     }
 }

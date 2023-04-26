@@ -300,6 +300,7 @@ public class FailureActivity extends AppCompatActivity {
         continueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Utils.greenBlink(continueBtn,FailureActivity.this);
 
               //  Log.i("Loadeddd", "onClick");
 //                GameActivity2.continueGame=true;
@@ -608,6 +609,8 @@ public class FailureActivity extends AppCompatActivity {
         ///score = score.substring(1);
         score = score.replace(",", "");
         int s = Integer.parseInt(score);
+
+        Log.i("highscore",score);
 
 
         if(hasOldWinningAmount){
