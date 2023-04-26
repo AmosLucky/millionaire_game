@@ -114,175 +114,106 @@ public class WrongAnswerDialog extends Dialog {
             }
         });
 
-        continue_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Utils.greenBlink(continue_btn, context);
-                if (CountDownActivity. mMediaPlayer != null) {
-                    CountDownActivity. mMediaPlayer.pause();
-                }
-
-                if(Utils.isOnline(context)) {
-
-                   // if (mRewardedVideoAd != null) {
-
-                        AdManager.showRewardAd((Activity) context);
-                    try{
-                        AdManager.rewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {
-                            @Override
-                            public void onAdClicked() {
-                                // Called when a click is recorded for an ad.
-                                // Log.d(TAG, "Ad was clicked.");
-                            }
-
-                            @Override
-                            public void onAdDismissedFullScreenContent() {
-                                // Called when ad is dismissed.
-                                // Set the ad reference to null so you don't show the ad a second time.
-                                //Log.d(TAG, "Ad dismissed fullscreen content.");
-                                //rewardedAd = null;
-                            }
-
-                            @Override
-                            public void onAdFailedToShowFullScreenContent(AdError adError) {
-                                // Called when ad fails to show.
-                                //Log.e(TAG, "Ad failed to show fullscreen content.");
-                                // rewardedAd = null;
-                                Toast.makeText(context,"Error: Loading video Ad failed, Please connect to the internet",Toast.LENGTH_LONG).show();
-
-                                dismiss();
-
-                                Intent intent = new Intent(getContext(), FailureActivity.class);
-                                context.startActivity(intent);
-                            }
-
-                            @Override
-                            public void onAdImpression() {
-                                // Called when an impression is recorded for an ad.
-                                //Log.d(TAG, "Ad recorded an impression.");
-                            }
-
-                            @Override
-                            public void onAdShowedFullScreenContent() {
-                                // Called when ad is shown.
-                                // Log.d(TAG, "Ad showed fullscreen content.");
-                            }
-                        });
-                    }catch (Exception e){
-                        e.printStackTrace();
-
-                        AdManager.showInterstitial((Activity) context);
-                       if(AdManager.mInterstitialAd != null){
-                           AdManager.mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
-                               @Override
-                               public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
-                                   super.onAdFailedToShowFullScreenContent(adError);
-                               }
-                           });
-                       }else{
-                           dismiss();
-                           Intent i = new Intent(context,FailureActivity.class);
-                           context.startActivity(i);
-
-                       }
+//        continue_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//
+//
+//            }
+//        });
 
 
+
+
+    }
+
+    public   void  showRewarededAdWithListener(){
+
+        Utils.greenBlink(continue_btn, context);
+        if (CountDownActivity. mMediaPlayer != null) {
+            CountDownActivity. mMediaPlayer.pause();
+        }
+
+        if(Utils.isOnline(context)) {
+
+            // if (mRewardedVideoAd != null) {
+
+            AdManager.showRewardAd((Activity) context);
+            try{
+                AdManager.rewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                    @Override
+                    public void onAdClicked() {
+                        // Called when a click is recorded for an ad.
+                        // Log.d(TAG, "Ad was clicked.");
                     }
-                   // }
-                    dismiss();
-                }
-//                else if(mRewardedVideoAd != null && mRewardedVideoAd.isLoaded()){
-//                    if (mMediaPlayer != null) {
-//                        mMediaPlayer.pause();
-//                    }
-//
-//                        mRewardedVideoAd.show();
-//
-//                    dismiss();
-//                }
-                else {
-                    Toast.makeText(context,"Connect to internet and try again",Toast.LENGTH_LONG).show();
-                    dismiss();
-                    Intent intent = new Intent(getContext(), FailureActivity.class);
-                    context.startActivity(intent);
 
+                    @Override
+                    public void onAdDismissedFullScreenContent() {
+                        // Called when ad is dismissed.
+                        // Set the ad reference to null so you don't show the ad a second time.
+                        //Log.d(TAG, "Ad dismissed fullscreen content.");
+                        //rewardedAd = null;
+                    }
+
+                    @Override
+                    public void onAdFailedToShowFullScreenContent(AdError adError) {
+                        // Called when ad fails to show.
+                        //Log.e(TAG, "Ad failed to show fullscreen content.");
+                        // rewardedAd = null;
+                        Toast.makeText(context,"Error: Loading video Ad failed, Please connect to the internet",Toast.LENGTH_LONG).show();
+
+                        dismiss();
+
+                        Intent intent = new Intent(getContext(), FailureActivity.class);
+                        context.startActivity(intent);
+                    }
+
+                    @Override
+                    public void onAdImpression() {
+                        // Called when an impression is recorded for an ad.
+                        //Log.d(TAG, "Ad recorded an impression.");
+                    }
+
+                    @Override
+                    public void onAdShowedFullScreenContent() {
+                        // Called when ad is shown.
+                        // Log.d(TAG, "Ad showed fullscreen content.");
+                    }
+                });
+            }catch (Exception e){
+                e.printStackTrace();
+
+                AdManager.showInterstitial((Activity) context);
+                if(AdManager.mInterstitialAd != null){
+                    AdManager.mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                        @Override
+                        public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+                            super.onAdFailedToShowFullScreenContent(adError);
+                        }
+                    });
+                }else{
+                    dismiss();
+                    Intent i = new Intent(context,FailureActivity.class);
+                    context.startActivity(i);
 
                 }
 
 
             }
-        });
+            // }
+            dismiss();
+        }
 
-//        mRewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
-//            @Override
-//            public void onRewardedVideoAdLoaded() {
-//
-//            }
-//
-//            @Override
-//            public void onRewardedVideoAdOpened() {
-//
-//            }
-//
-//            @Override
-//            public void onRewardedVideoStarted() {
-//
-//            }
-//
-//            @Override
-//            public void onRewardedVideoAdClosed() {
-//                if( mMediaPlayer != null){
-//                    mMediaPlayer.start();
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onRewarded(RewardItem rewardItem) {
-//
-//            }
-//
-//            @Override
-//            public void onRewardedVideoAdLeftApplication() {
-//
-//            }
-//
-//            @Override
-//            public void onRewardedVideoAdFailedToLoad(int i) {
-//                Toast.makeText(context,"Error: Loading video Ad failed, Please connect to the internet",Toast.LENGTH_LONG).show();
-//
-//                dismiss();
-//
-//                Intent intent = new Intent(getContext(), FailureActivity.class);
-//                    context.startActivity(intent);
-//
-//
-//
-//            }
-//
-//            @Override
-//            public void onRewardedVideoCompleted() {
-//
-//            }
-//        });
+        else {
+            Toast.makeText(context,"Connect to internet and try again",Toast.LENGTH_LONG).show();
+            dismiss();
+            Intent intent = new Intent(getContext(), FailureActivity.class);
+            context.startActivity(intent);
 
-//        give_up.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Utils.darkBlueBlink(give_up, context);
-//                if (CountDownActivity. mMediaPlayer != null) {
-//                    CountDownActivity. mMediaPlayer.pause();
-//                }
-//
-//                dismiss();
-//
-//                Intent intent = new Intent(getContext(), FailureActivity.class);
-//                context.startActivity(intent);
-//
-//
-//
-//
-//            }
-//        });
+
+        }
+
     }
+
 }

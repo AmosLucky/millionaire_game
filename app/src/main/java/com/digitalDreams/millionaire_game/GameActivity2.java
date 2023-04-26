@@ -1363,12 +1363,18 @@ public class GameActivity2 extends AppCompatActivity {
                 RelativeLayout giveUp = wrongAnswerDialog.findViewById(R.id.give_up);
                 RelativeLayout play_again = wrongAnswerDialog.findViewById(R.id.play_again);
 
-//                play_again.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        Log.i("oroor","oroor");
-//                    }
-//                });
+                play_again.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                       if(Utils.isOnline(GameActivity2.this)){
+                           wrongAnswerDialog.showRewarededAdWithListener();
+
+                       }else{
+                           giveUp.performClick();
+
+                       }
+                    }
+                });
 
                 giveUp.setOnClickListener(new View.OnClickListener() {
                     @Override

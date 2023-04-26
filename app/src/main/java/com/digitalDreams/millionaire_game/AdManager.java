@@ -1,7 +1,9 @@
 package com.digitalDreams.millionaire_game;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -174,6 +176,8 @@ public static void showRewardAd(Activity context){
 
     }
 }
+
+
 
 
 
