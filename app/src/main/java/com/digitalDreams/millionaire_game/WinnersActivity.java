@@ -129,7 +129,7 @@ public class WinnersActivity extends AppCompatActivity {
        /// home = findViewById(R.id.home);
 
 
-        new NewParticle(this, R.layout.single_star,imageRoot,100,5000);
+       // new NewParticle(this, R.layout.single_star,imageRoot,100,5000);
 
 
 

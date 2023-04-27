@@ -9,9 +9,9 @@ android {
         applicationId "com.digitalDreams.millionaire_game"
         minSdkVersion 21
         targetSdkVersion 31
-        versionCode 73
+        versionCode 74
 
-        versionName "5.8.0"
+        versionName "5.9.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -50,6 +50,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime:2.4.1"
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.4.1"
    // implementation 'androidx.work:work-runtime-ktx:2.7.0-alpha05'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.22'
 
 
 

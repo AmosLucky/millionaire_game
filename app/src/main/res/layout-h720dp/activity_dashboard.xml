@@ -368,7 +368,7 @@
 
         </RelativeLayout>
         <RelativeLayout
-            android:visibility="gone"
+
 
             android:id="@+id/new_particle"
             android:layout_width="match_parent"

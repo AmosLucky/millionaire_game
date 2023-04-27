@@ -50,7 +50,7 @@
     <string name="next">Next Level</string>
     <string name="winner">Winner</string>
     <string name="home">Home</string>
-    <string name="winning_congrats">Congratulations</string>
+    <string name="winning_congrats">Congratulations!</string>
     <string name="next_level">Stage Completed</string>
 
     <string name="can_you_beat_that">You can beat this score!</string>
