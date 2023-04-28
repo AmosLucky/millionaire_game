@@ -1362,6 +1362,14 @@ public class GameActivity2 extends AppCompatActivity {
                 wrongAnswerDialog.setCancelable(false);
                 RelativeLayout giveUp = wrongAnswerDialog.findViewById(R.id.give_up);
                 RelativeLayout play_again = wrongAnswerDialog.findViewById(R.id.play_again);
+                ImageView cancel_icon = wrongAnswerDialog.findViewById(R.id.cancel_icon);
+
+                cancel_icon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        giveUp.performClick();
+                    }
+                });
 
                 play_again.setOnClickListener(new View.OnClickListener() {
                     @Override

@@ -368,6 +368,8 @@
 
         </RelativeLayout>
         <RelativeLayout
+            android:visibility="gone"
+
 
 
             android:id="@+id/new_particle"

@@ -80,22 +80,22 @@ public class WrongAnswerDialog extends Dialog {
 
         bg.setBackgroundDrawable(gd);
 
-        cancel_icon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-
-                if (mMediaPlayer != null) {
-                    mMediaPlayer.pause();
-                }
-
-
-
-                Intent intent = new Intent(getContext(), FailureActivity.class);
-                context.startActivity(intent);
-
-            }
-        });
+//        cancel_icon.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                dismiss();
+//
+//                if (mMediaPlayer != null) {
+//                    mMediaPlayer.pause();
+//                }
+//
+//
+//
+//                Intent intent = new Intent(getContext(), FailureActivity.class);
+//                context.startActivity(intent);
+//
+//            }
+//        });
 
         close_dialog.setOnClickListener(new View.OnClickListener() {
             @Override

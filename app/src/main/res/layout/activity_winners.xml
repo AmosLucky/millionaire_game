@@ -78,15 +78,14 @@
             android:gravity="center">
 
 
-
             <ImageView
                 android:id="@+id/rays"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
+                android:layout_centerInParent="true"
                 android:layout_gravity="center_horizontal"
                 android:alpha="0.1"
                 android:src="@drawable/ic_rays"
-                android:layout_centerInParent="true"
                 app:tint="@color/white" />
 
 
@@ -106,14 +105,7 @@
 
 
         </RelativeLayout>
-        <pl.droidsonroids.gif.GifImageView
-            android:layout_marginTop="50dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:layout_centerHorizontal="true"
 
-            android:src="@drawable/dollars" />
 
 
         <LinearLayout

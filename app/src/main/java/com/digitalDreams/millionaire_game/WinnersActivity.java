@@ -19,6 +19,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -47,6 +50,17 @@ public class WinnersActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_winners);
+
+        ImageView raysImg = findViewById(R.id.rays);
+        RotateAnimation rotateAnimation = new RotateAnimation(0, 360f,
+                Animation.RELATIVE_TO_SELF, 0.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f);
+
+        rotateAnimation.setInterpolator(new LinearInterpolator());
+        rotateAnimation.setDuration(15000);
+        rotateAnimation.setRepeatCount(Animation.INFINITE);
+
+        raysImg.startAnimation(rotateAnimation);
 
 
         ///////////////PLAYSOUND//////////
