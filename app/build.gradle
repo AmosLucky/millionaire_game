@@ -9,9 +9,9 @@ android {
         applicationId "com.digitalDreams.millionaire_game"
         minSdkVersion 21
         targetSdkVersion 31
-        versionCode 75
+        versionCode 76
 
-        versionName "5.9.1"
+        versionName "5.9.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
