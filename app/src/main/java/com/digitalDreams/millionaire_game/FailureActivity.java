@@ -116,6 +116,8 @@ public class FailureActivity extends AppCompatActivity {
 
         loadInterstialAd();
 
+        Log.i("obioga", String.valueOf(GameActivity2.active));
+
 
         // mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
 
@@ -388,6 +390,8 @@ public class FailureActivity extends AppCompatActivity {
         if( GameActivity2.gameActivity2 != null){
             GameActivity2.gameActivity2.finish();
         }
+
+        Log.i("obioga", String.valueOf(GameActivity2.active));
     }
 
     private void animateWebContainer(View view){
@@ -578,7 +582,7 @@ public class FailureActivity extends AppCompatActivity {
 //        interstitialAd.setAdUnitId (getResources().getString(R.string.interstitial_adunit) ) ;
 //        interstitialAd.loadAd(new AdRequest.Builder().addTestDevice("9D16E23BB90EF4BFA204300CCDCCF264").build());
 //
-        AdManager.showInterstitial(FailureActivity.this);
+       // AdManager.showInterstitial(FailureActivity.this);
        // mInterstitialAd.loadAd(adRequest);
 
 //        interstitialAd.setAdListener(new AdListener() {

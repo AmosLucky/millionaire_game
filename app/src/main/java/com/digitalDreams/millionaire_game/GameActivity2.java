@@ -88,6 +88,7 @@ public class GameActivity2 extends AppCompatActivity {
 
     DateFormat df = new SimpleDateFormat("EEE, d MMM, HH:mm");
     String date_1 = df.format(Calendar.getInstance().getTime());
+    static boolean active = false;
 
 
     String date_time = date_1;
@@ -114,6 +115,7 @@ public class GameActivity2 extends AppCompatActivity {
     String exam_type_id;
     Boolean exam_on=false;
     public static Boolean checkNext=false;
+    boolean resetQuestion = false;
     String from;
     String[] content;
     String answr="",accessLevel;
@@ -302,11 +304,12 @@ public class GameActivity2 extends AppCompatActivity {
             noOfCorrectAnswer = readNoOfCorrectAnswer();
             LinearLayout parent = findViewById(R.id.displayExam);
             int i=parent.indexOfChild(current);
-            nextView = parent.getChildAt(i+(noOfCorrectAnswer));
+            nextView = parent.getChildAt(i);
            // amountWon = oldAmountWon;
             //setAmountWon();
             readSavedData();
-            noOfPagesPassed = noOfQuestionAnswered+1;
+            noOfPagesPassed = noOfCorrectAnswer+1;
+            Log.i("instantstate", String.valueOf(noOfPagesPassed));
 
             next2(current,nextView);
 
@@ -583,7 +586,8 @@ public class GameActivity2 extends AppCompatActivity {
           }
 
             TextView questionNumber = v.findViewById(R.id.question_progress);
-            questionNumber.setText(number+" / 15");
+          int currentPage =noOfPagesPassed +1;
+            questionNumber.setText(currentPage+" / 15");
 
 
             TextView txt=v.findViewById(R.id.qo_text);
@@ -612,9 +616,17 @@ public class GameActivity2 extends AppCompatActivity {
 
             v.setTag("qo");
             a.addView(v);
-            grading++;
-            number++;
-            p++;
+            Log.i("resetQuestion", String.valueOf(resetQuestion));
+
+
+
+               number++;
+
+               grading++;
+               p++;
+
+
+
             //////////////FEDANIMATION/////
 
 
@@ -817,7 +829,9 @@ public class GameActivity2 extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             disableOptions(q);
-                            p1= (int) k.getTag();
+                            p1= noOfPagesPassed+2; //(int) k.getTag();
+                            Log.i("render2== AF no of",String.valueOf(noOfPagesPassed));
+                            Log.i("render2== AF",String.valueOf(p1));
                             checkNext = false;
                             if(cTimer!=null) {
                                 cTimer.cancel();
@@ -863,7 +877,9 @@ public class GameActivity2 extends AppCompatActivity {
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
-                                    checkAnswer(k.getText().toString(), ans.getText().toString(), (Integer) k.getTag(), vectorDrawable[0],relativeLayout[0],questionId);
+                                    int currentProgress = noOfPagesPassed+2;
+                                    Log.i("renderpp", String.valueOf(noOfPagesPassed));
+                                    checkAnswer(k.getText().toString(), ans.getText().toString(),  currentProgress, vectorDrawable[0],relativeLayout[0],questionId);
 
 
                                 }
@@ -915,6 +931,7 @@ public class GameActivity2 extends AppCompatActivity {
 
     public void next(View view)throws JSONException {
         checkNext=true;
+        resetQuestion =false;
         LinearLayout parent = findViewById(R.id.displayExam);
         int i=parent.indexOfChild(current);
         setQuestion(noOfPagesPassed);
@@ -952,8 +969,48 @@ public class GameActivity2 extends AppCompatActivity {
         qPosition = ab;
     }
 
+    public void resetQuestion(View current_old, View nextView){
+        checkNext=true;
+        resetQuestion = true;
+        LinearLayout parent = findViewById(R.id.displayExam);
+        int i=parent.indexOfChild(current_old);
+        try {
+            setQuestion(noOfPagesPassed);
+        }catch (Exception e){}
+
+
+
+        RelativeLayout r = findViewById(R.id.nav);
+
+
+        ImageButton f=findViewById(R.id.fwd);
+        ImageButton p=findViewById(R.id.prev);
+        nextView = parent.getChildAt(i);
+
+        updateLifelines(nextView);
+        if(parent.getChildAt(i+2)==null)f.setVisibility(View.GONE);
+        if(nextView !=null) {
+            current_old.setVisibility(View.GONE);
+            current = nextView;
+            nextView.setVisibility(View.VISIBLE);
+            if(nextView.getTag()!=null) {
+                if (nextView.getTag().equals("intro")) {
+                    r.setVisibility(View.GONE);
+                } else {
+                    r.setVisibility(View.VISIBLE);
+                }
+            }
+        }
+        p.setVisibility(View.GONE);
+        f.setVisibility(View.GONE);
+        r.setVisibility(View.GONE);
+        ab=ab+1;
+        qPosition = ab;
+    }
+
     public void next2(View current_old, View nextView){
         checkNext=true;
+        resetQuestion = false;
         LinearLayout parent = findViewById(R.id.displayExam);
         int i=parent.indexOfChild(current_old);
         try {
@@ -1190,13 +1247,14 @@ public class GameActivity2 extends AppCompatActivity {
 
 
         loadVideoAd();
-        noOfQuestionAnswered++;
-        noOfPagesPassed ++;
+
         continueSound=true;
         String amountWon_main = GameActivity2.amountWon.replace("$","").replace(",","");
 
         if (answer.trim().equals(correct.trim())) {
             number_of_failure = 0;
+            noOfQuestionAnswered++;
+            noOfPagesPassed ++;
 
             vectorDrawable.setColorFilter(ContextCompat.getColor(GameActivity2.this,R.color.green), PorterDuff.Mode.SRC_IN);
             relativeLayout.setBackground(vectorDrawable);
@@ -1556,6 +1614,10 @@ public class GameActivity2 extends AppCompatActivity {
        loadInterstialAd();
         loadVideoAd();
 
+        Log.i("obidati", String.valueOf(noOfPagesPassed));
+
+
+
 //        ImageView video_ad_Icon1 = current.findViewById(R.id.video_ad1);
     //    ImageView video_ad_Icon2 = current.findViewById(R.id.video_ad2);
         if(removeOptions && fromProgress2){
@@ -1575,7 +1637,7 @@ public class GameActivity2 extends AppCompatActivity {
             //number_of_failure = 0;
             LinearLayout parent = findViewById(R.id.displayExam);
             int i=parent.indexOfChild(current);
-            nextView = parent.getChildAt(i+1);
+            nextView = parent.getChildAt(i);
 
             RelativeLayout answerContainer = parent.findViewById(R.id.ask_answer_container);
             answerContainer.setVisibility(View.GONE);
@@ -1640,6 +1702,8 @@ public class GameActivity2 extends AppCompatActivity {
 //        }else {
 //            mRewardedVideoAd.show();
 //        }
+
+        Log.i("obidati", String.valueOf(noOfPagesPassed));
     }
     public void showRewardedVideo() {
 
@@ -2064,6 +2128,9 @@ public class GameActivity2 extends AppCompatActivity {
 
 
     private void refreshQuestion()  {
+
+        Log.i("obidati", String.valueOf(noOfPagesPassed));
+        resetQuestion = true;
         final LinearLayout q1 = current.findViewById(R.id.qd);
         ///hideOptions(q1);
          showOptions2(q1);
@@ -2076,34 +2143,63 @@ public class GameActivity2 extends AppCompatActivity {
         @SuppressLint("Range") String answer = res.getString(res.getColumnIndex("ANSWER"));
         @SuppressLint("Range") String type = res.getString(res.getColumnIndex("TYPE"));
         @SuppressLint("Range") String correct = res.getString(res.getColumnIndex("CORRECT"));
+        @SuppressLint("Range") String reason = res.getString(res.getColumnIndex("REASON"));
 
-        TextView questionTxt=current.findViewById(R.id.qo_text);
-        try {
-            question = question.substring(0,1).toUpperCase()+""+question.substring(1);
-        }catch (StringIndexOutOfBoundsException e){
-            e.printStackTrace();
+
+
+        try{
+            JSONObject contentObj = new JSONObject();
+            contentObj.put("id", id);
+            contentObj.put("parent", "0");
+            contentObj.put("content", question);
+            contentObj.put("title", "");
+            contentObj.put("type", type);
+            contentObj.put("answer", answer);
+            contentObj.put("correct", correct);
+            contentObj.put("question_image", "");
+            contentObj.put("reason", reason);
+           allQuestion.put(noOfPagesPassed, contentObj);
+           Log.i("render2","replace");
+            Log.i("render2", String.valueOf(noOfPagesPassed));
+            Log.i("render2",String.valueOf(contentObj));
+            Log.i("render2",String.valueOf(allQuestion));
+
+            //setQuestion(noOfPagesPassed);
+           resetQuestion(current,current);
+        }catch (Exception e){
+
         }
-        questionTxt.setText(question);
-        TextView correctAnsText=current.findViewById(R.id.correct_ans);
 
-
-        final LinearLayout q = current.findViewById(R.id.qd);
-        try {
-            JSONArray answerArr = new JSONArray(answer);
-            for (int c = 0; c < q.getChildCount(); c++) {
-                JSONObject optObj = answerArr.getJSONObject(c);
-                String opt = optObj.getString("text");
-                opt = opt.substring(0,1).toUpperCase()+""+opt.substring(1)+" ";
-                TextView k = q.getChildAt(c).findViewById(R.id.opt);
-                k.setText(opt);
-
-                if(opt.equalsIgnoreCase(correct)){
-                    correctAnsText.setText(opt);
-                }
-            }
-        }catch (JSONException e){
-            e.printStackTrace();
-        }
+//        TextView questionTxt=current.findViewById(R.id.qo_text);
+//        try {
+//            question = question.substring(0,1).toUpperCase()+""+question.substring(1);
+//        }catch (StringIndexOutOfBoundsException e){
+//            e.printStackTrace();
+//        }
+//        questionTxt.setText(question);
+//        TextView correctAnsText=current.findViewById(R.id.correct_ans);
+//
+//
+//        final LinearLayout q = current.findViewById(R.id.qd);
+//        try {
+//            JSONArray answerArr = new JSONArray(answer);
+//            for (int c = 0; c < q.getChildCount(); c++) {
+//                JSONObject optObj = answerArr.getJSONObject(c);
+//
+//
+//
+//                String opt = optObj.getString("text");
+//                opt = opt.substring(0,1).toUpperCase()+""+opt.substring(1)+" ";
+//                TextView k = q.getChildAt(c).findViewById(R.id.opt);
+//                k.setText(opt);
+//
+//                if(opt.equalsIgnoreCase(correct)){
+//                    correctAnsText.setText(opt);
+//                }
+//            }
+//        }catch (JSONException e){
+//            e.printStackTrace();
+//        }
 
     }
 
@@ -2327,6 +2423,7 @@ public void rotateView(ImageView refreshIcon, View videoIcon, View refreshBTN){
 
     @Override
     protected void onStart() {
+        active = true;
         loadVideoAd();
         loadInterstialAd();
         super.onStart();
@@ -2431,5 +2528,14 @@ public void rotateView(ImageView refreshIcon, View videoIcon, View refreshBTN){
 
         }
         return  3;
+    }
+
+
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        active = false;
     }
 }
