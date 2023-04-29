@@ -282,5 +282,10 @@ public class Utils {
         context.startActivity(intent);
 
     }
+    public static   void  continueGame(Activity context){
+        GameActivity2.isStartAtFresh = true;
+        context.finish();
+
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.digitalDreams.millionaire_game;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -77,9 +78,11 @@ public class ResultDialog extends Dialog {
             @Override
             public void onClick(View view) {
                 Utils.greenBlink(play_again, context);
-                Intent i = new Intent(context,CountDownActivity.class);
-
-                context.startActivity(i);
+//                Intent i = new Intent(context,CountDownActivity.class);
+//
+//                context.startActivity(i);
+                dismiss();
+                Utils.continueGame((Activity) context);
             }
         });
 

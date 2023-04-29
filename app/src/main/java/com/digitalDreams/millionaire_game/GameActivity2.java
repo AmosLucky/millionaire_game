@@ -85,6 +85,10 @@ import java.util.TimerTask;
 
 public class GameActivity2 extends AppCompatActivity {
 
+    public static MediaPlayer mMediaPlayer;
+    public static MediaPlayer mSuccessPlayer;
+    public static MediaPlayer mFailurePlayer;
+
 
     DateFormat df = new SimpleDateFormat("EEE, d MMM, HH:mm");
     String date_1 = df.format(Calendar.getInstance().getTime());
@@ -125,6 +129,7 @@ public class GameActivity2 extends AppCompatActivity {
     public static int userScore,totalScore,lifeline=3,level=1;
     TextView levelTxt,scoreTxt,lifelineTxt,progressTxt;
     public static boolean continueGame = false;
+    public static boolean isStartAtFresh = false;
     boolean continueSound;
 
     int totalQuestionCount=0;
@@ -177,6 +182,8 @@ public class GameActivity2 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        playStong();
+
         setContentView(R.layout.activity_exam_game2);
         fromProgress = getIntent().getBooleanExtra("fromProgress",false);
         gameActivity2 = this;
@@ -189,6 +196,9 @@ public class GameActivity2 extends AppCompatActivity {
         timing =0;
         amountWon="0";
         noOfPagesPassed = 0;
+
+        dbHelper = new DBHelper(this);
+
 
 
         AdManager.initInterstitialAd(this);
@@ -240,7 +250,7 @@ public class GameActivity2 extends AppCompatActivity {
 
 
 
-        dbHelper = new DBHelper(this);
+
 
          progressBtn = findViewById(R.id.progressBtn);
          exitBtn = findViewById(R.id.exitBtn);
@@ -283,9 +293,9 @@ public class GameActivity2 extends AppCompatActivity {
         Bundle bundle = null;
 
         bundle = this.getIntent().getExtras();
-        course = bundle.getString("course");
-        json = bundle.getString("Json");
-        from = bundle.getString("from");
+        //course = bundle.getString("course");
+        json = dbHelper.buildJson(); //bundle.getString("Json");
+        //from = bundle.getString("from");
 
 
         json = Html.fromHtml(json).toString();
@@ -1704,6 +1714,29 @@ public class GameActivity2 extends AppCompatActivity {
 //        }
 
         Log.i("obidati", String.valueOf(noOfPagesPassed));
+
+
+
+
+        if(isStartAtFresh){
+            isStartAtFresh = false;
+            json = dbHelper.buildJson();
+            noOfPagesPassed = 0;
+            _2question = true;
+            askFriend = true;
+            vote = true;
+           refreshQuestion();
+           playStong();
+            playBackgroundSound();
+            number_of_failure=0;
+            noOfCorrectAnswer=0;
+
+        }
+
+
+
+
+
     }
     public void showRewardedVideo() {
 
@@ -2538,4 +2571,21 @@ public void rotateView(ImageView refreshIcon, View videoIcon, View refreshBTN){
         super.onStop();
         active = false;
     }
+
+    public void playStong(){
+        try{
+
+         CountDownActivity.   mMediaPlayer = MediaPlayer.create(GameActivity2.this, R.raw.background_sound);
+            CountDownActivity.   mFailurePlayer  = MediaPlayer.create(GameActivity2.this, R.raw.failure_sound2);
+            CountDownActivity.  mSuccessPlayer  = MediaPlayer.create(GameActivity2.this, R.raw.success_sound);
+
+
+        }catch(Exception e){
+
+        }
+
+
+    }
+
+
 }

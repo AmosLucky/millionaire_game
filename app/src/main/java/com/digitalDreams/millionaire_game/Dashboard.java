@@ -131,7 +131,7 @@ public class Dashboard extends AppCompatActivity {
               ///  newGameBtn.startAnimation(buttonClick);
                 Utils.greenBlink(newGameBtn,getApplicationContext());
 
-                Intent intent = new Intent(Dashboard.this,CountDownActivity.class);
+                Intent intent = new Intent(Dashboard.this,GameActivity2.class);
                 startActivity(intent);
                 finish();
             }

@@ -184,21 +184,23 @@ public class FailureActivity extends AppCompatActivity {
 
                             @Override
                             public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
-                                Intent i = new Intent(FailureActivity.this, CountDownActivity.class);
-                                // startActivity(i);
-
-                                startActivity(i);
-                                finish();
+//                                Intent i = new Intent(FailureActivity.this, GameActivity2.class);
+//                                // startActivity(i);
+//
+//                                startActivity(i);
+//                                finish();
+                                backToGameActivity();
                                 super.onAdFailedToShowFullScreenContent(adError);
                             }
 
                             @Override
                             public void onAdDismissedFullScreenContent() {
-                                Intent i = new Intent(FailureActivity.this, CountDownActivity.class);
-                                // startActivity(i);
-
-                                startActivity(i);
-                                finish();
+                               // Intent i = new Intent(FailureActivity.this, GameActivity2.class);
+//                                // startActivity(i);
+//
+//                                startActivity(i);
+//                                finish();
+                                backToGameActivity();
                                 super.onAdDismissedFullScreenContent();
                             }
                         });
@@ -208,11 +210,13 @@ public class FailureActivity extends AppCompatActivity {
 
 
             }else{
-                    Intent i = new Intent(FailureActivity.this, CountDownActivity.class);
-                    // startActivity(i);
+//                    Intent i = new Intent(FailureActivity.this, CountDownActivity.class);
+//                    // startActivity(i);
+//
+//                    startActivity(i);
+//                    finish();
 
-                    startActivity(i);
-                    finish();
+                    backToGameActivity();
                 }
 
 
@@ -231,14 +235,14 @@ public class FailureActivity extends AppCompatActivity {
                 Utils.destination_activity = PlayDetailsActivity.class;
                  username = sharedPreferences.getString("username", "");
 
-                if(username.equals(getResources().getString(R.string.anonymous_user))){
-                    Utils.destination_activity = PlayDetailsActivity.class;
-                    Intent i =  new Intent(FailureActivity.this, UserDetails.class);
-
-                    startActivity(i);
-                    finish();
-                    return;
-                }
+//                if(username.equals(getResources().getString(R.string.anonymous_user))){
+//                    Utils.destination_activity = PlayDetailsActivity.class;
+//                    Intent i =  new Intent(FailureActivity.this, UserDetails.class);
+//
+//                    startActivity(i);
+//                    finish();
+//                    return;
+//                }
 
                 //showInterstitial();
 
@@ -370,11 +374,12 @@ public class FailureActivity extends AppCompatActivity {
                 }catch (Exception e){
                     e.printStackTrace();
                     Toast.makeText(FailureActivity.this,"Ad failed to load1",Toast.LENGTH_LONG).show();
-                   Intent i =  new Intent(FailureActivity.this,CountDownActivity.class);
-                   startActivity(i);
-                    finishGameActivity();
-
-                   finish();
+//                   Intent i =  new Intent(FailureActivity.this,GameActivity2.class);
+//                   startActivity(i);
+//                    finishGameActivity();
+//
+//                   finish();
+                    backToGameActivity();
 
                 }
 
@@ -386,13 +391,7 @@ public class FailureActivity extends AppCompatActivity {
 
     }
 
-    void finishGameActivity(){
-        if( GameActivity2.gameActivity2 != null){
-            GameActivity2.gameActivity2.finish();
-        }
 
-        Log.i("obioga", String.valueOf(GameActivity2.active));
-    }
 
     private void animateWebContainer(View view){
         AlphaAnimation fadeIn=new AlphaAnimation(0,1);
@@ -582,7 +581,7 @@ public class FailureActivity extends AppCompatActivity {
 //        interstitialAd.setAdUnitId (getResources().getString(R.string.interstitial_adunit) ) ;
 //        interstitialAd.loadAd(new AdRequest.Builder().addTestDevice("9D16E23BB90EF4BFA204300CCDCCF264").build());
 //
-       // AdManager.showInterstitial(FailureActivity.this);
+        AdManager.showInterstitial(FailureActivity.this);
        // mInterstitialAd.loadAd(adRequest);
 
 //        interstitialAd.setAdListener(new AdListener() {
@@ -729,5 +728,20 @@ public class FailureActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         loadInterstialAd();
+    }
+
+    public void backToGameActivity(){
+        GameActivity2.isStartAtFresh = true;
+
+       finish();
+    }
+
+
+    void finishGameActivity(){
+//        if( GameActivity2.gameActivity2 != null){
+//            GameActivity2.gameActivity2.finish();
+//        }
+
+        Log.i("obioga", String.valueOf(GameActivity2.active));
     }
 }

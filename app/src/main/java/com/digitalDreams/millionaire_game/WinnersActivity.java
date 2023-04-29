@@ -89,10 +89,11 @@ public class WinnersActivity extends AppCompatActivity {
         newGameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(WinnersActivity.this,CountDownActivity.class);
-                intent.putExtra("hasOldWinningAmount",true);
-                startActivity(intent);
-                finish();
+//                Intent intent = new Intent(WinnersActivity.this,GameActivity2.class);
+//                intent.putExtra("hasOldWinningAmount",true);
+//                startActivity(intent);
+//                finish();
+                Utils.continueGame(WinnersActivity.this);
             }
         });
 

@@ -129,9 +129,11 @@ public class PlayDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Utils.greenBlink(newGameBtn, getApplicationContext());
-                Intent intent = new Intent(PlayDetailsActivity.this,CountDownActivity.class);
-                startActivity(intent);
-                finish();
+//                Intent intent = new Intent(PlayDetailsActivity.this,GameActivity2.class);
+//                startActivity(intent);
+//                finish();
+
+                Utils.continueGame(PlayDetailsActivity.this);
             }
         });
 

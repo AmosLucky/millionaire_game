@@ -1008,18 +1008,18 @@ public void moveToSignUp(String username){
     Utils.destination_activity = LeaderBoard.class;
 
 
-        if(username.equals(getResources().getString(R.string.anonymous_user))){
-            Utils.leaderboardClick = Utils.leaderboardClick+1;
-           if( Utils.leaderboardClick < 2) {
-               Intent i = new Intent(LeaderBoard.this, UserDetails.class);
-               startActivity(i);
-               finish();
-           }else{
-
-               Utils.leaderboardClick = 0;
-
-           }
-        }
+//        if(username.equals(getResources().getString(R.string.anonymous_user))){
+//            Utils.leaderboardClick = Utils.leaderboardClick+1;
+//           if( Utils.leaderboardClick < 2) {
+//               Intent i = new Intent(LeaderBoard.this, UserDetails.class);
+//               startActivity(i);
+//               finish();
+//           }else{
+//
+//               Utils.leaderboardClick = 0;
+//
+//           }
+//        }
 
 
 }
