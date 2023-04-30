@@ -1725,11 +1725,12 @@ public class GameActivity2 extends AppCompatActivity {
             _2question = true;
             askFriend = true;
             vote = true;
-           refreshQuestion();
+           startDisplay(json);
            playStong();
             playBackgroundSound();
             number_of_failure=0;
             noOfCorrectAnswer=0;
+
 
         }
 
