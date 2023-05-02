@@ -236,7 +236,7 @@ public class GameActivity2 extends AppCompatActivity {
                1000000*(game_level_int)};
 
 
-        new Particles(this,bg,R.layout.image_xml,30);
+        ///new Particles(this,bg,R.layout.image_xml,30);
         GradientDrawable gd = new GradientDrawable(
                 GradientDrawable.Orientation.TOP_BOTTOM,
                 new int[] {startColor,endcolor});
@@ -318,7 +318,7 @@ public class GameActivity2 extends AppCompatActivity {
            // amountWon = oldAmountWon;
             //setAmountWon();
             readSavedData();
-            noOfPagesPassed = noOfCorrectAnswer+1;
+            noOfPagesPassed = noOfCorrectAnswer;
             Log.i("instantstate", String.valueOf(noOfPagesPassed));
 
             next2(current,nextView);
@@ -838,6 +838,7 @@ public class GameActivity2 extends AppCompatActivity {
                     r.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            r.setEnabled(false);
                             disableOptions(q);
                             p1= noOfPagesPassed+2; //(int) k.getTag();
                             Log.i("render2== AF no of",String.valueOf(noOfPagesPassed));
@@ -1399,6 +1400,7 @@ public class GameActivity2 extends AppCompatActivity {
             close_dialog.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    close_dialog.setEnabled(false);
 
                     bottomSheetDialog.dismiss();
 
@@ -1406,6 +1408,8 @@ public class GameActivity2 extends AppCompatActivity {
 
                 }
             });
+
+
 
 
         } else {
@@ -1435,6 +1439,8 @@ public class GameActivity2 extends AppCompatActivity {
                 cancel_icon.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
+                        cancel_icon.setEnabled(false);
                         giveUp.performClick();
                     }
                 });
@@ -1446,6 +1452,7 @@ public class GameActivity2 extends AppCompatActivity {
                            wrongAnswerDialog.showRewarededAdWithListener();
 
                        }else{
+
                            giveUp.performClick();
 
                        }
@@ -1488,6 +1495,8 @@ public class GameActivity2 extends AppCompatActivity {
                         close_dialog.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+                                close_dialog.setEnabled(false);
+
                                 bottomSheetDialog.dismiss();
 
                             }
@@ -1550,6 +1559,7 @@ public class GameActivity2 extends AppCompatActivity {
                 close_dialog.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        close_dialog.setEnabled(false);
                         bottomSheetDialog.dismiss();
 
                     }
