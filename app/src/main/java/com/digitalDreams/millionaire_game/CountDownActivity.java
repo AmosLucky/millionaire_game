@@ -55,9 +55,9 @@ public class CountDownActivity extends AppCompatActivity {
         loadVideoAd();
 
 
-         dbHelper = new DBHelper(this);
-         dbHelper.close();
-         String json = dbHelper.buildJson();
+//         dbHelper = new DBHelper(this);
+//         dbHelper.close();
+//         String json = dbHelper.buildJson();
          hasOldWinningAmount = getIntent().getBooleanExtra("hasOldWinningAmount",false);
 
 
@@ -112,13 +112,14 @@ public class CountDownActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                Intent intent = new Intent(CountDownActivity.this,GameActivity2.class);
-                intent.putExtra("Json",json);
-                if(hasOldWinningAmount){
-                    intent.putExtra("hasOldWinningAmount",true);
-                }
-                intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP );
-                startActivity(intent);
+//                Intent intent = new Intent(CountDownActivity.this,GameActivity2.class);
+//                intent.putExtra("Json",json);
+//                if(hasOldWinningAmount){
+//                    intent.putExtra("hasOldWinningAmount",true);
+//                }
+//                intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP );
+//                startActivity(intent);
+                GameActivity2.isStartAtFresh = false;
                finish();
             }
         };
@@ -141,6 +142,8 @@ public class CountDownActivity extends AppCompatActivity {
                     mFailurePlayer  = MediaPlayer.create(CountDownActivity.this, R.raw.failure_sound2);
                     mSuccessPlayer  = MediaPlayer.create(CountDownActivity.this, R.raw.success_sound);
                 }catch(Exception e){
+
+
 
                 }
 

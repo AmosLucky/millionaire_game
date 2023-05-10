@@ -183,6 +183,7 @@ public class GameActivity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         playStong();
+        countDown();
 
         setContentView(R.layout.activity_exam_game2);
         fromProgress = getIntent().getBooleanExtra("fromProgress",false);
@@ -1366,7 +1367,7 @@ public class GameActivity2 extends AppCompatActivity {
                                 intent.putExtra("isWon",true);
                                 intent.putExtra("isShowAd",false);
                                 startActivity(intent);
-                                finish();
+                                //finish();
                             } else {
                                 Intent intent = new Intent(GameActivity2.this, ProgressActivity.class);
                                 intent.putExtra("number", number1);
@@ -1729,6 +1730,9 @@ public class GameActivity2 extends AppCompatActivity {
 
 
         if(isStartAtFresh){
+
+            countDown();
+
             isStartAtFresh = false;
             json = dbHelper.buildJson();
             noOfPagesPassed = 0;
@@ -1742,12 +1746,20 @@ public class GameActivity2 extends AppCompatActivity {
             noOfCorrectAnswer=0;
 
 
+
+
         }
 
 
 
 
 
+    }
+
+    public void countDown(){
+        Intent intent = new Intent(GameActivity2.this, CountDownActivity.class);
+
+        startActivity(intent);
     }
     public void showRewardedVideo() {
 

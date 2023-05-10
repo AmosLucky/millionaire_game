@@ -1,6 +1,7 @@
 package com.digitalDreams.millionaire_game;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,10 +52,25 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
 
            holder.flag_img.setVisibility(View.VISIBLE);
 
+          holder.flag_img.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View view) {
+                  gotToCountry(country,country_flag);
+              }
+          });
+
        }
 
         /////
         holder.countryTxt.setText(country);
+        holder.countryTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                gotToCountry(country,country_flag);
+
+            }
+        });
 
         ///holder.flag_img.setImageResource();
 
@@ -84,6 +100,22 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
             flag_img.setVisibility(View.GONE);
         }
     }
+
+    public  void gotToCountry(String country_name, String country_flag){
+
+        Intent intent = new Intent(context,CountryLeaderBoard.class);
+        ///Utils.darkBlueBlink(convertView,getApplicationContext());
+
+
+// /                  Map<String,String> map = new HashMap<>();
+///                   map.put("country",country);
+///                   map.put("country_flag",country_flag);
+        //intent.putExtra("country_map", (Serializable) map);
+        intent.putExtra("country",country_name);
+        intent.putExtra("country_flag",country_flag);
+        context.startActivity(intent);
+    }
+
 
 
 }
