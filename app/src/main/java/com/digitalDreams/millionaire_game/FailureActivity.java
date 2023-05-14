@@ -237,7 +237,7 @@ public class FailureActivity extends AppCompatActivity {
 
 //                if(username.equals(getResources().getString(R.string.anonymous_user))){
 //                    Utils.destination_activity = PlayDetailsActivity.class;
-//                    Intent i =  new Intent(FailureActivity.this, UserDetails.class);
+//                    Intent i =  new Intent(FailureFActivity.this, UserDetails.class);
 //
 //                    startActivity(i);
 //                    finish();
