@@ -2,6 +2,7 @@ package com.digitalDreams.millionaire_game;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,7 +63,7 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
        }
 
         /////
-        holder.countryTxt.setText(country);
+        holder.countryTxt.setText(Html.fromHtml("<u>"+country+"</u>"));
         holder.countryTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

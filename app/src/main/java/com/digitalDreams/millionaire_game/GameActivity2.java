@@ -182,8 +182,9 @@ public class GameActivity2 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        playStong();
+
         countDown();
+        playStong();
 
         setContentView(R.layout.activity_exam_game2);
         fromProgress = getIntent().getBooleanExtra("fromProgress",false);
