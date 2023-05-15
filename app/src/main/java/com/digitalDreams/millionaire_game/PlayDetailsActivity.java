@@ -1,7 +1,6 @@
 package com.digitalDreams.millionaire_game;
 
 import static com.digitalDreams.millionaire_game.GameActivity2.hasOldWinningAmount;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;

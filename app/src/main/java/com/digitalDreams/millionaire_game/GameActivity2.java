@@ -859,42 +859,46 @@ public class GameActivity2 extends AppCompatActivity {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    for (int c = 0; c < q.getChildCount(); c++) {
+                                    try {
+                                        for (int c = 0; c < q.getChildCount(); c++) {
 
 
-                                        TextView k = q.getChildAt(c).findViewById(R.id.opt);
+                                            TextView k = q.getChildAt(c).findViewById(R.id.opt);
 
 
-                                        if (k.getText().toString().trim().equals(ans.getText().toString().trim())) {
-                                            relativeLayout[0] = (RelativeLayout) q.getChildAt(c);
-                                            vectorDrawable[0] =  relativeLayout[0].getBackground().mutate();
+                                            if (k.getText().toString().trim().equals(ans.getText().toString().trim())) {
+                                                relativeLayout[0] = (RelativeLayout) q.getChildAt(c);
+                                                vectorDrawable[0] = relativeLayout[0].getBackground().mutate();
 
-                                           if(number_of_failure >= 1){
-                                               vectorDrawable[0].setColorFilter(ContextCompat.getColor(GameActivity2.this,R.color.green), PorterDuff.Mode.SRC_IN);
-                                               relativeLayout[0].setBackground( vectorDrawable[0]);
-                                           }
+                                                if (number_of_failure >= 1) {
+                                                    vectorDrawable[0].setColorFilter(ContextCompat.getColor(GameActivity2.this, R.color.green), PorterDuff.Mode.SRC_IN);
+                                                    relativeLayout[0].setBackground(vectorDrawable[0]);
+                                                }
+
+                                            }
 
                                         }
-
-                                    }
-                                    if (!k.getText().toString().trim().equals(ans.getText().toString().trim())) {
-                                        VectorDrawable gd = (VectorDrawable) r.getBackground().mutate();
-                                        gd.setColorFilter(ContextCompat.getColor(GameActivity2.this,R.color.redH), PorterDuff.Mode.SRC_IN);
-                                        r.setBackground(gd);
-                                        failCount++;
-                                    }
-                                    int questionId = 0;
-                                    try {
-                                         questionId = b.getInt("id");
-                                       // Log.i("checking", String.valueOf(questionId));
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                    int currentProgress = noOfPagesPassed+2;
-                                    Log.i("renderpp", String.valueOf(noOfPagesPassed));
-                                    checkAnswer(k.getText().toString(), ans.getText().toString(),  currentProgress, vectorDrawable[0],relativeLayout[0],questionId);
+                                        if (!k.getText().toString().trim().equals(ans.getText().toString().trim())) {
+                                            VectorDrawable gd = (VectorDrawable) r.getBackground().mutate();
+                                            gd.setColorFilter(ContextCompat.getColor(GameActivity2.this, R.color.redH), PorterDuff.Mode.SRC_IN);
+                                            r.setBackground(gd);
+                                            failCount++;
+                                        }
+                                        int questionId = 0;
+                                        try {
+                                            questionId = b.getInt("id");
+                                            // Log.i("checking", String.valueOf(questionId));
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                        int currentProgress = noOfPagesPassed + 2;
+                                        Log.i("renderpp", String.valueOf(noOfPagesPassed));
+                                        checkAnswer(k.getText().toString(), ans.getText().toString(), currentProgress, vectorDrawable[0], relativeLayout[0], questionId);
 
 
+                                    }catch (Exception e){
+
+                                    }
                                 }
                             },1000);
 

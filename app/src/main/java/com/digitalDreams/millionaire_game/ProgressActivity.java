@@ -95,15 +95,19 @@ public class ProgressActivity extends AppCompatActivity {
                 r.setBackground(g);
             }else if(a<position-1){
 
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                try{
+
+
                     //this code will be executed on devices running ICS or later
                     VectorDrawable g = (VectorDrawable) r.getBackground().mutate();
                     g.setColorFilter(ContextCompat.getColor(ProgressActivity.this,R.color.green), PorterDuff.Mode.SRC_IN);
                     r.setBackground(g);
-                }else{
-                    BitmapDrawable   g = (BitmapDrawable) r.getBackground().mutate();
-                    g.setColorFilter(ContextCompat.getColor(ProgressActivity.this,R.color.green), PorterDuff.Mode.SRC_IN);
-                    r.setBackground(g);
+                }catch(Exception e){
+
+//                    BitmapDrawable   g = (BitmapDrawable) r.getBackground().mutate();
+//                    g.setColorFilter(ContextCompat.getColor(ProgressActivity.this,R.color.green), PorterDuff.Mode.SRC_IN);
+//                    r.setBackground(g);
+
                 }
 
 
