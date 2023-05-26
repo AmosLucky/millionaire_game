@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:text="Select Country"
         android:textSize="20sp"
+        android:textColor="@color/white"
         android:textStyle="bold"
 
         />
