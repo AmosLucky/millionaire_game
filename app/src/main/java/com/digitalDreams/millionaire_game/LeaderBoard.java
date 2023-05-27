@@ -13,6 +13,7 @@ import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -639,6 +640,7 @@ public class LeaderBoard extends AppCompatActivity {
         return avatar;
     }
 
+    @SuppressLint("ResourceAsColor")
     private void setView(View view){
 
         Log.i("iiii999","Obi");
@@ -658,6 +660,10 @@ public class LeaderBoard extends AppCompatActivity {
         country_name1 = view.findViewById(R.id.country_name1);
         country_name2 = view.findViewById(R.id.country_name2);
         country_name3 = view.findViewById(R.id.country_name3);
+
+
+
+
         country_name3.setVisibility(View.GONE);
 
         country_name1.setVisibility(View.GONE);
