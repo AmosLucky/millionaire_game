@@ -1750,6 +1750,18 @@ public class GameActivity2 extends AppCompatActivity {
             number_of_failure=0;
             noOfCorrectAnswer=0;
 
+            SharedPreferences sharedPreferences = getSharedPreferences("settings",Context.MODE_PRIVATE);
+
+
+            String game_level = sharedPreferences.getString("game_level","1");
+            int game_level_int = Integer.parseInt(game_level);
+
+            moneyArr = new Integer[]{500*(game_level_int), 1000*(game_level_int), 2000*(game_level_int),
+                    3000*(game_level_int), 5000*(game_level_int), 7500*(game_level_int), 10000*(game_level_int),
+                    12500*(game_level_int), 15000*(game_level_int), 25000*(game_level_int),
+                    50000*(game_level_int), 100000*(game_level_int), 250000*(game_level_int), 500000*(game_level_int),
+                    1000000*(game_level_int)};
+
 
 
 

@@ -548,6 +548,7 @@
                         android:text="Minus 2 Questions"
                         android:textSize="10dp"
                         android:id="@+id/opt_dec_1"
+                        android:textColor="@color/white"
 
 
                         />
@@ -560,6 +561,7 @@
                         android:text="Ask Computer"
                         android:textSize="10dp"
                         android:id="@+id/opt_dec_2"
+                        android:textColor="@color/white"
                         />
                     <TextView
                         android:layout_width="0dp"
@@ -570,6 +572,7 @@
                         android:text="Take a Poll"
                         android:textSize="10dp"
                         android:id="@+id/opt_dec_3"
+                        android:textColor="@color/white"
                         />
                     <TextView
                         android:layout_width="0dp"
@@ -580,6 +583,7 @@
 
                         android:text="Reset Question"
                         android:textSize="10dp"
+                        android:textColor="@color/white"
                         />
 
                 </LinearLayout>

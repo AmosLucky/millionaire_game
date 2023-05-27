@@ -93,6 +93,7 @@ public class WinnersActivity extends AppCompatActivity {
 //                intent.putExtra("hasOldWinningAmount",true);
 //                startActivity(intent);
 //                finish();
+                GameActivity2.hasOldWinningAmount = true;
                 Utils.continueGame(WinnersActivity.this);
             }
         });
