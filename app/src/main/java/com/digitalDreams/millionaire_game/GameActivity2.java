@@ -61,6 +61,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
@@ -1750,6 +1751,18 @@ public class GameActivity2 extends AppCompatActivity {
             number_of_failure=0;
             noOfCorrectAnswer=0;
 
+            SharedPreferences sharedPreferences = getSharedPreferences("settings",Context.MODE_PRIVATE);
+
+
+            String game_level = sharedPreferences.getString("game_level","1");
+            int game_level_int = Integer.parseInt(game_level);
+
+            moneyArr = new Integer[]{500*(game_level_int), 1000*(game_level_int), 2000*(game_level_int),
+                    3000*(game_level_int), 5000*(game_level_int), 7500*(game_level_int), 10000*(game_level_int),
+                    12500*(game_level_int), 15000*(game_level_int), 25000*(game_level_int),
+                    50000*(game_level_int), 100000*(game_level_int), 250000*(game_level_int), 500000*(game_level_int),
+                    1000000*(game_level_int)};
+
 
 
 
@@ -2107,17 +2120,17 @@ public class GameActivity2 extends AppCompatActivity {
 
     private void timeOut(){
 
-        disableOptions(findViewById(R.id.qd));
-        TextView correctAns = findViewById(R.id.correct_ans);
-        LinearLayout q = findViewById(R.id.qd);
-        for(int a=0;a<q.getChildCount();a++){
-            RelativeLayout ansContainer = (RelativeLayout) q.getChildAt(a);
-            TextView answer = ansContainer.findViewById(R.id.opt);
-            if(correctAns.getText().toString().equalsIgnoreCase(answer.getText().toString())){
-                ansContainer.setBackgroundColor(getResources().getColor(R.color.green));
-                answer.setTextColor(getResources().getColor(R.color.white));
-            }
-        }
+//        disableOptions(findViewById(R.id.qd));
+//        TextView correctAns = findViewById(R.id.correct_ans);
+//        LinearLayout q = findViewById(R.id.qd);
+//        for(int a=0;a<q.getChildCount();a++){
+//            RelativeLayout ansContainer = (RelativeLayout) q.getChildAt(a);
+//            TextView answer = ansContainer.findViewById(R.id.opt);
+//            if(correctAns.getText().toString().equalsIgnoreCase(answer.getText().toString())){
+//                ansContainer.setBackgroundColor(getResources().getColor(R.color.green));
+//                answer.setTextColor(getResources().getColor(R.color.white));
+//            }
+//        }
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -2127,7 +2140,117 @@ public class GameActivity2 extends AppCompatActivity {
                 dialog.setCancelable(false);
                 dialog.setCanceledOnTouchOutside(false);
                 if(!isFinishing()) {
-                    dialog.show();
+                   // dialog.show();
+                    final ImageButton jl =findViewById(R.id.fwd);
+
+                    WrongAnswerDialog wrongAnswerDialog = new WrongAnswerDialog(GameActivity2.this, CountDownActivity.mMediaPlayer);
+
+                    wrongAnswerDialog.show();
+                    wrongAnswerDialog.setCancelable(false);
+                    RelativeLayout giveUp = wrongAnswerDialog.findViewById(R.id.give_up);
+                    RelativeLayout play_again = wrongAnswerDialog.findViewById(R.id.play_again);
+                    ImageView cancel_icon = wrongAnswerDialog.findViewById(R.id.cancel_icon);
+
+                    cancel_icon.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            cancel_icon.setEnabled(false);
+                            giveUp.performClick();
+                        }
+                    });
+
+                    play_again.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if(Utils.isOnline(GameActivity2.this)){
+                                wrongAnswerDialog.showRewarededAdWithListener();
+                                wrongAnswerDialog.mRewardedVideoAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                                    @Override
+                                    public void onAdDismissedFullScreenContent() {
+                                        super.onAdDismissedFullScreenContent();
+                                        setTime();
+                                    }
+
+                                });
+
+                            }else{
+
+                                giveUp.performClick();
+
+                            }
+                        }
+                    });
+
+                    giveUp.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            wrongAnswerDialog.dismiss();
+
+                            final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(GameActivity2.this);
+                            bottomSheetDialog.setContentView(R.layout.correct_answer_dialog);
+
+                            try {
+                                TextView alpha_opt = bottomSheetDialog.findViewById(R.id.alpha_opt);
+                                TextView opt = bottomSheetDialog.findViewById(R.id.opt);
+                                opt.setText(Utils.capitalizeFirstWord(singleQuestion.getString("correct")));
+                                TextView reason = bottomSheetDialog.findViewById(R.id.reason);
+                               int questionID = singleQuestion.getInt("id");
+                                reason.setText(Utils.capitalizeFirstWord(singleQuestion.getString("reason")));
+                                JSONArray opt_answer = new JSONArray(singleQuestion.getString("answer"));
+                                int position = getOptionIndex(opt_answer, singleQuestion.getString("correct"));
+                                alpha_opt.setText(numbs[position]);
+                                RelativeLayout readMore = bottomSheetDialog.findViewById(R.id.read_more);
+                                readMore.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Utils.navigateToWebview(String.valueOf(questionID),GameActivity2.this);
+
+                                    }
+                                });
+//
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+
+                            }
+                            bottomSheetDialog.show();
+                            RelativeLayout close_dialog = bottomSheetDialog.findViewById(R.id.close_dialog);
+                            close_dialog.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    close_dialog.setEnabled(false);
+
+                                    bottomSheetDialog.dismiss();
+
+                                }
+                            });
+                            bottomSheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                @Override
+                                public void onDismiss(DialogInterface dialogInterface) {
+
+
+                                    bottomSheetDialog.dismiss();
+
+//
+                                    if (CountDownActivity.mMediaPlayer != null) {
+                                        CountDownActivity.mMediaPlayer.pause();
+                                    }
+
+
+                                    Intent intent = new Intent(GameActivity2.this, FailureActivity.class);
+                                    startActivity(intent);
+
+
+                                }
+                            });
+
+                        }
+                    });
+
+
+
+
                 }
                 Window window = dialog.getWindow();
                 window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);

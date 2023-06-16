@@ -174,9 +174,13 @@
         <entry key="..\:/Users/HP/AndroidProjects/millionaire-game-master/app/src/main/res/layout/all_time_layout.xml" value="0.1484375" />
         <entry key="..\:/Users/HP/AndroidProjects/millionaire-game-master/app/src/main/res/layout/array.xml" value="0.13854166666666667" />
         <entry key="..\:/Users/HP/AndroidProjects/millionaire-game-master/app/src/main/res/layout/card.xml" value="0.37857142857142856" />
+        <entry key="..\:/Users/HP/AndroidProjects/millionaire-game-master/app/src/main/res/layout/content_exam2.xml" value="0.8285714285714286" />
+        <entry key="..\:/Users/HP/AndroidProjects/millionaire-game-master/app/src/main/res/layout/country_leader_board.xml" value="0.1234375" />
         <entry key="..\:/Users/HP/AndroidProjects/millionaire-game-master/app/src/main/res/layout/daily_layout.xml" value="0.19907407407407407" />
+        <entry key="..\:/Users/HP/AndroidProjects/millionaire-game-master/app/src/main/res/layout/dialog_searchable_spinner.xml" value="0.12604166666666666" />
         <entry key="..\:/Users/HP/AndroidProjects/millionaire-game-master/app/src/main/res/layout/exit_dialog_2.xml" value="0.43458980044345896" />
         <entry key="..\:/Users/HP/AndroidProjects/millionaire-game-master/app/src/main/res/layout/exit_dialog_layout.xml" value="0.25" />
+        <entry key="..\:/Users/HP/AndroidProjects/millionaire-game-master/app/src/main/res/layout/fail_dialog_layout.xml" value="0.8285714285714286" />
         <entry key="..\:/Users/HP/AndroidProjects/millionaire-game-master/app/src/main/res/layout/guide_dialog.xml" value="0.19010416666666666" />
         <entry key="..\:/Users/HP/AndroidProjects/millionaire-game-master/app/src/main/res/layout/layout.xml" value="0.1" />
         <entry key="..\:/Users/HP/AndroidProjects/millionaire-game-master/app/src/main/res/layout/leaderboard_item1.xml" value="0.975" />
@@ -185,11 +189,16 @@
         <entry key="..\:/Users/HP/AndroidProjects/millionaire-game-master/app/src/main/res/layout/qo_1.xml" value="0.5148026315789473" />
         <entry key="..\:/Users/HP/AndroidProjects/millionaire-game-master/app/src/main/res/layout/r.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/HP/AndroidProjects/millionaire-game-master/app/src/main/res/layout/rr.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/HP/AndroidProjects/millionaire-game-master/app/src/main/res/layout/single_country.xml" value="0.13645833333333332" />
+        <entry key="..\:/Users/HP/AndroidProjects/millionaire-game-master/app/src/main/res/layout/single_country.xml" value="0.21" />
+        <entry key="..\:/Users/HP/AndroidProjects/millionaire-game-master/app/src/main/res/layout/single_history.xml" value="0.12604166666666666" />
+        <entry key="..\:/Users/HP/AndroidProjects/millionaire-game-master/app/src/main/res/layout/single_history_container.xml" value="0.2" />
+        <entry key="..\:/Users/HP/AndroidProjects/millionaire-game-master/app/src/main/res/layout/single_history_details.xml" value="0.12604166666666666" />
         <entry key="..\:/Users/HP/AndroidProjects/millionaire-game-master/app/src/main/res/layout/single_level_layout.xml" value="0.24189063948100092" />
         <entry key="..\:/Users/HP/AndroidProjects/millionaire-game-master/app/src/main/res/layout/single_star.xml" value="0.1" />
+        <entry key="..\:/Users/HP/AndroidProjects/millionaire-game-master/app/src/main/res/layout/single_tv.xml" value="0.12604166666666666" />
         <entry key="..\:/Users/HP/AndroidProjects/millionaire-game-master/app/src/main/res/layout/week_layout.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/HP/AndroidProjects/millionaire-game-master/app/src/main/res/layout/welcom_dialog.xml" value="0.25" />
+        <entry key="..\:/Users/HP/AndroidProjects/millionaire-game-master/app/src/main/res/layout/wrong_answer_layout.xml" value="0.12083333333333333" />
       </map>
     </option>
   </component>

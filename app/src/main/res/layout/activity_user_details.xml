@@ -114,12 +114,15 @@
                             android:drawablePadding="10dp"
                             android:hint="Create player name"
                             android:focusable="true"
+                            android:textColorHint="@color/white"
+
                             android:inputType="text"
                             android:textSize="14sp" />
 
 
 
                         <TextView
+                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/white"
@@ -132,13 +135,16 @@
 
 
                     <EditText
+                        android:layout_marginTop="10dp"
+
                         android:id="@+id/country_name"
                         android:textColor="@color/white"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
                         android:drawablePadding="10dp"
-                        android:hint="Click to select country"
+                        android:textColorHint="@color/white"
+                        android:hint="Select country"
                         android:focusable="false"
                         android:inputType="text"
                         android:textSize="14sp" />
